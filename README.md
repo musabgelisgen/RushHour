@@ -2,11 +2,11 @@ RUSH HOUR
 ====
 
 
-Rush Hour is your favourite game for killing time with friends.
+Rush Hour is your favorite game for killing time with friends.
 
 Rush Hour is an Open Source (Apache 2), Distributed game.
 
-There already exists a game in reality, [but RushHour fills a gap, it is the ultimate version that could be played whenever you have your PC with you]().
+There already exists a game in reality, [but RushHour fills a gap, it is the ultimate version that could be played whenever you have your PC with you](#).
 
 
 Compatibility
@@ -29,7 +29,7 @@ Thanks
 We would like to thank the following people for their significant contributions.
 * [Musab Gelişgen](https://github.com/musabgelisgen)
 * [Ahmet Avcı](https://github.com/ahmetavci07)
-* [Melih Ünsal](https://github.com/melihunsal)
+* [Melih Ünsal](https://github.com/melih1996)
 * [Kuluhan Binici](https://github.com/kuluhan)
 * [Yusuf Dalva](https://github.com/yusufdalva)      
 
