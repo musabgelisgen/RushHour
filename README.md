@@ -1,12 +1,19 @@
 RUSH HOUR
 ====
 
-
 Rush Hour is your favorite game for killing time with friends.
 
 Rush Hour is an Open Source (Apache 2), Distributed game.
 
 There already exists a game in reality, [but RushHour fills a gap, it is the ultimate version that could be played whenever you have your PC with you](#).
+
+Gameplay
+------------
+Game has a single-player mode and a multiplayer mode. Tools included in the game are: 15 blocking cars and trucks, a car which you control, a playground which all the cars are placed on in different directions and play cards which grant you some special movement.
+
+In single-player mode, given a predefined map of cars and trucks, player will try to escape his car from a maze-like structure by moving the cars around. For our version of the game, we plan on limiting the time and the movement that the player has. 
+
+In multi-player mode, two people race their cars to the finish line by blocking the opponent's way and opening his. The first one to get his car out of the platform wins the game. In this game mode, players also use cards which grant them special abilities like moving the platform for their own good or having the ability of moving their car by multiple times in a round.
 
 
 Compatibility
