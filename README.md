@@ -1,7 +1,7 @@
 RUSH HOUR
 ====
 
-Rush Hour is your favorite game for killing time with friends.
+Rush Hour is your favorite game for having fun with friends.
 
 Rush Hour is an Open Source (Apache 2), Distributed game.
 
