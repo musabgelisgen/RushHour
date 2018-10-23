@@ -24,3 +24,6 @@
 .drjava
 .project
 .eclipse
+
+# MAC_OS
+.DS_Store
