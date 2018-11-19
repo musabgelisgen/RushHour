@@ -63,7 +63,7 @@ public class Car extends BaseActor {
 			
 			this.x=x;
 			this.y=y;
-			if(id==3){
+			if(id==1){
 				setPosition(xx*w1+a, y*h1+b);
 				if(xx>=6 && play){
 					buton.play();

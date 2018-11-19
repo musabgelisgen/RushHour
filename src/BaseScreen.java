@@ -8,6 +8,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -78,6 +79,8 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		paused=false;
 		InputMultiplexer im=new InputMultiplexer(this,uiStage,mainStage);
 		Gdx.input.setInputProcessor(im);
+		OrthographicCamera camera = new OrthographicCamera();
+		camera.setToOrtho(false,800,400);
 		create();
 		addStyles();
 	}

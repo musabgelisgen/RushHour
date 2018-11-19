@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class Levels extends BaseScreen {
-	
+	Sound carVoice;
 	int m,n;
 	ShapeRenderer sr;
 	int w,h;
@@ -29,6 +29,7 @@ public class Levels extends BaseScreen {
 	boolean win=false;
 	float startX,startY;
 	Sound buton;
+	int pass;
 	public Levels(BaseGame game) {
 		super(game);
 		
@@ -37,7 +38,9 @@ public class Levels extends BaseScreen {
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
-		returnMenu=new TextButton("Main Menu", game.skin, "buttonStyle3");
+		pass=Singleplayer.passed;
+		carVoice=Gdx.audio.newSound(Gdx.files.internal("car.ogg"));
+		returnMenu=new TextButton("Back", game.skin, "buttonStyle3");
 		game.skin.add("returnMenu", returnMenu);
 		buton=game.skin.get("buton", Sound.class);
 		win=false;
@@ -85,12 +88,14 @@ public class Levels extends BaseScreen {
 			 public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
 						carx.firstTouchX=(int) (x/(w/m));
 						carx.firstTouchY=(int) (y/(h/n));
+						carVoice.play();
 					
 				 carx.pressed=true;
 					return true;
 				}
 					public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
 						carx.pressed=false;
+						carVoice.stop();
 					}
 		 });
 		
@@ -105,7 +110,7 @@ public class Levels extends BaseScreen {
 				if(win){
 					for(Car carx:cars)
 						carx.buton.stop();
-					Singleplayer.passed=1;
+					Singleplayer.passed=pass+1;
 				}
 			}
 			});
@@ -117,13 +122,13 @@ public class Levels extends BaseScreen {
 		startY=car3.getY();
 	}
 	public void createCars(){
-		car1=new Car(0,3,5,2,1,1);
-		car2=new Car(0,0,4,3,1,2);
-		car3=new Car(0,0,2,2,1,3);
-		car4=new Car(1,2,1,1,2,4);
-		car5=new Car(1,3,2,1,2,5);
-		car6=new Car(1,5,1,1,2,6);
-		car7=new Car(0,2,0,2,1,7);
+		car1=new Car(0,3,5,2,1,0);
+		car2=new Car(0,0,4,3,1,0);
+		car3=new Car(0,0,2,2,1,1);
+		car4=new Car(1,2,1,1,2,0);
+		car5=new Car(1,3,2,1,2,0);
+		car6=new Car(1,5,1,1,2,0);
+		car7=new Car(0,2,0,2,1,0);
 		
 		car1.setTexture(new Texture("car1.png"));
 		car1.setPosition(VIEW_WIDTH/2-w/2+car1.x*w/m, VIEW_HEIGHT/2-h/2+h*car1.y/n);
@@ -155,8 +160,10 @@ public class Levels extends BaseScreen {
 		for(Car x:cars){
 			x.setWidth(w/m*x.width);
 			x.setHeight(h/n*x.height);
-			if(x.xx>=m)
+			if(x.xx>m-x.width){
 				win=true;
+				x.setTouchable(Touchable.disabled);
+			}
 			
 		
 			 
@@ -193,6 +200,10 @@ public class Levels extends BaseScreen {
 		sr.end();
 		mainStage.draw();
 		returnMenu.setPosition(0, 0);
+		sr.begin(ShapeType.Line);
+		sr.setColor(Color.YELLOW);
+		sr.rect(car3.getX(), car3.getY(), car3.getWidth(), car3.getHeight());
+		sr.end();
 	}
 
 	@Override
