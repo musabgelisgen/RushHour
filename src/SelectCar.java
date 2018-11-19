@@ -6,9 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-public class SelectTheme extends BaseScreen {
+public class SelectCar extends BaseScreen {
 	TextButton returnMenu;
-	public SelectTheme(BaseGame game) {
+	public SelectCar(BaseGame game) {
 		super(game);
 		// TODO Auto-generated constructor stub
 	}

@@ -41,6 +41,7 @@ public class Singleplayer extends BaseScreen {
 		levels=new TextButton[8];		
 		buton=Gdx.audio.newSound(Gdx.files.internal("button.ogg"));
 		game.skin.add("buton", buton,Sound.class);
+		TextButtonStyle aa=game.skin.get("buttonStyle1", TextButtonStyle.class);
 		lev1=new Label("Level1", game.skin,"uiLabelStyle");
 		lev2=new Label("Level2", game.skin,"uiLabelStyle");
 		lev3=new Label("Level3", game.skin,"uiLabelStyle");
@@ -49,34 +50,7 @@ public class Singleplayer extends BaseScreen {
 		lev6=new Label("Level6", game.skin,"uiLabelStyle");
 		lev7=new Label("Level7", game.skin,"uiLabelStyle");
 		lev8=new Label("Level8", game.skin,"uiLabelStyle");
-		TextButtonStyle buttonStyle1=game.skin.get("font",TextButtonStyle.class);
-		TextButtonStyle buttonStyle2=new TextButtonStyle();
-		TextButtonStyle buttonStyle3=new TextButtonStyle();
-		BitmapFont font=new BitmapFont();
-		buttonStyle2.font=font;
-		buttonStyle3.font=font;
-		Texture upButton1=new Texture("level1.jpeg");
-		Texture overButton1=new Texture("level1over.jpeg");
-		Texture locked=new Texture("lockedlevel1.jpeg");
-		Texture returnM=new Texture("arrow.png");
-		Texture overarrow=new Texture("overarrow.png");
-		game.skin.add("overarrow", new NinePatch(overarrow,5,5,5,5));
-		game.skin.add("returnM", new NinePatch(returnM,5,5,5,5));
-		game.skin.add("upButton1", new NinePatch(upButton1,5,5,5,5));
-		game.skin.add("overButton1", new NinePatch(overButton1,5,5,5,5));
-		game.skin.add("locked", new NinePatch(locked,5,5,5,5));
-		buttonStyle1.up=game.skin.getDrawable("upButton1");
-		buttonStyle1.over=game.skin.getDrawable("overButton1");
-		buttonStyle1.downFontColor=Color.PINK;
-		buttonStyle2.up=game.skin.getDrawable("locked");
-		buttonStyle2.over=game.skin.getDrawable("locked");
-		buttonStyle2.downFontColor=Color.PINK;
-		buttonStyle3.up=game.skin.getDrawable("returnM");
-		buttonStyle3.over=game.skin.getDrawable("overarrow");
 		
-		game.skin.add("buttonStyle1", buttonStyle1);
-		game.skin.add("buttonStyle2", buttonStyle2);
-		game.skin.add("buttonStyle3", buttonStyle3);
 		
 		level1=new TextButton("", game.skin, "buttonStyle1");
 		levels[0]=level1;
@@ -97,7 +71,7 @@ public class Singleplayer extends BaseScreen {
 		
 		for(int i=0;i<8;i++){
 			levels[i].setTouchable(enables[i]?Touchable.enabled:Touchable.disabled);
-			levels[i].setStyle(i>passed?buttonStyle2:buttonStyle1);
+			levels[i].setStyle(i>passed?game.skin.get("buttonStyle2", TextButtonStyle.class):game.skin.get("buttonStyle1", TextButtonStyle.class));
 		}
 		
 		
@@ -146,6 +120,7 @@ public class Singleplayer extends BaseScreen {
 	@Override
 	public void update(float dt) {
 		// TODO Auto-generated method stub
+		returnMenu.setPosition(0, 0);
 		
 	}
 	public void addListeners(){

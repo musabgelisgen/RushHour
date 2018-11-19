@@ -19,8 +19,9 @@ public class MainMenu extends BaseScreen {
 	TextButton singleplayer,multiplayer;
 	TextButton select_theme,select_car;
 	Sound buton;
-	Music instrumenatal;
+	 Music instrumenatal;
 	BitmapFont newfont;
+	static boolean start=true;
 	public MainMenu(BaseGame game) {
 		super(game);
 		// TODO Auto-generated constructor stub
@@ -30,7 +31,8 @@ public class MainMenu extends BaseScreen {
 	public void create() {
 		// TODO Auto-generated method stub
 		instrumenatal=Gdx.audio.newMusic(Gdx.files.internal("main.ogg"));
-		instrumenatal.play();
+			instrumenatal.play();
+		
 		game.skin.add("music", instrumenatal);
 		BitmapFont font=new BitmapFont();
 		game.skin.add("uiFont", font);
@@ -51,33 +53,15 @@ public class MainMenu extends BaseScreen {
 		buton=Gdx.audio.newSound(Gdx.files.internal("button.ogg"));
 		game.skin.add("buton", buton);
 		select_theme=new TextButton("SELECT THEME", game.skin, "buttonStyle");
-		select_theme.addListener(new InputListener()
-				{
-			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
-	
-				return true;
-			}
-				public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
-					game.setScreen(new SelectTheme(game));
-				}
-				});
+		
+		
+		
 		select_theme.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
 				Actions.delay(0.5f),Actions.color(new Color(0f,0f,0,8f),0.5f))));
 		singleplayer=new TextButton("SINGLEPLAYER", game.skin,"buttonStyle");
 		singleplayer.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
 				Actions.delay(0.5f),Actions.color(new Color(0f,0f,0,8f),0.5f))));
-		singleplayer.addListener(new InputListener()
-		{
-			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
 		
-			instrumenatal.stop();
-			return true;
-		}
-			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
-				buton.play(0.2f);
-				game.setScreen(new Singleplayer(game));
-			}
-			});
 	    multiplayer=new TextButton("MULTIPLAYER", game.skin,"buttonStyle");
 	    multiplayer.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
 				Actions.delay(0.5f),Actions.color(new Color(0.5f,0.5f,0,1),0.5f))));
@@ -116,6 +100,66 @@ public class MainMenu extends BaseScreen {
 		uiTable.add();
 		uiTable.add(select_car).right().width(150).height(50).padTop(10);
 		uiTable.row();
+		addListeners();
+		addStyles();
+		
+
+	}
+	
+	public void addListeners(){
+		singleplayer.addListener(new InputListener()
+		{
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+		
+			
+			return true;
+		}
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+				buton.play(0.2f);
+				instrumenatal.stop();
+				game.setScreen(new Singleplayer(game));
+			}
+			});
+		
+		
+		select_theme.addListener(new InputListener()
+		{
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+				return true;
+			}
+				public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+					instrumenatal.stop();
+					buton.play(0.2f);
+					game.setScreen(new SelectTheme(game));
+				
+					
+				}
+				});
+
+		select_car.addListener(new InputListener()
+		{
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+				return true;
+			}
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+				instrumenatal.stop();
+				buton.play(0.2f);
+				game.setScreen(new SelectCar(game));
+			}
+			});
+		
+		multiplayer.addListener(new InputListener()
+		{
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+				return true;
+			}
+				public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+					instrumenatal.stop();
+					buton.play(0.2f);
+					game.setScreen(new SelectTheme(game));
+					
+				}
+				});
 
 	}
 

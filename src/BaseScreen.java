@@ -4,9 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public abstract class BaseScreen implements Screen, InputProcessor {
@@ -16,11 +23,49 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 	public final int VIEW_HEIGHT=480;
 	private boolean paused;
 	protected Table uiTable;
+	Sound buton;
+	Music instrumental;
 	@Override
 	
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public void addStyles(){
+		buton=Gdx.audio.newSound(Gdx.files.internal("button.ogg"));
+		instrumental=Gdx.audio.newMusic(Gdx.files.internal("main.ogg"));
+		game.skin.add("buton", buton,Sound.class);
+		game.skin.add("instrumental", buton,Music.class);
+		TextButtonStyle buttonStyle1=new TextButtonStyle();
+		TextButtonStyle buttonStyle2=new TextButtonStyle();
+		TextButtonStyle buttonStyle3=new TextButtonStyle();
+		BitmapFont font=new BitmapFont();
+		buttonStyle1.font=font;
+		buttonStyle2.font=font;
+		buttonStyle3.font=font;
+		Texture upButton1=new Texture("level1.jpeg");
+		Texture overButton1=new Texture("level1over.jpeg");
+		Texture locked=new Texture("lockedlevel1.jpeg");
+		Texture returnM=new Texture("arrow.png");
+		Texture overarrow=new Texture("overarrow.png");
+		game.skin.add("overarrow", new NinePatch(overarrow,5,5,5,5));
+		game.skin.add("returnM", new NinePatch(returnM,5,5,5,5));
+		game.skin.add("upButton1", new NinePatch(upButton1,5,5,5,5));
+		game.skin.add("overButton1", new NinePatch(overButton1,5,5,5,5));
+		game.skin.add("locked", new NinePatch(locked,5,5,5,5));
+		buttonStyle1.up=game.skin.getDrawable("upButton1");
+		buttonStyle1.over=game.skin.getDrawable("overButton1");
+		buttonStyle1.downFontColor=Color.PINK;
+		buttonStyle2.up=game.skin.getDrawable("locked");
+		buttonStyle2.over=game.skin.getDrawable("locked");
+		buttonStyle2.downFontColor=Color.PINK;
+		buttonStyle3.up=game.skin.getDrawable("returnM");
+		buttonStyle3.over=game.skin.getDrawable("overarrow");
+		
+		game.skin.add("buttonStyle1", buttonStyle1);
+		game.skin.add("buttonStyle2", buttonStyle2);
+		game.skin.add("buttonStyle3", buttonStyle3);
 	}
  
 	public BaseScreen(BaseGame game) {
@@ -34,6 +79,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		InputMultiplexer im=new InputMultiplexer(this,uiStage,mainStage);
 		Gdx.input.setInputProcessor(im);
 		create();
+		addStyles();
 	}
 
 	public abstract void create();
