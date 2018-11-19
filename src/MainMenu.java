@@ -58,7 +58,7 @@ public class MainMenu extends BaseScreen {
 				return true;
 			}
 				public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
-				
+					game.setScreen(new SelectTheme(game));
 				}
 				});
 		select_theme.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),

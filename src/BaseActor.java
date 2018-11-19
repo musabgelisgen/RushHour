@@ -21,7 +21,6 @@ public class BaseActor extends Actor {
 	public BaseActor() {
 		super();
 		region=new TextureRegion();
-		boundingPolygon=new Polygon();
 	}
 	public void setTexture(Texture t){
 		int w=t.getWidth();
@@ -29,6 +28,7 @@ public class BaseActor extends Actor {
 		setWidth(w);
 		setHeight(h);
 		region.setRegion(t);
+		setRectangleBoundary();
 	}
 	public Rectangle getRectangleBoundary(){
 		Rectangle r;
@@ -66,8 +66,9 @@ public class BaseActor extends Actor {
 			return false;
 		MinimumTranslationVector mtv=new MinimumTranslationVector();
 		boolean polyOverlap=Intersector.overlapConvexPolygons(poly1, poly2,mtv);
-		if(polyOverlap && resolve)
-			this.moveBy(mtv.normal.x*mtv.depth, mtv.normal.y*mtv.depth);
+		if(polyOverlap && resolve){
+			//this.moveBy(mtv.normal.x*mtv.depth, mtv.normal.y*mtv.depth);
+		}
 		float significant=0.5f;
 		return (polyOverlap && (mtv.depth>significant));
 	}
@@ -104,6 +105,13 @@ public class BaseActor extends Actor {
 			b.draw(region,getX(),getY(), getOriginX(), getOriginY(),
 					getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 		
+	}
+	public void setRectangleBoundary(){
+		float w=getWidth();
+		float h=getHeight();
+		float[] vertices={0,0,w,0,w,h,0,h};
+		boundingPolygon=new Polygon(vertices);
+		boundingPolygon.setOrigin(getOriginX(), getOriginY());
 	}
 
 }
