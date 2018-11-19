@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -17,16 +18,29 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 public class Singleplayer extends BaseScreen {
 	TextButton level1,level2,level3,level4,level5,level6,level7,level8,returnMenu;
 	Label lev1,lev2,lev3,lev4,lev5,lev6,lev7,lev8;
-	Sound buton;
+	Sound buton,winSound;
+	boolean[] enables;
+	static int passed=0;
+	TextButton[] levels;
 	public Singleplayer(BaseGame game) {
 		super(game);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override
 	public void create() {
 		//create the objects needed
+		winSound=Gdx.audio.newSound(Gdx.files.internal("win.ogg"));
+		game.skin.add("winSound", winSound);
+		enables=new boolean[8];
+		for(int i=0;i<enables.length;i++)
+			if(i>passed)
+				enables[i]=false;
+			else
+				enables[i]=true;
+		levels=new TextButton[8];		
 		buton=Gdx.audio.newSound(Gdx.files.internal("button.ogg"));
+		game.skin.add("buton", buton,Sound.class);
 		lev1=new Label("Level1", game.skin,"uiLabelStyle");
 		lev2=new Label("Level2", game.skin,"uiLabelStyle");
 		lev3=new Label("Level3", game.skin,"uiLabelStyle");
@@ -65,37 +79,34 @@ public class Singleplayer extends BaseScreen {
 		game.skin.add("buttonStyle3", buttonStyle3);
 		
 		level1=new TextButton("", game.skin, "buttonStyle1");
-		level2=new TextButton("", game.skin, "buttonStyle2");
-		level3=new TextButton("", game.skin, "buttonStyle2");
-		level4=new TextButton("", game.skin, "buttonStyle2");
-		level5=new TextButton("", game.skin, "buttonStyle2");
-		level6=new TextButton("", game.skin, "buttonStyle2");
-		level7=new TextButton("", game.skin, "buttonStyle2");
-		level8=new TextButton("", game.skin, "buttonStyle2");
+		levels[0]=level1;
+		level2=new TextButton("", game.skin, "buttonStyle1");
+		levels[1]=level2;
+		level3=new TextButton("", game.skin, "buttonStyle1");
+		levels[2]=level3;
+		level4=new TextButton("", game.skin, "buttonStyle1");
+		levels[3]=level4;
+		level5=new TextButton("", game.skin, "buttonStyle1");
+		levels[4]=level5;
+		level6=new TextButton("", game.skin, "buttonStyle1");
+		levels[5]=level6;
+		level7=new TextButton("", game.skin, "buttonStyle1");
+		levels[6]=level7;
+		level8=new TextButton("", game.skin, "buttonStyle1");
+		levels[7]=level8;
+		
+		for(int i=0;i<8;i++){
+			levels[i].setTouchable(enables[i]?Touchable.enabled:Touchable.disabled);
+			levels[i].setStyle(i>passed?buttonStyle2:buttonStyle1);
+		}
+		
+		
 		returnMenu=new TextButton("Main Menu", game.skin, "buttonStyle3");
 		
 		//create the eventlisteners
-		level1.addListener(new InputListener()
-		{
-			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
-				buton.play();
-			return true;
-		}
-			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
-				game.setScreen(new Level1(game));
-			}
-			});
 		
-		returnMenu.addListener(new InputListener()
-		{
-			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
-				buton.play();
-				return true;
-		}
-			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
-				game.setScreen(new MainMenu(game));
-			}
-			});
+		addListeners();
+		
 		
 		
 		//replace the objects on the screen
@@ -135,7 +146,107 @@ public class Singleplayer extends BaseScreen {
 	@Override
 	public void update(float dt) {
 		// TODO Auto-generated method stub
-
+		
+	}
+	public void addListeners(){
+		level1.addListener(new InputListener()
+		{
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+				buton.play();
+			return true;
+		}
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+				game.setScreen(new Level1(game));
+			}
+			});
+		
+		level2.addListener(new InputListener()
+		{
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+				buton.play();
+			return true;
+		}
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+				game.setScreen(new Level2(game));
+			}
+			});
+		
+		level3.addListener(new InputListener()
+		{
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+				buton.play();
+			return true;
+		}
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+				game.setScreen(new Level3(game));
+			}
+			});
+		
+		level4.addListener(new InputListener()
+		{
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+				buton.play();
+			return true;
+		}
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+				game.setScreen(new Level4(game));
+			}
+			});
+		
+		level5.addListener(new InputListener()
+		{
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+				buton.play();
+			return true;
+		}
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+				game.setScreen(new Level5(game));
+			}
+			});
+		
+		level6.addListener(new InputListener()
+		{
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+				buton.play();
+			return true;
+		}
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+				game.setScreen(new Level6(game));
+			}
+			});
+		
+		level7.addListener(new InputListener()
+		{
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+				buton.play();
+			return true;
+		}
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+				game.setScreen(new Level7(game));
+			}
+			});
+		
+		level8.addListener(new InputListener()
+		{
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+				buton.play();
+			return true;
+		}
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+				game.setScreen(new Level8(game));
+			}
+			});
+		
+		returnMenu.addListener(new InputListener()
+		{
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+				buton.play();
+				return true;
+		}
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+				game.setScreen(new MainMenu(game));
+			}
+			});
 	}
 
 }
