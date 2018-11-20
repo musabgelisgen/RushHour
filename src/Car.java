@@ -13,6 +13,8 @@ public class Car extends BaseActor {
 	protected boolean pressed=false;
 	Sound buton;
 	boolean play;
+	boolean move;
+			
 	public Car(int direction,int m,int n,int width,int height,int id) {
 		
 		super();
@@ -26,20 +28,25 @@ public class Car extends BaseActor {
 		xx=x;
 		yy=y;
 		play=true;
+		move=true;
 	}
 	
 	
 	public void setPosition(int x, int y, int[][] game,int num,int w1,int h1,int a,int b) {
+		
+		if(x<0)
+			x=0;
+		if(y<0)
+			y=0;
+		
 		int xx=x;
 		int yy=y;
 		this.xx=x;
 		this.yy=y;
-		if(x<0)
-			x=0;
+		
 		if(x>game.length-width)
 			x=game.length-width;
-		if(y<0)
-			y=0;
+		
 		if(y>game[0].length-height)
 			y=game[0].length-height;
 		if(direction==0)
@@ -53,6 +60,9 @@ public class Car extends BaseActor {
 					put=false;
 					break;
 				}
+		
+		
+		
 		if(put){
 			for(int i=game.length-(this.y+height);i<game.length-this.y;i++)
 				for(int j=this.x;j<this.x+this.width;j++)
@@ -61,14 +71,18 @@ public class Car extends BaseActor {
 				for(int j=x;j<x+this.width;j++)
 					game[i][j]=(num+1);
 			
+			
+			
 			this.x=x;
 			this.y=y;
 			if(id==1){
-				setPosition(xx*w1+a, y*h1+b);
-				if(xx>=6 && play){
+				if(xx==6 && play){
 					buton.play();
+					move=false;
 					play=false;
 				}
+				setPosition(xx*w1+a, y*h1+b);
+				
 			}
 			else
 				setPosition(x*w1+a, y*h1+b);
@@ -82,5 +96,11 @@ public class Car extends BaseActor {
 	}
 	public int getYY(int h1,int b){
 		return y*h1+b;
+	}
+	@Override
+	public void act(float dt) {
+		// TODO Auto-generated method stub
+		if(move)
+			super.act(dt);
 	}
 }

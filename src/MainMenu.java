@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 
 public class MainMenu extends BaseScreen {
 	TextButton singleplayer,multiplayer;
-	TextButton select_theme,select_car;
+	TextButton select_theme,select_car,credits;
 	Sound buton;
 	 Music instrumenatal;
 	BitmapFont newfont;
@@ -48,12 +48,25 @@ public class MainMenu extends BaseScreen {
 		buttonStyle.overFontColor=Color.BLUE;
 		buttonStyle.downFontColor=Color.PINK;
 		game.skin.add("buttonStyle", buttonStyle);
-		Texture background=new Texture("backgorund.jpg");
+		Texture background=new Texture("background.jpg");
 		game.skin.add("background", background);
+		
+		Texture selectcar=new Texture("selectCar.PNG");
+		game.skin.add("selectcar", selectcar);
+		
+		Texture selecttheme=new Texture("selecttheme.jpeg");
+		game.skin.add("selecttheme", selecttheme);
+		
+		Texture credit=new Texture("credits.jpeg");
+		game.skin.add("credits", credit);
+		
 		buton=Gdx.audio.newSound(Gdx.files.internal("button.ogg"));
 		game.skin.add("buton", buton);
 		select_theme=new TextButton("SELECT THEME", game.skin, "buttonStyle");
 		
+		credits=new TextButton("CREDITS", game.skin, "buttonStyle");
+		credits.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
+				Actions.delay(0.5f),Actions.color(new Color(0f,0f,0,8f),0.5f))));
 		
 		
 		select_theme.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
@@ -100,6 +113,14 @@ public class MainMenu extends BaseScreen {
 		uiTable.add();
 		uiTable.add(select_car).right().width(150).height(50).padTop(10);
 		uiTable.row();
+		uiTable.row();
+		
+		uiTable.add();
+		uiTable.add();
+		uiTable.add();
+		uiTable.add();
+		uiTable.add(credits).right().width(150).height(50).padTop(10);
+		uiTable.row();
 		addListeners();
 		addStyles();
 		
@@ -118,6 +139,20 @@ public class MainMenu extends BaseScreen {
 				buton.play(0.2f);
 				instrumenatal.stop();
 				game.setScreen(new Singleplayer(game));
+			}
+			});
+		
+		credits.addListener(new InputListener()
+		{
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+		
+			
+			return true;
+		}
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+				buton.play(0.2f);
+				instrumenatal.stop();
+				game.setScreen(new Credits(game));
 			}
 			});
 		
@@ -156,7 +191,7 @@ public class MainMenu extends BaseScreen {
 				public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
 					instrumenatal.stop();
 					buton.play(0.2f);
-					game.setScreen(new SelectTheme(game));
+					game.setScreen(new MultiPlayer(game));
 					
 				}
 				});

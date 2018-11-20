@@ -11,10 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 
-public class SelectCar extends BaseScreen {
+public class Credits extends BaseScreen {
 	TextButton returnMenu;
 	TextButton newcar1,newcar2,newcar3,newcar4,newcar5,newcar6,newcar7,newcar8;
-	public SelectCar(BaseGame game) {
+	public Credits(BaseGame game) {
 		super(game);
 		// TODO Auto-generated constructor stub
 	}
@@ -36,7 +36,7 @@ public class SelectCar extends BaseScreen {
 				game.setScreen(new MainMenu(game));
 			}
 			});
-		uiTable.setBackground(game.skin.getDrawable("selectcar"));
+		uiTable.setBackground(game.skin.getDrawable("credits"));
 		uiTable.add(returnMenu);
 		
 

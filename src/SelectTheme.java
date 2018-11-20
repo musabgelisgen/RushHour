@@ -27,7 +27,7 @@ public class SelectTheme extends BaseScreen {
 				game.setScreen(new MainMenu(game));
 			}
 			});
-		uiTable.setBackground(game.skin.getDrawable("background"));
+		uiTable.setBackground(game.skin.getDrawable("selecttheme"));
 		uiTable.add(returnMenu);
 
 	}
@@ -35,7 +35,8 @@ public class SelectTheme extends BaseScreen {
 	@Override
 	public void update(float dt) {
 		// TODO Auto-generated method stub
-		returnMenu.setPosition(0, 0);
+		returnMenu.setPosition(30, 0);
+		returnMenu.setWidth(180);
 
 	}
 

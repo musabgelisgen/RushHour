@@ -21,7 +21,6 @@ public class Levels extends BaseScreen {
 	int m,n;
 	ShapeRenderer sr;
 	int w,h;
-	Car car1,car2,car3,car4,car5,car6,car7;
 	TextButton returnMenu;
 	ArrayList<Car> cars;
 	int[][] gameTable;
@@ -30,6 +29,7 @@ public class Levels extends BaseScreen {
 	float startX,startY;
 	Sound buton;
 	int pass;
+	BaseActor winner;
 	public Levels(BaseGame game) {
 		super(game);
 		
@@ -38,6 +38,8 @@ public class Levels extends BaseScreen {
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
+		winner=new BaseActor();
+		winner.setTexture(new Texture("youwin1.png"));
 		pass=Singleplayer.passed;
 		carVoice=Gdx.audio.newSound(Gdx.files.internal("car.ogg"));
 		returnMenu=new TextButton("Back", game.skin, "buttonStyle3");
@@ -55,23 +57,7 @@ public class Levels extends BaseScreen {
 		a=VIEW_WIDTH/2-w/2;
 		b=VIEW_HEIGHT/2-h/2;
 		sr=new ShapeRenderer();
-		createCars();
-
-		mainStage.addActor(car1);
-		mainStage.addActor(car2);
-		mainStage.addActor(car3);
-		mainStage.addActor(car4);
-		mainStage.addActor(car5);
-		mainStage.addActor(car6);
-		mainStage.addActor(car7);
-		
-		cars.add(car1);
-		cars.add(car2);
-		cars.add(car3);
-		cars.add(car4);
-		cars.add(car5);
-		cars.add(car6);
-		cars.add(car7);
+		createCars(cars);
 		
 		for(int i=0;i<cars.size();i++){
 			for(int j=n-cars.get(i).y-cars.get(i).height;j<n-cars.get(i).y;j++)
@@ -89,6 +75,7 @@ public class Levels extends BaseScreen {
 						carx.firstTouchX=(int) (x/(w/m));
 						carx.firstTouchY=(int) (y/(h/n));
 						carVoice.play();
+						
 					
 				 carx.pressed=true;
 					return true;
@@ -118,17 +105,18 @@ public class Levels extends BaseScreen {
 		}
 		uiTable.setBackground(game.skin.getDrawable("background"));
 		uiTable.add(returnMenu);
-		startX=car3.getX();
-		startY=car3.getY();
+		mainStage.addActor(winner);
+		winner.setVisible(false);
+		
 	}
-	public void createCars(){
-		car1=new Car(0,3,5,2,1,0);
-		car2=new Car(0,0,4,3,1,0);
-		car3=new Car(0,0,2,2,1,1);
-		car4=new Car(1,2,1,1,2,0);
-		car5=new Car(1,3,2,1,2,0);
-		car6=new Car(1,5,1,1,2,0);
-		car7=new Car(0,2,0,2,1,0);
+	public void createCars(ArrayList<Car> list){
+		Car car1=new Car(0,3,5,2,1,0);
+		Car car2=new Car(0,0,4,3,1,0);
+		Car car3=new Car(0,0,2,2,1,1);
+		Car car4=new Car(1,2,1,1,2,0);
+		Car car5=new Car(1,3,2,1,2,0);
+		Car car6=new Car(1,5,1,1,2,0);
+		Car car7=new Car(0,2,0,2,1,0);
 		
 		car1.setTexture(new Texture("car1.png"));
 		car1.setPosition(VIEW_WIDTH/2-w/2+car1.x*w/m, VIEW_HEIGHT/2-h/2+h*car1.y/n);
@@ -150,6 +138,25 @@ public class Levels extends BaseScreen {
 				
 		car7.setTexture(new Texture("car7.png"));
 		car7.setPosition(VIEW_WIDTH/2-w/2+car7.x*w/m, VIEW_HEIGHT/2-h/2+h*car7.y/n);
+		
+		list.add(car1);
+		list.add(car2);
+		list.add(car3);
+		list.add(car4);
+		list.add(car5);
+		list.add(car6);
+		list.add(car7);
+		
+		mainStage.addActor(car1);
+		mainStage.addActor(car2);
+		mainStage.addActor(car3);
+		mainStage.addActor(car4);
+		mainStage.addActor(car5);
+		mainStage.addActor(car6);
+		mainStage.addActor(car7);
+		
+		startX=car3.getX();
+		startY=car3.getY();
 	}
 
 	@Override
@@ -160,12 +167,17 @@ public class Levels extends BaseScreen {
 		for(Car x:cars){
 			x.setWidth(w/m*x.width);
 			x.setHeight(h/n*x.height);
-			if(x.xx>m-x.width){
+			if(x.xx==m && x.id==1){
 				win=true;
-				x.setTouchable(Touchable.disabled);
 			}
 			
-		
+		if(win){
+			winner.setVisible(true);
+			winner.setPosition(VIEW_WIDTH/2-100, VIEW_HEIGHT/2-100);
+			winner.setWidth(200);
+			winner.setHeight(200);
+			pause();
+		}
 			 
 			
 		}
@@ -186,6 +198,13 @@ public class Levels extends BaseScreen {
 		sr.setColor(Color.GRAY);
 		sr.rect(VIEW_WIDTH/2-w/2, VIEW_HEIGHT/2-h/2, w, h);
 		sr.end();
+		sr.begin(ShapeType.Filled);
+		sr.setColor(Color.YELLOW);
+		for(Car x:cars)
+			if(x.id==1){
+				sr.rect(VIEW_WIDTH/2+w/2, x.getY(), 2*w/m, h/n);
+			}
+		sr.end();
 		/////////////////
 		sr.begin(ShapeType.Line);
 		sr.setColor(Color.BLACK);
@@ -199,10 +218,12 @@ public class Levels extends BaseScreen {
 		sr.rect(startX-w/m,startY,w/m,h/n);
 		sr.end();
 		mainStage.draw();
-		returnMenu.setPosition(0, 0);
+		returnMenu.setPosition(0,0);
 		sr.begin(ShapeType.Line);
 		sr.setColor(Color.YELLOW);
-		sr.rect(car3.getX(), car3.getY(), car3.getWidth(), car3.getHeight());
+		for(Car x:cars)
+			if(x.id==1)
+				sr.rect(x.getX(), x.getY(), x.getWidth(), x.getHeight());
 		sr.end();
 	}
 
@@ -221,7 +242,7 @@ public class Levels extends BaseScreen {
 			int b1=sc-b;
 			b1/=h1;
 				
-			if(cars.get(i).pressed){
+			if(cars.get(i).pressed && cars.get(i).move){
 					
 					cars.get(i).setPosition(a1,b1,gameTable,i,w1,h1,a,b);
 			}
