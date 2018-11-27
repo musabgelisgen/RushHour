@@ -111,32 +111,32 @@ public class Levels extends BaseScreen {
 	}
 	public void createCars(ArrayList<Car> list){
 		Car car1=new Car(0,3,5,2,1,0);
-		Car car2=new Car(0,0,4,3,1,0);
+		Car car2=new Car(0,0,4,2,1,0);
 		Car car3=new Car(0,0,2,2,1,1);
 		Car car4=new Car(1,2,1,1,2,0);
 		Car car5=new Car(1,3,2,1,2,0);
 		Car car6=new Car(1,5,1,1,2,0);
 		Car car7=new Car(0,2,0,2,1,0);
 		
-		car1.setTexture(new Texture("car1.png"));
+		car1.setTexture(new Texture("ferrari.png"));
 		car1.setPosition(VIEW_WIDTH/2-w/2+car1.x*w/m, VIEW_HEIGHT/2-h/2+h*car1.y/n);
 		
-		car2.setTexture(new Texture("car2.png"));
+		car2.setTexture(new Texture("bugatti.png"));
 		car2.setPosition(VIEW_WIDTH/2-w/2+car2.x*w/m, VIEW_HEIGHT/2-h/2+h*car2.y/n);
 		
-		car3.setTexture(new Texture("car3.png"));
+		car3.setTexture(new Texture("ambulance.png"));
 		car3.setPosition(VIEW_WIDTH/2-w/2+car3.x*w/m, VIEW_HEIGHT/2-h/2+h*car3.y/n);
 		
-		car4.setTexture(new Texture("car4.png"));
+		car4.setTexture(new Texture("chevrolet.png"));
 		car4.setPosition(VIEW_WIDTH/2-w/2+car4.x*w/m, VIEW_HEIGHT/2-h/2+h*car4.y/n);
 				
-		car5.setTexture(new Texture("car5.png"));
+		car5.setTexture(new Texture("jeep.png"));
 		car5.setPosition(VIEW_WIDTH/2-w/2+car5.x*w/m, VIEW_HEIGHT/2-h/2+h*car5.y/n);
 				
-		car6.setTexture(new Texture("car6.png"));
+		car6.setTexture(new Texture("dashcam.png"));
 		car6.setPosition(VIEW_WIDTH/2-w/2+car6.x*w/m, VIEW_HEIGHT/2-h/2+h*car6.y/n);
 				
-		car7.setTexture(new Texture("car7.png"));
+		car7.setTexture(new Texture("mercedes.png"));
 		car7.setPosition(VIEW_WIDTH/2-w/2+car7.x*w/m, VIEW_HEIGHT/2-h/2+h*car7.y/n);
 		
 		list.add(car1);
