@@ -54,7 +54,7 @@ public class Car extends BaseActor {
 		else
 			x=this.x;
 		boolean put=true;
-		for(int i=game.length-(Math.min(y,this.y)+height);i<game.length-Math.min(y,this.y);i++)
+		for(int i=game.length-(Math.max(y,this.y)+height);i<game.length-Math.min(y,this.y);i++)
 			for(int j=Math.min(x,this.x);j<Math.max(x,this.x)+this.width;j++)
 				if(game[i][j]!=0 && game[i][j]!=(num+1) ){
 					put=false;
