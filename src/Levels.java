@@ -22,9 +22,9 @@ public class Levels extends BaseScreen {
 	ShapeRenderer sr;
 	int w,h;
 	TextButton returnMenu;
-	ArrayList<Car> cars;
+	static ArrayList<Car> cars;
 	int[][] gameTable;
-	int a,b,w1,h1;
+	static int a,b,w1,h1;
 	boolean win=false;
 	float startX,startY;
 	Sound buton;
@@ -54,6 +54,7 @@ public class Levels extends BaseScreen {
 		h=VIEW_HEIGHT/2;
 		w1=w/m;
 		h1=h/n;
+		
 		a=VIEW_WIDTH/2-w/2;
 		b=VIEW_HEIGHT/2-h/2;
 		sr=new ShapeRenderer();
@@ -162,7 +163,6 @@ public class Levels extends BaseScreen {
 	@Override
 	public void update(float dt) {
 		// TODO Auto-generated method stub
-		
 		
 		for(Car x:cars){
 			x.setWidth(w/m*x.width);

@@ -14,6 +14,7 @@ public class Car extends BaseActor {
 	Sound buton;
 	boolean play;
 	boolean move;
+	int lastMoveAmountX,lastMoveAmountY;
 			
 	public Car(int direction,int m,int n,int width,int height,int id) {
 		
@@ -32,7 +33,7 @@ public class Car extends BaseActor {
 	}
 	
 	
-	public void setPosition(int x, int y, int[][] game,int num,int w1,int h1,int a,int b) {
+	public boolean setPosition(int x, int y, int[][] game,int num,int w1,int h1,int a,int b) {
 		
 		if(x<0)
 			x=0;
@@ -41,8 +42,7 @@ public class Car extends BaseActor {
 		
 		int xx=x;
 		int yy=y;
-		this.xx=x;
-		this.yy=y;
+		
 		
 		if(x>game.length-width)
 			x=game.length-width;
@@ -54,8 +54,8 @@ public class Car extends BaseActor {
 		else
 			x=this.x;
 		boolean put=true;
-		for(int i=game.length-(y+height);i<game.length-y;i++)
-			for(int j=x;j<x+this.width;j++)
+		for(int i=game.length-(Math.min(y,this.y)+height);i<game.length-Math.min(y,this.y);i++)
+			for(int j=Math.min(x,this.x);j<Math.max(x,this.x)+this.width;j++)
 				if(game[i][j]!=0 && game[i][j]!=(num+1) ){
 					put=false;
 					break;
@@ -64,6 +64,8 @@ public class Car extends BaseActor {
 		
 		
 		if(put){
+			this.xx=xx;
+			this.yy=yy;
 			for(int i=game.length-(this.y+height);i<game.length-this.y;i++)
 				for(int j=this.x;j<this.x+this.width;j++)
 					game[i][j]=0;
@@ -71,15 +73,18 @@ public class Car extends BaseActor {
 				for(int j=x;j<x+this.width;j++)
 					game[i][j]=(num+1);
 			
-			
+			lastMoveAmountX=Math.abs(game.length-(this.y+height)-game.length-(y+height));
+			lastMoveAmountY=Math.abs(this.x-x);
 			
 			this.x=x;
 			this.y=y;
 			if(id==1){
 				if(xx==6 && play){
 					buton.play();
-					move=false;
-					play=false;
+					for(Car carx:Levels.cars){
+					  carx.move=false;
+					  carx.play=false;
+					}
 				}
 				setPosition(xx*w1+a, y*h1+b);
 				
@@ -88,7 +93,7 @@ public class Car extends BaseActor {
 				setPosition(x*w1+a, y*h1+b);
 			
 		}
-		
+		return put;
 		
 	}
 	public int getXX(int w1,int a){
