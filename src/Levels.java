@@ -132,6 +132,8 @@ public class Levels extends BaseScreen {
 		hint.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+				if(win)
+					return true;
 				Node begin=new Node();
 				begin.cars=cars;
 				begin.table=new int[gameTable.length][gameTable[0].length];
