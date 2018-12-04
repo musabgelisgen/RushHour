@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class Levels extends BaseScreen {
@@ -21,7 +22,7 @@ public class Levels extends BaseScreen {
 	int m,n;
 	ShapeRenderer sr;
 	int w,h;
-	TextButton returnMenu;
+	TextButton returnMenu,hint,message;
 	static ArrayList<Car> cars;
 	int[][] gameTable;
 	static int a,b,w1,h1;
@@ -30,6 +31,17 @@ public class Levels extends BaseScreen {
 	Sound buton;
 	int pass;
 	BaseActor winner;
+	int levelno;
+	ArrayList<Node> path;	//the path of the hint
+	Car target;			//the car hint shows
+	int carnumber;		//the index of the hint car
+	int hintnumber;	// the array index of the hint wanted to be applied
+	boolean show=false;	//shows the car which the hint wants user to move
+	int distx,disty;
+	protected boolean move;//for hint
+	int gox,goy;	//for hint
+	int speed;
+	int index;
 	public Levels(BaseGame game) {
 		super(game);
 		
@@ -38,11 +50,22 @@ public class Levels extends BaseScreen {
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
+		index=0;
+		speed=10;
+		gox=0;
+		goy=0;
+		move=false;
+		show=false;
+		hintnumber=0;
+		target=null;
+		path=new ArrayList<Node>();
 		winner=new BaseActor();
 		winner.setTexture(new Texture("youwin1.png"));
 		pass=Singleplayer.passed;
 		carVoice=Gdx.audio.newSound(Gdx.files.internal("car.ogg"));
 		returnMenu=new TextButton("Back", game.skin, "buttonStyle3");
+		hint=new TextButton("Hint", game.skin, "buttonStyle");
+		message=new TextButton("", game.skin, "buttonStyle");
 		game.skin.add("returnMenu", returnMenu);
 		buton=game.skin.get("buton", Sound.class);
 		win=false;
@@ -98,17 +121,106 @@ public class Levels extends BaseScreen {
 				if(win){
 					for(Car carx:cars)
 						carx.buton.stop();
-					Singleplayer.passed=pass+1;
+					if(pass<levelno)
+						Singleplayer.passed=pass+1;
+					
 				}
 			}
 			});
 		
 		}
+		hint.addListener(new InputListener()
+		{
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+				Node begin=new Node();
+				begin.cars=cars;
+				begin.table=new int[gameTable.length][gameTable[0].length];
+				for(int i=0;i<gameTable.length;i++)
+					for(int j=0;j<gameTable[0].length;j++)
+						begin.table[i][j]=gameTable[i][j];
+				boolean wehave=false;
+				hintnumber=1;
+				
+				if(path.size()>0){
+					for(int i=0;i<path.size();i++){
+						if(isSame(path.get(i).table)){
+							wehave=true;
+							hintnumber=i+1;
+							System.out.println(hintnumber+" buldum");
+						}
+					}
+				}
+				if(!wehave)
+					path=ASTAR.Astar(begin, cars);
+				if(hintnumber==1)
+				for(int i=0;i<path.size();i++){
+					for(int j=0;j<path.get(i).table.length;j++)
+						System.out.println(Arrays.toString(path.get(i).table[j]));
+					System.out.println("\n\n");
+					System.out.println(path.get(i).carnumber);
+				}
+				move=true;
+				if(hintnumber<path.size()){
+				target=path.get(hintnumber).moved;
+				carnumber=path.get(hintnumber).carnumber;
+				distx=path.get(hintnumber).targetX-cars.get(carnumber).x;
+				disty=path.get(hintnumber).targetY-cars.get(carnumber).y;
+				}
+				else{
+					carnumber=0;
+					for(;carnumber<cars.size();carnumber++)
+						if(cars.get(carnumber).id==1){
+							break;
+						}
+					target=cars.get(carnumber);
+					distx=gameTable[0].length-target.x;
+					disty=0;
+					
+				}
+
+				
+				return true;
+				}
+				
+		
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+				
+					//message.setVisible(true);	
+					//message.setTouchable(Touchable.enabled);
+				
+				
+			}
+			});
+		
+		message.addListener(new InputListener()
+		{
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+				
+				return true;
+		}
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+					//message.setTouchable(Touchable.disabled);
+					//message.setVisible(false);	
+				
+				
+			}
+			});
+		
 		uiTable.setBackground(game.skin.getDrawable("background"));
 		uiTable.add(returnMenu);
+		uiTable.add(hint);
+		mainStage.addActor(message);
+		message.setVisible(false);
 		mainStage.addActor(winner);
 		winner.setVisible(false);
 		
+	}
+	public boolean isSame(int[][] arr){
+		for(int i=0;i<arr.length;i++)
+			for(int j=0;j<arr[0].length;j++)
+				if(arr[i][j]!=gameTable[i][j])
+					return false;
+		return true;
 	}
 	public void createCars(ArrayList<Car> list){
 		Car car1=new Car(0,3,5,2,1,0);
@@ -193,6 +305,26 @@ public class Levels extends BaseScreen {
 	@Override
 	public void render(float dt) {
 		//board
+	
+		index++;
+		index%=speed;
+		if(move && index==0){
+		target.setPosition(target.getX()+distx/Math.max(Math.abs(distx),1)*w1, target.getY()+disty/Math.max(Math.abs(disty),1)*h1);
+		gox+=distx/Math.max(Math.abs(distx),1);
+		goy+=disty/Math.max(Math.abs(disty),1);
+		
+		}
+		if(distx!=0 || disty!=0)
+		if(gox==distx)
+			if(goy==disty){
+				gox=0;
+				goy=0;
+				int aa,bb;
+				aa=hintnumber<path.size()?path.get(hintnumber).targetX:gameTable[0].length;
+				bb=hintnumber<path.size()?path.get(hintnumber).targetY:target.y;
+				target.setPosition(aa, bb, gameTable, carnumber, w1, h1, a, b, true);
+				move=false;	
+			}
 		super.render(dt);
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.GRAY);
@@ -205,6 +337,7 @@ public class Levels extends BaseScreen {
 				sr.rect(VIEW_WIDTH/2+w/2, x.getY(), 2*w/m, h/n);
 			}
 		sr.end();
+		
 		/////////////////
 		sr.begin(ShapeType.Line);
 		sr.setColor(Color.BLACK);
@@ -219,12 +352,29 @@ public class Levels extends BaseScreen {
 		sr.end();
 		mainStage.draw();
 		returnMenu.setPosition(0,0);
+		hint.setPosition(0,200);
+		hint.setWidth(100);
+		hint.setHeight(100);
+		int meswidth=400;
+		int mesheight=60;
+		message.setPosition(VIEW_WIDTH/2-meswidth/2, 0);
+		message.setWidth(meswidth);
+		message.setHeight(mesheight);
 		sr.begin(ShapeType.Line);
 		sr.setColor(Color.YELLOW);
 		for(Car x:cars)
 			if(x.id==1)
 				sr.rect(x.getX(), x.getY(), x.getWidth(), x.getHeight());
 		sr.end();
+		
+		//show the hint
+		
+		sr.begin(ShapeType.Line);
+		sr.setColor(Color.PURPLE);
+		if(show)
+			sr.rect(target.getX(), target.getY(), target.getWidth(), target.getHeight());
+		sr.end();
+		
 	}
 
 	@Override
@@ -244,7 +394,7 @@ public class Levels extends BaseScreen {
 				
 			if(cars.get(i).pressed && cars.get(i).move){
 					
-					cars.get(i).setPosition(a1,b1,gameTable,i,w1,h1,a,b);
+					cars.get(i).setPosition(a1,b1,gameTable,i,w1,h1,a,b,true);
 			}
 		
 		

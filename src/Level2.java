@@ -21,7 +21,7 @@ public class Level2 extends Levels {
 	
 	public Level2(BaseGame game) {
 		super(game);
-		
+		levelno=2;
 	}
 	
 	public void createCars(ArrayList<Car> list){
@@ -36,34 +36,34 @@ public class Level2 extends Levels {
 		Car car9=new Car(1,3,1,1,3,0);
 		Car car10=new Car(1,4,1,1,2,0);
 		
-		car1.setTexture(new Texture("car4.png"));
+		car1.setTexture(new Texture("chevrolet.png"));
 		car1.setPosition(VIEW_WIDTH/2-w/2+car1.x*w/m, VIEW_HEIGHT/2-h/2+h*car1.y/n);
 		
-		car2.setTexture(new Texture("car4.png"));
+		car2.setTexture(new Texture("chevrolet.png"));
 		car2.setPosition(VIEW_WIDTH/2-w/2+car2.x*w/m, VIEW_HEIGHT/2-h/2+h*car2.y/n);
 		
-		car3.setTexture(new Texture("car1.png"));
+		car3.setTexture(new Texture("ferrari.png"));
 		car3.setPosition(VIEW_WIDTH/2-w/2+car3.x*w/m, VIEW_HEIGHT/2-h/2+h*car3.y/n);
 		
-		car4.setTexture(new Texture("car1.png"));
+		car4.setTexture(new Texture("ferrari.png"));
 		car4.setPosition(VIEW_WIDTH/2-w/2+car4.x*w/m, VIEW_HEIGHT/2-h/2+h*car4.y/n);
 				
-		car5.setTexture(new Texture("car4.png"));
+		car5.setTexture(new Texture("jeep.png"));
 		car5.setPosition(VIEW_WIDTH/2-w/2+car5.x*w/m, VIEW_HEIGHT/2-h/2+h*car5.y/n);
 				
-		car6.setTexture(new Texture("car3.png"));
+		car6.setTexture(new Texture("ambulance.png"));
 		car6.setPosition(VIEW_WIDTH/2-w/2+car6.x*w/m, VIEW_HEIGHT/2-h/2+h*car6.y/n);
 				
-		car7.setTexture(new Texture("car4.png"));
+		car7.setTexture(new Texture("dashcam.png"));
 		car7.setPosition(VIEW_WIDTH/2-w/2+car7.x*w/m, VIEW_HEIGHT/2-h/2+h*car7.y/n);
 		
-		car8.setTexture(new Texture("car4.png"));
+		car8.setTexture(new Texture("dashcam.png"));
 		car8.setPosition(VIEW_WIDTH/2-w/2+car8.x*w/m, VIEW_HEIGHT/2-h/2+h*car8.y/n);
 	
 		car9.setTexture(new Texture("car10.png"));
 		car9.setPosition(VIEW_WIDTH/2-w/2+car9.x*w/m, VIEW_HEIGHT/2-h/2+h*car9.y/n);
 		
-		car10.setTexture(new Texture("car4.png"));
+		car10.setTexture(new Texture("dashcam.png"));
 		car10.setPosition(VIEW_WIDTH/2-w/2+car10.x*w/m, VIEW_HEIGHT/2-h/2+h*car10.y/n);
 		
 		list.add(car1);
