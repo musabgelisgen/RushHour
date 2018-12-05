@@ -20,7 +20,7 @@ Compatibility
 ------------
 RushHour Version | Java Version
 --- | ---
-\>= 1.0.0 | 9
+\>= 1.0.0 | 8
 
 Also see [changelog](#) for detailed version history.
 
