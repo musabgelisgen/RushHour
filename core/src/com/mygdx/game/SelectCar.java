@@ -15,7 +15,7 @@ public class SelectCar extends BaseScreen {
 	TextButton returnMenu;
 	TextButton newcar1,newcar2,newcar3,newcar4,newcar5,newcar6,newcar7,newcar8;
 	TextButton[] carButtons;
-	static Texture targetTexture;
+	static Texture targetTexture=new Texture("ambulance.png");
 	static int targetNumber=1;
 	public SelectCar(BaseGame game) {
 		super(game);

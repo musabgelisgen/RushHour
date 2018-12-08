@@ -46,11 +46,12 @@ public class Levels extends BaseScreen {
 	int gox,goy;	//for hint
 	int speed;
 	int index;
-	Label time,move_count;
-	int time_left;
-	int time_speed;
-	int index_time;	//for time
+	Label time,move_count,targetMoveCount;
+	int total_time;
+	int tl;
 	int numOfMoves;
+	long startTime;
+	int[] targets;
 	public Levels(BaseGame game) {
 		super(game);
 		
@@ -59,11 +60,14 @@ public class Levels extends BaseScreen {
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
+		targets=new int[8];//it represents the target move counts of levels which we will set at the beginning by playing the levels before 
+		//by hint button
+		targets[0]=10;
+		targets[1]=36;
 		numOfMoves=0;
-		index_time=0;
-		time_speed=30;
-		time_left=120;
+		total_time=120;
 		time=new Label("02:00", game.skin,"uiLabelStyle");
+		targetMoveCount=new Label("Target Move Count is :"+targets[levelno], game.skin,"uiLabelStyle");
 		move_count=new Label("Number Of Moves :"+numOfMoves, game.skin,"uiLabelStyle");
 		index=0;
 		speed=10;
@@ -194,7 +198,6 @@ public class Levels extends BaseScreen {
 					
 				}
 
-				System.out.println(ASTAR.numberOfMovesNeeded);
 				return true;
 				}
 				
@@ -229,7 +232,9 @@ public class Levels extends BaseScreen {
 		time.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
 				Actions.delay(1.0f),Actions.color(new Color(0.5f,0.5f,0,1),0.5f))));
 		mainStage.addActor(time);
+		startTime= System.currentTimeMillis();
 		mainStage.addActor(move_count);
+		mainStage.addActor(targetMoveCount);
 		mainStage.addActor(message);
 		message.setVisible(false);
 		mainStage.addActor(winner);
@@ -243,6 +248,7 @@ public class Levels extends BaseScreen {
 					return false;
 		return true;
 	}
+	
 	public void createCars(ArrayList<Car> list){
 		Car car1=new Car(0,3,5,2,1,0);
 		Car car2=new Car(0,0,4,2,1,0);
@@ -296,7 +302,7 @@ public class Levels extends BaseScreen {
 	@Override
 	public void update(float dt) {
 		// TODO Auto-generated method stub
-		
+		targetMoveCount.setText("Target Move Count is :"+targets[levelno-1]);
 		
 		for(Car x:cars){
 			x.setWidth(w/m*x.width);
@@ -328,17 +334,12 @@ public class Levels extends BaseScreen {
 	public void render(float dt) {
 		super.render(dt);
 		 minute="";
-		int tl=time_left;
+		long elapsedTime = System.currentTimeMillis()-startTime;
+		 tl=(int) (total_time-elapsedTime/1000);
 		if(tl-60*(tl/60)>9)
 			minute=""+(tl-60*(tl/60));
 		else
 			minute="0"+(tl-60*(tl/60));
-		
-		if(index_time%time_speed==0){
-			time_left--;
-			index_time=0;
-		}
-		index_time++;
 		
 		
 		
@@ -387,12 +388,12 @@ public class Levels extends BaseScreen {
 		sr.rect(startX-w/m,startY,w/m,h/n);
 		sr.end();
 		mainStage.draw();
-		time.setText("Time Left: 0"+time_left/60+":"+minute);
+		time.setText("Time Left: 0"+tl/60+":"+minute);
 		move_count.setText("Number Of Moves :"+numOfMoves);
 		time.setPosition(0, 350);
 		time.setColor(Color.RED);
 		move_count.setPosition(VIEW_WIDTH/2,VIEW_HEIGHT-100);
-		
+		targetMoveCount.setPosition(VIEW_WIDTH/2,VIEW_HEIGHT-50 );
 		returnMenu.setPosition(0,0);
 		hint.setPosition(0,200);
 		hint.setWidth(100);
