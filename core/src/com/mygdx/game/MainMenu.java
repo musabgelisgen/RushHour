@@ -22,6 +22,7 @@ public class MainMenu extends BaseScreen {
 	 Music instrumenatal;
 	BitmapFont newfont;
 	static boolean start=true;
+	static boolean carSelected=false;
 	public MainMenu(BaseGame game) {
 		super(game);
 		// TODO Auto-generated constructor stub
@@ -180,6 +181,7 @@ public class MainMenu extends BaseScreen {
 				instrumenatal.stop();
 				buton.play(0.2f);
 				game.setScreen(new SelectCar(game));
+				carSelected=true;
 			}
 			});
 		

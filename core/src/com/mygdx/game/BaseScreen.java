@@ -41,6 +41,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		TextButtonStyle buttonStyle1=new TextButtonStyle();
 		TextButtonStyle buttonStyle2=new TextButtonStyle();
 		TextButtonStyle buttonStyle3=new TextButtonStyle();
+		
 		BitmapFont font=new BitmapFont();
 		buttonStyle1.font=font;
 		buttonStyle2.font=font;
@@ -67,6 +68,72 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		game.skin.add("buttonStyle1", buttonStyle1);
 		game.skin.add("buttonStyle2", buttonStyle2);
 		game.skin.add("buttonStyle3", buttonStyle3);
+		
+		TextButtonStyle buttonCarStyle1=new TextButtonStyle();
+		TextButtonStyle buttonCarStyle2=new TextButtonStyle();
+		TextButtonStyle buttonCarStyle3=new TextButtonStyle();
+		TextButtonStyle buttonCarStyle4=new TextButtonStyle();
+		TextButtonStyle buttonCarStyle5=new TextButtonStyle();
+		TextButtonStyle buttonCarStyle6=new TextButtonStyle();
+		TextButtonStyle buttonCarStyle7=new TextButtonStyle();
+		TextButtonStyle buttonCarStyle8=new TextButtonStyle();
+		
+		Texture car1=new Texture("ambulance.png");
+		Texture car2=new Texture("ferrari.png");
+		Texture car3=new Texture("mercedes.png");
+		Texture car4=new Texture("newcar1.jpg");
+		Texture car5=new Texture("newcar4.jpg");
+		Texture car6=new Texture("newcar5.png");
+		Texture car7=new Texture("police.png");
+		Texture car8=new Texture("mercedes2.png");
+		
+		game.skin.add("car1Texture", car1);
+		game.skin.add("car2Texture", car2);
+		game.skin.add("car3Texture", car3);
+		game.skin.add("car4Texture", car4);
+		game.skin.add("car5Texture", car5);
+		game.skin.add("car6Texture", car6);
+		game.skin.add("car7Texture", car7);
+		game.skin.add("car8Texture", car8);
+		
+		game.skin.add("car1", new NinePatch(car1,5,5,5,5));
+		game.skin.add("car2", new NinePatch(car2,5,5,5,5));
+		game.skin.add("car3", new NinePatch(car3,5,5,5,5));
+		game.skin.add("car4", new NinePatch(car4,5,5,5,5));
+		game.skin.add("car5", new NinePatch(car5,5,5,5,5));
+		game.skin.add("car6", new NinePatch(car6,5,5,5,5));
+		game.skin.add("car7", new NinePatch(car7,5,5,5,5));
+		game.skin.add("car8", new NinePatch(car8,5,5,5,5));
+		
+		buttonCarStyle1.up=game.skin.getDrawable("car1");
+		buttonCarStyle2.up=game.skin.getDrawable("car2");
+		buttonCarStyle3.up=game.skin.getDrawable("car3");
+		buttonCarStyle4.up=game.skin.getDrawable("car4");
+		buttonCarStyle5.up=game.skin.getDrawable("car5");
+		buttonCarStyle6.up=game.skin.getDrawable("car6");
+		buttonCarStyle7.up=game.skin.getDrawable("car7");
+		buttonCarStyle8.up=game.skin.getDrawable("car8");
+		
+		buttonCarStyle1.font=font;
+		buttonCarStyle2.font=font;
+		buttonCarStyle3.font=font;
+		buttonCarStyle4.font=font;
+		buttonCarStyle5.font=font;
+		buttonCarStyle6.font=font;
+		buttonCarStyle7.font=font;
+		buttonCarStyle8.font=font;
+		
+		game.skin.add("buttonCarStyle1", buttonCarStyle1);
+		game.skin.add("buttonCarStyle2", buttonCarStyle2);
+		game.skin.add("buttonCarStyle3", buttonCarStyle3);
+		game.skin.add("buttonCarStyle4", buttonCarStyle4);
+		game.skin.add("buttonCarStyle5", buttonCarStyle5);
+		game.skin.add("buttonCarStyle6", buttonCarStyle6);
+		game.skin.add("buttonCarStyle7", buttonCarStyle7);
+		game.skin.add("buttonCarStyle8", buttonCarStyle8);
+		
+		
+		
 	}
  
 	public BaseScreen(BaseGame game) {

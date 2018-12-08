@@ -39,7 +39,6 @@ public class ASTAR {
 			if(total==0){
 				while(current.parent!=null){
 					path.add(0, current);
-					numberOfMovesNeeded+=Math.abs(current.lastX-current.parent.lastX)+Math.abs(current.lastY-current.parent.lastY);
 					current=current.parent;
 					
 				}
@@ -82,6 +81,34 @@ public class ASTAR {
 		
 		
 		return path;
+	}
+	public static int getdistance(int[][] arr1,int[][] arr2){
+		int i=0,j=0;
+		int a=0,b=0;
+		exit:
+		for(;i<arr1.length;i++)
+			for(;j<arr1[0].length;j++)
+				if(arr1[i][j]!=arr2[i][j])
+					break exit;
+		int t=arr1[i][j];
+		if(t==0)
+			t=arr2[i][j];
+		int[][] arr=(t==0)?arr1:arr2;
+		exit1:
+		for(a=arr.length-1;a>-1;a--)
+			for(b=0;b<arr[0].length;b++)
+				if(arr[a][b]==t)
+					break exit1;
+		return (Math.abs(a-i)+Math.abs(b-j));
+		
+	}
+	public static int getDistToExit(int carnumber,int[][] arr){
+		int i=arr.length-1,j=0;
+		for(;i>-1;i--)
+			for(;j<arr[0].length;j++)
+				if(arr[i][j]==carnumber)
+					return arr[0].length-j;
+		return 0;
 	}
 	
 

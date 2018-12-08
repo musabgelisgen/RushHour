@@ -61,7 +61,7 @@ public class Levels extends BaseScreen {
 		// TODO Auto-generated method stub
 		numOfMoves=0;
 		index_time=0;
-		time_speed=60;
+		time_speed=30;
 		time_left=120;
 		time=new Label("02:00", game.skin,"uiLabelStyle");
 		move_count=new Label("Number Of Moves :"+numOfMoves, game.skin,"uiLabelStyle");
@@ -97,6 +97,12 @@ public class Levels extends BaseScreen {
 		b=VIEW_HEIGHT/2-h/2;
 		sr=new ShapeRenderer();
 		createCars(cars);
+		for(int i=0;i<cars.size();i++)
+			if(cars.get(i).id==1){
+				cars.get(i).setTexture(SelectCar.targetTexture);
+				break;
+			}
+			
 		
 		for(int i=0;i<cars.size();i++){
 			for(int j=n-cars.get(i).y-cars.get(i).height;j<n-cars.get(i).y;j++)
@@ -166,8 +172,9 @@ public class Levels extends BaseScreen {
 						}
 					}
 				}
-				if(!wehave)
+				if(!wehave){
 					path=ASTAR.Astar(begin, cars);
+				}
 				move=true;
 				if(hintnumber<path.size()){
 				target=path.get(hintnumber).moved;
