@@ -63,10 +63,12 @@ public class ASTAR {
 					for(int i=0;i<openset.size();i++)
 						if(openset.get(i).equals(n)){
 							if(n.gCost<openset.get(i).gCost){
-								openset.get(i).gCost=n.gCost;
+								/*openset.get(i).gCost=n.gCost;
 								openset.get(i).parent=current;
 								openset.get(i).lastX=n.lastX;
-								openset.get(i).lastY=n.lastY;
+								openset.get(i).lastY=n.lastY;*/
+								openset.remove(i);
+								openset.add(n);
 								//openset.get(i).moved=n.moved;
 							}
 						}
