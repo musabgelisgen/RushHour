@@ -41,14 +41,11 @@ public class Node {
 }
 	public int getHCost(){
 		int cost=(table[0].length-(cars.get(targetCar()).fake_x));
-		if(cars.get(targetCar()).direction==0){
-			for(int i=cars.get(targetCar()).x+cars.get(targetCar()).width;i<table[0].length;i++){
-				if(table[table.length-1-cars.get(targetCar()).y][i]!=0)
+			for(int i=cars.get(targetCar()).fake_x+cars.get(targetCar()).width;i<table[0].length;i++){
+				if(table[table.length-1-cars.get(targetCar()).fake_y][i]!=0)
 					cost++;
 			}
-			return cost;
-		}
-		return 0;
+		return cost;
 	}
 	public int targetCar(){
 		int i=0;
@@ -68,7 +65,8 @@ public class Node {
 						Node n=new Node();
 						n.cars=cars;
 						n.parent=this;
-						n.gCost=this.gCost+cars.get(i).lastMoveAmountX*(1-cars.get(i).direction)+cars.get(i).lastMoveAmountY*(cars.get(i).direction);
+						n.gCost=this.gCost+Math.abs(cars.get(i).fake_lastMoveAmountX)*(1-cars.get(i).direction)+Math.abs(cars.get(i).fake_lastMoveAmountY)*(cars.get(i).direction);
+						//improve n.gCost 
 						n.table=table;
 						n.hCost=n.getHCost();
 						n.fCost=n.gCost+n.hCost;

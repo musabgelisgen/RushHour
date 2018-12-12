@@ -22,6 +22,7 @@ public class Singleplayer extends BaseScreen {
 	boolean[] enables;
 	static int passed=0;
 	TextButton[] levels;
+
 	public Singleplayer(BaseGame game) {
 		super(game);
 		

@@ -197,7 +197,12 @@ public class Levels extends BaseScreen {
 					disty=0;
 					
 				}
-
+				if(hintnumber<path.size()){
+				for(int i=0;i<path.get(hintnumber).table.length;i++)
+					System.out.println(Arrays.toString(path.get(hintnumber).table[i]));
+				System.out.println(cars.get(5).x+" "+cars.get(5).y);
+				System.out.println("\n\n");
+				}
 				return true;
 				}
 				
