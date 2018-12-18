@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.mygdx.game.SerializationUtil;
-import com.mygdx.game.StarScore;
+import data.SerializationUtil;
+import data.StarScore;
 
 public class SerializationTest {
 

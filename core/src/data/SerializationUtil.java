@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package data;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
