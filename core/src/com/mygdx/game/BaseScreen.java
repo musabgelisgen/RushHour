@@ -27,12 +27,12 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 	Sound buton;
 	Music instrumental;
 	@Override
-	
+
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	public void addStyles(){
 		buton=Gdx.audio.newSound(Gdx.files.internal("button.ogg"));
 		instrumental=Gdx.audio.newMusic(Gdx.files.internal("main.ogg"));
@@ -41,7 +41,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		TextButtonStyle buttonStyle1=new TextButtonStyle();
 		TextButtonStyle buttonStyle2=new TextButtonStyle();
 		TextButtonStyle buttonStyle3=new TextButtonStyle();
-		
+
 		BitmapFont font=new BitmapFont();
 		buttonStyle1.font=font;
 		buttonStyle2.font=font;
@@ -64,11 +64,11 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		buttonStyle2.downFontColor=Color.PINK;
 		buttonStyle3.up=game.skin.getDrawable("returnM");
 		buttonStyle3.over=game.skin.getDrawable("overarrow");
-		
+
 		game.skin.add("buttonStyle1", buttonStyle1);
 		game.skin.add("buttonStyle2", buttonStyle2);
 		game.skin.add("buttonStyle3", buttonStyle3);
-		
+
 		TextButtonStyle buttonCarStyle1=new TextButtonStyle();
 		TextButtonStyle buttonCarStyle2=new TextButtonStyle();
 		TextButtonStyle buttonCarStyle3=new TextButtonStyle();
@@ -77,7 +77,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		TextButtonStyle buttonCarStyle6=new TextButtonStyle();
 		TextButtonStyle buttonCarStyle7=new TextButtonStyle();
 		TextButtonStyle buttonCarStyle8=new TextButtonStyle();
-		
+
 		Texture car1=new Texture("ambulance.png");
 		Texture car2=new Texture("ferrari.png");
 		Texture car3=new Texture("mercedes.png");
@@ -86,7 +86,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		Texture car6=new Texture("newcar5.png");
 		Texture car7=new Texture("police.png");
 		Texture car8=new Texture("mercedes.png");
-		
+
 		game.skin.add("car1Texture", car1);
 		game.skin.add("car2Texture", car2);
 		game.skin.add("car3Texture", car3);
@@ -95,7 +95,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		game.skin.add("car6Texture", car6);
 		game.skin.add("car7Texture", car7);
 		game.skin.add("car8Texture", car8);
-		
+
 		game.skin.add("car1", new NinePatch(car1,5,5,5,5));
 		game.skin.add("car2", new NinePatch(car2,5,5,5,5));
 		game.skin.add("car3", new NinePatch(car3,5,5,5,5));
@@ -104,7 +104,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		game.skin.add("car6", new NinePatch(car6,5,5,5,5));
 		game.skin.add("car7", new NinePatch(car7,5,5,5,5));
 		game.skin.add("car8", new NinePatch(car8,5,5,5,5));
-		
+
 		buttonCarStyle1.up=game.skin.getDrawable("car1");
 		buttonCarStyle2.up=game.skin.getDrawable("car2");
 		buttonCarStyle3.up=game.skin.getDrawable("car3");
@@ -113,7 +113,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		buttonCarStyle6.up=game.skin.getDrawable("car6");
 		buttonCarStyle7.up=game.skin.getDrawable("car7");
 		buttonCarStyle8.up=game.skin.getDrawable("car8");
-		
+
 		buttonCarStyle1.font=font;
 		buttonCarStyle2.font=font;
 		buttonCarStyle3.font=font;
@@ -122,7 +122,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		buttonCarStyle6.font=font;
 		buttonCarStyle7.font=font;
 		buttonCarStyle8.font=font;
-		
+
 		game.skin.add("buttonCarStyle1", buttonCarStyle1);
 		game.skin.add("buttonCarStyle2", buttonCarStyle2);
 		game.skin.add("buttonCarStyle3", buttonCarStyle3);
@@ -132,10 +132,44 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		game.skin.add("buttonCarStyle7", buttonCarStyle7);
 		game.skin.add("buttonCarStyle8", buttonCarStyle8);
 		
+		//////////// THEMES
 		
-		
+//		TextButtonStyle buttonThemeStyle1=new TextButtonStyle();
+//		TextButtonStyle buttonThemeStyle2=new TextButtonStyle();
+//		TextButtonStyle buttonThemeStyle3=new TextButtonStyle();
+//		TextButtonStyle buttonThemeStyle4=new TextButtonStyle();
+//
+//		Texture theme1=new Texture("ambulance.png");
+//		Texture theme2=new Texture("ferrari.png");
+//		Texture theme3=new Texture("mercedes.png");
+//		Texture theme4=new Texture("police.png");
+//
+//		game.skin.add("theme1Texture", theme1);
+//		game.skin.add("theme2Texture", theme2);
+//		game.skin.add("theme3Texture", theme3);
+//		game.skin.add("theme4Texture", theme4);
+//
+//		game.skin.add("theme1", new NinePatch(theme1,5,5,5,5)); //not sure
+//		game.skin.add("theme2", new NinePatch(theme2,5,5,5,5));
+//		game.skin.add("theme3", new NinePatch(theme3,5,5,5,5));
+//		game.skin.add("theme4", new NinePatch(theme4,5,5,5,5));
+//
+//		buttonThemeStyle1.up = game.skin.getDrawable("theme1");
+//		buttonThemeStyle2.up = game.skin.getDrawable("theme2");
+//		buttonThemeStyle3.up = game.skin.getDrawable("theme3");
+//		buttonThemeStyle4.up = game.skin.getDrawable("theme4");
+//
+//		buttonThemeStyle1.font = font;
+//		buttonThemeStyle2.font = font;
+//		buttonThemeStyle3.font = font;
+//		buttonThemeStyle4.font = font;
+//
+//		game.skin.add("buttonThemeStyle1", buttonThemeStyle1);
+//		game.skin.add("buttonThemeStyle2", buttonThemeStyle2);
+//		game.skin.add("buttonThemeStyle3", buttonThemeStyle3);
+//		game.skin.add("buttonThemeStyle4", buttonThemeStyle4);
 	}
- 
+
 	public BaseScreen(BaseGame game) {
 		this.game = game;
 		mainStage=new Stage(new FitViewport(VIEW_WIDTH, VIEW_HEIGHT));
@@ -176,7 +210,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 	public void togglePaused(){
 		paused=!paused;
 	}
-	
+
 
 	@Override
 	public boolean keyUp(int keycode) {

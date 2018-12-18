@@ -50,11 +50,11 @@ public class SelectCar extends BaseScreen {
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
 				game.skin.get("buton",Sound.class).play();
 				return true;
-		}
+			}
 			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
 				game.setScreen(new MainMenu(game));
 			}
-			});
+		});
 		newcar1.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
@@ -62,16 +62,16 @@ public class SelectCar extends BaseScreen {
 				//First clean
 				for(int i=0;i<carButtons.length;i++)
 					carButtons[i].setText("");
-				
+
 				return true;
-		}
+			}
 			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
 				newcar1.setText("CHOOSEN");
 				targetTexture=game.skin.get("car1Texture",Texture.class);
 				targetNumber=1;
 			}
-			});
-		
+		});
+
 		newcar2.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
@@ -80,14 +80,14 @@ public class SelectCar extends BaseScreen {
 				for(int i=0;i<carButtons.length;i++)
 					carButtons[i].setText("");
 				return true;
-		}
+			}
 			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
 				newcar2.setText("CHOOSEN");
 				targetTexture=game.skin.get("car2Texture",Texture.class);
 				targetNumber=2;
 			}
-			});
-		
+		});
+
 		newcar3.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
@@ -96,13 +96,13 @@ public class SelectCar extends BaseScreen {
 				for(int i=0;i<carButtons.length;i++)
 					carButtons[i].setText("");
 				return true;
-		}
+			}
 			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
 				newcar3.setText("CHOOSEN");
 				targetTexture=game.skin.get("car3Texture",Texture.class);
 				targetNumber=3;
 			}
-			});
+		});
 		/*
 		newcar4.addListener(new InputListener()
 		{
@@ -117,7 +117,7 @@ public class SelectCar extends BaseScreen {
 				newcar4.setText("CHOOSEN");
 			}
 			});
-		
+
 		newcar5.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
@@ -131,7 +131,7 @@ public class SelectCar extends BaseScreen {
 				newcar5.setText("CHOOSEN");
 			}
 			});
-		
+
 		newcar6.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
@@ -145,7 +145,7 @@ public class SelectCar extends BaseScreen {
 				newcar6.setText("CHOOSEN");
 			}
 			});
-		
+
 		newcar7.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
@@ -159,7 +159,7 @@ public class SelectCar extends BaseScreen {
 				newcar7.setText("CHOOSEN");
 			}
 			});*/
-		
+
 		newcar8.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
@@ -168,14 +168,14 @@ public class SelectCar extends BaseScreen {
 				for(int i=0;i<carButtons.length;i++)
 					carButtons[i].setText("");
 				return true;
-		}
+			}
 			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
 				newcar8.setText("CHOOSEN");
 				targetTexture=game.skin.get("car8Texture",Texture.class);
 				targetNumber=8;
 			}
-			});
-		
+		});
+
 		uiTable.setBackground(game.skin.getDrawable("background"));
 		uiStage.addActor(newcar1);
 		uiStage.addActor(newcar2);
@@ -185,16 +185,16 @@ public class SelectCar extends BaseScreen {
 		uiStage.addActor(newcar6);
 		uiStage.addActor(newcar7);*/
 		uiStage.addActor(newcar8);
-		
+
 		uiTable.add(returnMenu);
-		
+
 
 	}
 
 	@Override
 	public void update(float dt) {
 		// TODO Auto-generated method stub
-		
+
 		for(int i=0;i<carButtons.length;i++){
 			int cbx=90;
 			carButtons[i].setWidth(cbx);
@@ -206,7 +206,7 @@ public class SelectCar extends BaseScreen {
 
 	}
 	public void createStyles(){
-		
+
 	}
 
 }
