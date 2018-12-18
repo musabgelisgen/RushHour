@@ -14,8 +14,8 @@ public class SerializationTest {
 		starScore.addScore(1);
 		starScore.addScore(2);
 		
-		String fileFolder = "";
-		String scoreDir = "";
+		String fileFolder = ""; 
+		String scoreDir = ""; //location for StarScore object in file system
 		String os = System.getProperty("os.name").toUpperCase();
 		
 		if (os.contains("WIN")) {
@@ -34,16 +34,15 @@ public class SerializationTest {
 		}
 		
 
-		try {
+		try { //serialization here
 			SerializationUtil.serialize(starScore, scoreDir);
 		} catch (IOException e1) {
 			System.out.println("Score Serialization Failed");
 		}
 		
-		starScore = null;
 
 		StarScore starScore2 = null;
-		try {
+		try { //deserialization here
 			starScore2 = (StarScore) SerializationUtil.deserialize(scoreDir);	
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
