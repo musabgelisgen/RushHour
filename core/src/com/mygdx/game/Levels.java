@@ -177,7 +177,7 @@ public class Levels extends BaseScreen {
 					}
 				}
 				if(!wehave){
-					path=ASTAR.Astar(begin, cars);
+					path=PathFinder.Astar(begin, cars);
 				}
 				move=true;
 				if(hintnumber<path.size()){
