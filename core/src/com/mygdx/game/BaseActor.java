@@ -15,12 +15,14 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.compression.lzma.Base;
 
 public class BaseActor extends Actor {
+	
 	public TextureRegion region;  
 	public Polygon boundingPolygon;
 	Rectangle boundary;
+	
 	public BaseActor() {
 		super();
-		region=new TextureRegion();
+		region = new TextureRegion();
 	}
 	public void setTexture(Texture t){
 		int w=t.getWidth();

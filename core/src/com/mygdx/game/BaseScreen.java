@@ -79,7 +79,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		TextButtonStyle buttonCarStyle8=new TextButtonStyle();
 
 		Texture car1=new Texture("ambulance.png");
-		Texture car2=new Texture("ferrari.png");
+		Texture car2=new Texture("car3.png");
 		Texture car3=new Texture("mercedes.png");
 		Texture car4=new Texture("newcar1.jpg");
 		Texture car5=new Texture("newcar4.jpg");
@@ -172,7 +172,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 
 	public BaseScreen(BaseGame game) {
 		this.game = game;
-		mainStage=new Stage(new FitViewport(VIEW_WIDTH, VIEW_HEIGHT));
+		mainStage = new Stage(new FitViewport(VIEW_WIDTH, VIEW_HEIGHT));
 		uiStage=new Stage(new FitViewport(VIEW_WIDTH, VIEW_HEIGHT));
 		uiTable=new Table();
 		uiTable.setFillParent(true);
