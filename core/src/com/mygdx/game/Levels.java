@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 
 public class Levels extends BaseScreen {
+	BaseActor grid;
 	String minute;
 	Sound carVoice;
 	int number_of_width_tiles,number_of_height_tiles;
@@ -60,6 +61,9 @@ public class Levels extends BaseScreen {
 
 	@Override
 	public void create() {
+		grid = new BaseActor();
+		grid.setTexture(new Texture("giphy.gif"));
+		mainStage.addActor(grid);
 		// TODO Auto-generated method stub
 		targets=new int[8];//it represents the target move counts of levels which we will set at the beginning by playing the levels before 
 		//by hint button
@@ -102,6 +106,7 @@ public class Levels extends BaseScreen {
 		b = half_of_view_height - half_of_view_height/2;
 		shape_renderer = new ShapeRenderer();
 		createCars(cars);
+		
 		
 		for(int i=0;i<cars.size();i++) {
 			
@@ -373,12 +378,19 @@ public class Levels extends BaseScreen {
 				move=false;	
 			}
 		super.render(dt);
-		shape_renderer.begin(ShapeType.Filled);
-		shape_renderer.setColor(Color.GRAY);
-		shape_renderer.rect(VIEW_WIDTH/2-half_of_view_width /2, VIEW_HEIGHT/2-half_of_view_height/2, half_of_view_width , half_of_view_height);
-		shape_renderer.end();
+//		shape_renderer.begin(ShapeType.Filled);
+		
+		
+		grid.setPosition(VIEW_WIDTH/2-half_of_view_width /2, VIEW_HEIGHT/2-half_of_view_height/2);
+		grid.setWidth(half_of_view_width);
+		grid.setHeight(half_of_view_height);
+		
+//		shape_renderer.setColor(Color.GRAY);
+//		shape_renderer.rect(VIEW_WIDTH/2-half_of_view_width /2, VIEW_HEIGHT/2-half_of_view_height/2, half_of_view_width , half_of_view_height);
+//		shape_renderer.end();
 		shape_renderer.begin(ShapeType.Filled);
 		shape_renderer.setColor(Color.YELLOW);
+		
 		for(Car x:cars)
 			if(x.id==1){
 				shape_renderer.rect(VIEW_WIDTH/2+half_of_view_width /2, x.getY(), 2*half_of_view_width /number_of_width_tiles, half_of_view_height/number_of_height_tiles);

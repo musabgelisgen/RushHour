@@ -49,6 +49,7 @@ public class MainMenu extends BaseScreen {
 		buttonStyle.overFontColor=Color.BLUE;
 		buttonStyle.downFontColor=Color.PINK;
 		game.skin.add("buttonStyle", buttonStyle);
+		
 		Texture background=new Texture("background.jpg");
 		game.skin.add("background", background);
 		
@@ -63,15 +64,16 @@ public class MainMenu extends BaseScreen {
 		
 		buton=Gdx.audio.newSound(Gdx.files.internal("button.ogg"));
 		game.skin.add("buton", buton);
-		select_theme=new TextButton("SELECT THEME", game.skin, "buttonStyle");
+		
 		
 		credits=new TextButton("CREDITS", game.skin, "buttonStyle");
 		credits.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
 				Actions.delay(0.5f),Actions.color(new Color(0f,0f,0,8f),0.5f))));
 		
-		
+		select_theme=new TextButton("SELECT THEME", game.skin, "buttonStyle");
 		select_theme.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
 				Actions.delay(0.5f),Actions.color(new Color(0f,0f,0,8f),0.5f))));
+		
 		singleplayer=new TextButton("SINGLEPLAYER", game.skin,"buttonStyle");
 		singleplayer.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
 				Actions.delay(0.5f),Actions.color(new Color(0f,0f,0,8f),0.5f))));
@@ -84,6 +86,7 @@ public class MainMenu extends BaseScreen {
 	    select_car.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
 				Actions.delay(0.5f),Actions.color(new Color(0.5f,0.5f,0,1),0.5f))));
 		uiTable.setBackground(game.skin.getDrawable("background"));
+		
 		uiTable.add();
 		uiTable.add();
 		uiTable.add();
