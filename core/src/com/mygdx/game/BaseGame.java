@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public abstract class BaseGame extends Game {
 	Skin skin;
+	public int level;
 	public BaseGame(){
 		skin=new Skin();
 	}
@@ -11,5 +12,6 @@ public abstract class BaseGame extends Game {
 	public void dispose(){
 		skin.dispose();
 	}
+	
 
 }
