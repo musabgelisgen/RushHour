@@ -30,14 +30,14 @@ public class ASTAR {
 		while(openset.size()>0){
 			Collections.sort(openset, sorter);
 			current=openset.get(0);
-			int[][] table=current.copyTable();
+			int[][] table=current.copyTable(current.table);
 			int target=current.targetCar();
 			Car t=cars.get(target);
-			int total=0;
+			int total=0; 
 			for(int i=t.fake_x+t.width;i<current.table[0].length;i++)
 				total+=current.table[current.table.length-1-t.fake_y][i];
 			if(isFinished(target+1,current.table, t.width,t.y)){
-				System.out.println("target :"+target);
+				System.out.println("OVER");
 				while(current.parent!=null){
 					path.add(0, current);
 					current=current.parent;
@@ -65,9 +65,11 @@ public class ASTAR {
 						if(openset.get(i).equals(n)){
 							if(n.gCost<openset.get(i).gCost){
 								/*openset.get(i).gCost=n.gCost;
+								openset.get(i).hCost=n.hCost;
 								openset.get(i).parent=current;
 								openset.get(i).lastX=n.lastX;
-								openset.get(i).lastY=n.lastY;*/
+								openset.get(i).lastY=n.lastY;
+								openset.get(i).nb=null;*/
 								openset.remove(i);
 								openset.add(n);
 								//openset.get(i).moved=n.moved;

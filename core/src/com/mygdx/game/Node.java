@@ -58,16 +58,16 @@ public class Node {
 	}
 	public void createChilderen(){
 		for(int i=0;i<cars.size();i++){
-			for(int k=0;k<table.length+1;k++)
-				for(int j=0;j<table[0].length+1;j++){
-					int[][] table=copyTable();
+			for(int k=0;k<table.length;k++)
+				for(int j=0;j<table[0].length;j++){
+					int[][] table=copyTable(this.table);
 					if(cars.get(i).fakeSetPosition(j, k, table, i, Levels.w1, Levels.h1, Levels.a, Levels.b,false)){
 						Node n=new Node();
 						n.cars=cars;
 						n.parent=this;
 						n.gCost=this.gCost+1;
 						//improve n.gCost 
-						n.table=table;
+						n.table=copyTable(table);
 						n.hCost=n.getHCost();
 						n.fCost=n.gCost+n.hCost;
 						n.moved=cars.get(i);
@@ -83,11 +83,11 @@ public class Node {
 			
 		}
 	}
-	public int[][] copyTable(){
-		int[][] copy=new int[this.table.length][this.table[0].length];
+	public int[][] copyTable(int[][] table){
+		int[][] copy=new int[table.length][table[0].length];
 		for(int i=0;i<copy.length;i++)
 			for(int j=0;j<copy[0].length;j++)
-				copy[i][j]=this.table[i][j];
+				copy[i][j]=table[i][j];
 		return copy;
 	}
 	

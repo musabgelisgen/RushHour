@@ -62,15 +62,51 @@ public boolean fakeSetPosition(int x, int y, int[][] game,int num,int w1,int h1,
 			if(x!=this.fake_x)
 				return false;
 		boolean put=true;
+		//find the target because fake_x and fake_y doesn't work
+		
+		boolean devam=true;
+		
+		for(int i=game.length-1 ;devam && i>-1;i--)
+			for(int j=0;j<game[0].length;j++)
+				if(game[i][j]==(num+1)){
+					devam=false;
+					this.fake_x=j;
+					this.fake_y=game.length-i-1;
+					break;
+				}
+					
+		
+		
+		//////////////////////
+		int hedefx=x,hedefy=y,hedeffakex=this.fake_x,hedeffakey=this.fake_y;
 		for(int i=game.length-(Math.max(y,this.fake_y)+height);i<game.length-Math.min(y,this.fake_y);i++)
 			for(int j=Math.min(x,this.fake_x);j<Math.max(x,this.fake_x)+this.width;j++)
 				if(game[i][j]!=0 && game[i][j]!=(num+1) ){
-					put=false;
-					break;
+					return false;
 				}
 		
+		int[][] hedef2={{1, 2, 7, 7, 7, 10},
+						{1, 2, 4, 0, 0, 10},
+						{0, 0, 4, 0, 3, 3},
+						{0, 0, 0, 0, 8, 11},
+						{0, 5, 5, 0, 8, 11},
+						{6, 6, 9, 9, 8, 0}};
 		
-		
+		int[][] hedef1={{1, 2, 7, 7, 7, 10},
+						{1, 2, 4, 0, 0, 10},
+						{3, 3, 4, 0, 0, 0},
+						{0, 0, 0, 0, 8, 11},
+						{0, 5, 5, 0, 8, 11},
+						{6, 6, 9, 9, 8, 0}};
+		boolean bulundu1=true;
+		for(int i=0;i<game.length && bulundu1;i++)
+			for(int j=0;j<game[0].length;j++)
+				if(game[i][j]!=hedef1[i][j]){
+					bulundu1=false;
+					break;
+				}
+		this.fake_x=x;
+		this.fake_y=y;
 		if(put){
 			this.fake_xx=xx;
 			this.fake_yy=yy;
@@ -82,10 +118,9 @@ public boolean fakeSetPosition(int x, int y, int[][] game,int num,int w1,int h1,
 				for(int j=x;j<x+this.width;j++)
 					game[i][j]=(num+1);
 			
-			fake_lastMoveAmountY=y-this.fake_y;
-			fake_lastMoveAmountX=x-this.fake_x;
-			this.fake_x=x;
-			this.fake_y=y;
+			//fake_lastMoveAmountY=y-this.fake_y;
+			//fake_lastMoveAmountX=x-this.fake_x;
+			
 			if(id==1){
 				if(xx==6 && play){
 					buton.play();
@@ -103,13 +138,17 @@ public boolean fakeSetPosition(int x, int y, int[][] game,int num,int w1,int h1,
 				setPosition(x*w1+a, y*h1+b);
 			
 		}
-		
-		for(int i=0;i<game.length;i++)
+		boolean bulundu2=true;
+		for(int i=0;i<game.length && bulundu2;i++)
 			for(int j=0;j<game[0].length;j++)
-				if(arr[i][j]!=game[i][j])
-					return put;
-					
-		return false;
+				if(game[i][j]!=hedef2[i][j]){
+					bulundu2=false;
+					break;
+				}	
+		if(bulundu2 && bulundu1)
+			System.out.println("x:"+hedefx+" y:"+hedefy+" fakex:"+hedeffakex+" fakey:"+hedeffakey+" width:"+width+" height:"+height);
+		
+		return true;
 		
 		
 	}
@@ -145,8 +184,9 @@ public boolean fakeSetPosition(int x, int y, int[][] game,int num,int w1,int h1,
 		for(int i=game.length-(Math.max(y,this.y)+height);i<game.length-Math.min(y,this.y);i++)
 			for(int j=Math.min(x,this.x);j<Math.max(x,this.x)+this.width;j++)
 				if(game[i][j]!=0 && game[i][j]!=(num+1) ){
-					put=false;
-					break;
+					return false;
+					//put=false;
+					//break;
 				}
 		
 		
