@@ -78,14 +78,14 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		TextButtonStyle buttonCarStyle7=new TextButtonStyle();
 		TextButtonStyle buttonCarStyle8=new TextButtonStyle();
 
-		Texture car1=new Texture("ambulance.png");
-		Texture car2=new Texture("ferrari.png");
-		Texture car3=new Texture("mercedes.png");
+		Texture car1=new Texture("pickup_horiz.png");
+		Texture car2=new Texture("police_horiz.png");
+		Texture car3=new Texture("taxi_horiz.png");
 		Texture car4=new Texture("newcar1.jpg");
 		Texture car5=new Texture("newcar4.jpg");
 		Texture car6=new Texture("newcar5.png");
 		Texture car7=new Texture("police.png");
-		Texture car8=new Texture("mercedes.png");
+		Texture car8=new Texture("ambulance_horiz.png");
 
 		game.skin.add("car1Texture", car1);
 		game.skin.add("car2Texture", car2);

@@ -21,7 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 
 public class Levels extends BaseScreen {
-	String minute;
 	Sound carVoice;
 	int m,n;
 	ShapeRenderer sr;
@@ -30,6 +29,7 @@ public class Levels extends BaseScreen {
 	static ArrayList<Car> cars;
 	int[][] gameTable;
 	static int a,b,w1,h1;
+	int a1,b1;
 	boolean win=false;
 	float startX,startY;
 	Sound buton;
@@ -46,11 +46,8 @@ public class Levels extends BaseScreen {
 	int gox,goy;	//for hint
 	int speed;
 	int index;
-	Label time,move_count,targetMoveCount;
-	int total_time;
-	int tl;
+	Label move_count,targetMoveCount;
 	int numOfMoves;
-	long startTime;
 	int[] targets;
 	public Levels(BaseGame game) {
 		super(game);
@@ -65,8 +62,6 @@ public class Levels extends BaseScreen {
 		targets[0]=10;
 		targets[1]=36;
 		numOfMoves=0;
-		total_time=120;
-		time=new Label("02:00", game.skin,"uiLabelStyle");
 		targetMoveCount=new Label("Target Move Count is :"+targets[levelno], game.skin,"uiLabelStyle");
 		move_count=new Label("Number Of Moves :"+numOfMoves, game.skin,"uiLabelStyle");
 		index=0;
@@ -121,8 +116,8 @@ public class Levels extends BaseScreen {
 			
 			
 			 public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
-						carx.firstTouchX=(int) (x/(w/m));
-						carx.firstTouchY=(int) (y/(h/n));
+						carx.firstTouchX=carx.x;
+						carx.firstTouchY=carx.y;
 						carVoice.play();
 						
 					
@@ -130,6 +125,11 @@ public class Levels extends BaseScreen {
 					return true;
 				}
 					public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+						if(carx.pressed) {
+							if((carx.x != carx.firstTouchX) || (carx.y != carx.firstTouchY)) {
+								numOfMoves++;
+							}
+						}
 						carx.pressed=false;
 						carVoice.stop();
 					}
@@ -159,6 +159,7 @@ public class Levels extends BaseScreen {
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
 				if(win)
 					return true;
+				numOfMoves++;
 				Node begin=new Node();
 				begin.cars=cars;
 				begin.table=new int[gameTable.length][gameTable[0].length];
@@ -234,10 +235,7 @@ public class Levels extends BaseScreen {
 		uiTable.add(returnMenu);
 		uiTable.add(hint);
 		uiTable.row();
-		time.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
-				Actions.delay(1.0f),Actions.color(new Color(0.5f,0.5f,0,1),0.5f))));
-		mainStage.addActor(time);
-		startTime= System.currentTimeMillis();
+
 		mainStage.addActor(move_count);
 		mainStage.addActor(targetMoveCount);
 		mainStage.addActor(message);
@@ -263,25 +261,25 @@ public class Levels extends BaseScreen {
 		Car car6=new Car(1,5,1,1,2,0);
 		Car car7=new Car(0,2,0,2,1,0);
 		
-		car1.setTexture(new Texture("ferrari.png"));
+		car1.setTexture(new Texture("obs_car_horiz.png"));
 		car1.setPosition(VIEW_WIDTH/2-w/2+car1.x*w/m, VIEW_HEIGHT/2-h/2+h*car1.y/n);
 		
-		car2.setTexture(new Texture("bugatti.png"));
+		car2.setTexture(new Texture("obs_car_horiz.png"));
 		car2.setPosition(VIEW_WIDTH/2-w/2+car2.x*w/m, VIEW_HEIGHT/2-h/2+h*car2.y/n);
 		
 		car3.setTexture(new Texture("ambulance.png"));
 		car3.setPosition(VIEW_WIDTH/2-w/2+car3.x*w/m, VIEW_HEIGHT/2-h/2+h*car3.y/n);
 		
-		car4.setTexture(new Texture("chevrolet.png"));
+		car4.setTexture(new Texture("obs_car_vert.png"));
 		car4.setPosition(VIEW_WIDTH/2-w/2+car4.x*w/m, VIEW_HEIGHT/2-h/2+h*car4.y/n);
 				
-		car5.setTexture(new Texture("jeep.png"));
+		car5.setTexture(new Texture("obs_car_vert.png"));
 		car5.setPosition(VIEW_WIDTH/2-w/2+car5.x*w/m, VIEW_HEIGHT/2-h/2+h*car5.y/n);
 				
-		car6.setTexture(new Texture("dashcam.png"));
+		car6.setTexture(new Texture("obs_car_vert.png"));
 		car6.setPosition(VIEW_WIDTH/2-w/2+car6.x*w/m, VIEW_HEIGHT/2-h/2+h*car6.y/n);
 				
-		car7.setTexture(new Texture("mercedes.png"));
+		car7.setTexture(new Texture("obs_car_horiz.png"));
 		car7.setPosition(VIEW_WIDTH/2-w/2+car7.x*w/m, VIEW_HEIGHT/2-h/2+h*car7.y/n);
 		
 		list.add(car1);
@@ -338,13 +336,6 @@ public class Levels extends BaseScreen {
 	@Override
 	public void render(float dt) {
 		super.render(dt);
-		 minute="";
-		long elapsedTime = System.currentTimeMillis()-startTime;
-		 tl=(int) (total_time-elapsedTime/1000);
-		if(tl-60*(tl/60)>9)
-			minute=""+(tl-60*(tl/60));
-		else
-			minute="0"+(tl-60*(tl/60));
 		
 		
 		
@@ -354,7 +345,7 @@ public class Levels extends BaseScreen {
 		target.setPosition(target.getX()+distx/Math.max(Math.abs(distx),1)*w1, target.getY()+disty/Math.max(Math.abs(disty),1)*h1);
 		gox+=distx/Math.max(Math.abs(distx),1);
 		goy+=disty/Math.max(Math.abs(disty),1);
-		numOfMoves++;
+		//numOfMoves++;
 		}
 		if(distx!=0 || disty!=0)
 		if(gox==distx)
@@ -393,10 +384,7 @@ public class Levels extends BaseScreen {
 		sr.rect(startX-w/m,startY,w/m,h/n);
 		sr.end();
 		mainStage.draw();
-		time.setText("Time Left: 0"+tl/60+":"+minute);
 		move_count.setText("Number Of Moves :"+numOfMoves);
-		time.setPosition(0, 350);
-		time.setColor(Color.RED);
 		move_count.setPosition(VIEW_WIDTH/2,VIEW_HEIGHT-100);
 		targetMoveCount.setPosition(VIEW_WIDTH/2,VIEW_HEIGHT-50 );
 		returnMenu.setPosition(0,0);
@@ -435,15 +423,17 @@ public class Levels extends BaseScreen {
 			int sc=VIEW_HEIGHT-screenY;
 			int w1=w/m;
 			int h1=h/n;
-			int a1=screenX-a;
+			a1=screenX-a;
 			a1/=w1;
-			int b1=sc-b;
+			b1=sc-b;
 			b1/=h1;
+			
 				
 			if(cars.get(i).pressed && cars.get(i).move){
 					
-					if(cars.get(i).setPosition(a1,b1,gameTable,i,w1,h1,a,b,true))
-						numOfMoves++;
+
+				cars.get(i).setPosition(a1,b1,gameTable,i,w1,h1,a,b,true);
+//						numOfMoves++;
 			}
 		
 		

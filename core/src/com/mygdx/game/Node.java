@@ -65,7 +65,7 @@ public class Node {
 						Node n=new Node();
 						n.cars=cars;
 						n.parent=this;
-						n.gCost=this.gCost+Math.abs(cars.get(i).fake_lastMoveAmountX)*(1-cars.get(i).direction)+Math.abs(cars.get(i).fake_lastMoveAmountY)*(cars.get(i).direction);
+						n.gCost=this.gCost+1;
 						//improve n.gCost 
 						n.table=table;
 						n.hCost=n.getHCost();
