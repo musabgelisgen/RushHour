@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -20,7 +22,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 
+import data.SerializationUtil;
+import data.StarScore;
+
 public class Levels extends BaseScreen {
+	BaseActor grid;
 	Sound carVoice;
 	int width_tiles,height_tiles;
 	ShapeRenderer shape_renderer;
@@ -49,6 +55,7 @@ public class Levels extends BaseScreen {
 	Label move_count,targetMoveCount;
 	int numOfMoves;
 	int[] targets;
+	boolean serialized = false;
 	public Levels(BaseGame game) {
 		super(game);
 		
@@ -56,11 +63,21 @@ public class Levels extends BaseScreen {
 
 	@Override
 	public void create() {
+		grid = new BaseActor();
+		grid.setTexture(new Texture("grid.png"));
+		mainStage.addActor(grid);
+		
 		// TODO Auto-generated method stub
 		targets=new int[8];//it represents the target move counts of levels which we will set at the beginning by playing the levels before 
 		//by hint button
-		targets[0]=10;
-		targets[1]=36;
+		targets[0]=4;
+		targets[1]=16;
+		targets[2]=14;
+		targets[3]=10;
+		targets[4]=6;
+		targets[5]=14;
+		targets[6]=19;
+		targets[7]=20;
 		numOfMoves=0;
 		targetMoveCount=new Label("Target Move Count is :"+targets[levelno], game.skin,"uiLabelStyle");
 		move_count=new Label("Number Of Moves :"+numOfMoves, game.skin,"uiLabelStyle");
@@ -95,6 +112,8 @@ public class Levels extends BaseScreen {
 		a=VIEW_WIDTH/2-half_of_view_width/2;
 		b=VIEW_HEIGHT/2-half_of_view_height/2;
 		shape_renderer=new ShapeRenderer();
+		
+		
 		createCars(cars);
 		for(int i=0;i<cars.size();i++)
 			if(cars.get(i).id==1){
@@ -235,7 +254,8 @@ public class Levels extends BaseScreen {
 		uiTable.add(returnMenu);
 		uiTable.add(hint);
 		uiTable.row();
-
+		
+		
 		mainStage.addActor(move_count);
 		mainStage.addActor(targetMoveCount);
 		mainStage.addActor(message);
@@ -265,6 +285,58 @@ public class Levels extends BaseScreen {
 			x.setWidth(half_of_view_width/width_tiles*x.width);
 			x.setHeight(half_of_view_height/height_tiles*x.height);
 			if(x.xx==width_tiles && x.id==1){
+				if(!serialized) {
+					int currStar;
+					if(numOfMoves <= targets[levelno - 1])
+						currStar = 3;
+					else if(numOfMoves <= targets[levelno - 1] + 2)
+						currStar = 2;
+					else
+						currStar = 1;
+					
+					String fileFolder = ""; 
+					String scoreDir = ""; //location for StarScore object in file system
+					String os = System.getProperty("os.name").toUpperCase();
+					
+					if (os.contains("WIN")) {
+						fileFolder = System.getenv("APPDATA") + "\\" + "RushHour";
+						scoreDir =  fileFolder + "\\scores.ser";
+					}
+	
+					else if (os.contains("MAC")) {
+						fileFolder = System.getProperty("user.home") + "/Library/Application Support" + "/RushHour";
+						scoreDir = fileFolder + "/scores.ser";
+					}
+					StarScore sScores;
+					File directory = new File(fileFolder);
+					if (directory.exists() == false) {
+						directory.mkdir();
+						
+						sScores = new StarScore();
+						for(int i = 0; i < 8; i++) {
+							sScores.addScore(0);
+						}
+						try { //serialization here
+							SerializationUtil.serialize(sScores, scoreDir);
+						} catch (IOException e1) {
+							System.out.println("Score Serialization Failed");
+						}
+					}
+					else {
+						try { //deserialization here
+							sScores = (StarScore) SerializationUtil.deserialize(scoreDir);
+							System.out.println("old score: " + sScores.getScores().get(levelno));
+							if(sScores.getScores().get(levelno) < currStar) {
+								sScores.updateScore(levelno, currStar);
+								SerializationUtil.serialize(sScores, scoreDir);
+							}
+							System.out.println("new score: " + sScores.getScores().get(levelno));
+						} catch (ClassNotFoundException | IOException e) {
+							e.printStackTrace();
+						}
+					}
+					serialized = true;
+				}
 				win=true;
 			}
 			
@@ -275,23 +347,14 @@ public class Levels extends BaseScreen {
 			winner.setHeight(200);
 			pause();
 		}
-			 
-			
+			 			
 		}
-
-			
-		}
-		
-		
-		
-
 	
+		}
 	
 	@Override
 	public void render(float dt) {
 		super.render(dt);
-		
-		
 		
 		index++;
 		index%=speed;
@@ -313,12 +376,18 @@ public class Levels extends BaseScreen {
 				move=false;	
 			}
 		super.render(dt);
+//		shape_renderer.begin(ShapeType.Filled);
+//		shape_renderer.setColor(Color.GRAY);
+//		shape_renderer.rect(VIEW_WIDTH/2-half_of_view_width/2, VIEW_HEIGHT/2-half_of_view_height/2, half_of_view_width, half_of_view_height);
+//		shape_renderer.end();
+		
+		grid.setPosition(VIEW_WIDTH/2-half_of_view_width/2, VIEW_HEIGHT/2-half_of_view_height/2);
+		grid.setWidth(half_of_view_width);
+		grid.setHeight(half_of_view_height);
+		
 		shape_renderer.begin(ShapeType.Filled);
-		shape_renderer.setColor(Color.GRAY);
-		shape_renderer.rect(VIEW_WIDTH/2-half_of_view_width/2, VIEW_HEIGHT/2-half_of_view_height/2, half_of_view_width, half_of_view_height);
-		shape_renderer.end();
-		shape_renderer.begin(ShapeType.Filled);
-		shape_renderer.setColor(Color.YELLOW);
+		shape_renderer.setColor(Color.BLACK);
+		
 		for(Car x:cars)
 			if(x.id==1){
 				shape_renderer.rect(VIEW_WIDTH/2+half_of_view_width/2, x.getY(), 2*half_of_view_width/width_tiles, half_of_view_height/height_tiles);
@@ -333,10 +402,10 @@ public class Levels extends BaseScreen {
 		for(int i=0;i<height_tiles+1;i++)
 			shape_renderer.line(VIEW_WIDTH/2-half_of_view_width/2+half_of_view_width*i/width_tiles, VIEW_HEIGHT/2-half_of_view_height/2, VIEW_WIDTH/2-half_of_view_width/2+half_of_view_width*i/width_tiles, VIEW_HEIGHT/2+half_of_view_height/2);
 		shape_renderer.end();
-		shape_renderer.begin(ShapeType.Filled);
-		shape_renderer.setColor(Color.CYAN);
-		shape_renderer.rect(startX-half_of_view_width/width_tiles,startY,half_of_view_width/width_tiles,half_of_view_height/height_tiles);
-		shape_renderer.end();
+//		shape_renderer.begin(ShapeType.Filled);
+//		shape_renderer.setColor(Color.CYAN);
+//		shape_renderer.rect(startX-half_of_view_width/width_tiles,startY,half_of_view_width/width_tiles,half_of_view_height/height_tiles);
+//		shape_renderer.end();
 		mainStage.draw();
 		move_count.setText("Number Of Moves :"+numOfMoves);
 		move_count.setPosition(VIEW_WIDTH/2,VIEW_HEIGHT-100);
@@ -350,12 +419,12 @@ public class Levels extends BaseScreen {
 		message.setPosition(VIEW_WIDTH/2-meswidth/2, 0);
 		message.setWidth(meswidth);
 		message.setHeight(mesheight);
-		shape_renderer.begin(ShapeType.Line);
-		shape_renderer.setColor(Color.YELLOW);
-		for(Car x:cars)
-			if(x.id==1)
-				shape_renderer.rect(x.getX(), x.getY(), x.getWidth(), x.getHeight());
-		shape_renderer.end();
+//		shape_renderer.begin(ShapeType.Line);
+//		shape_renderer.setColor(Color.YELLOW);
+//		for(Car x:cars)
+//			if(x.id==1)
+//				shape_renderer.rect(x.getX(), x.getY(), x.getWidth(), x.getHeight());
+//		shape_renderer.end();
 		
 		//show the hint
 		
@@ -382,10 +451,7 @@ public class Levels extends BaseScreen {
 			
 				
 			if(cars.get(i).pressed && cars.get(i).move){
-					
-
 				cars.get(i).setPosition(a1,b1,gameTable,i,tile_width,tile_height,a,b,true);
-//						numOfMoves++;
 			}
 		
 		
