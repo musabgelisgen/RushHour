@@ -1,5 +1,8 @@
 package com.mygdx.game;
 
+import java.io.File;
+import java.io.IOException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -8,12 +11,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+
+import data.SerializationUtil;
+import data.StarScore;
 
 public class Singleplayer extends BaseScreen {
 	TextButton level1,level2,level3,level4,level5,level6,level7,level8,returnMenu;
@@ -22,6 +29,7 @@ public class Singleplayer extends BaseScreen {
 	boolean[] enables;
 	static int passed=7;
 	TextButton[] levels;
+	StarScore scores = null;
 
 	public Singleplayer(BaseGame game) {
 		super(game);
@@ -71,6 +79,48 @@ public class Singleplayer extends BaseScreen {
 		level8=new TextButton("", game.skin, "buttonStyle1");
 		levels[7]=level8;
 		
+		Texture threeStar = new Texture("three_stars.png");
+		Texture twoStar = new Texture("two_stars.png");
+		Texture oneStar = new Texture("one_stars.png");
+		Texture noStar = new Texture("no_stars.png");
+		
+		String fileFolder = ""; 
+		String scoreDir = ""; //location for StarScore object in file system
+		String os = System.getProperty("os.name").toUpperCase();
+		
+		if (os.contains("WIN")) {
+			fileFolder = System.getenv("APPDATA") + "\\" + "RushHour";
+			scoreDir =  fileFolder + "\\scores.ser";
+		}
+
+		else if (os.contains("MAC")) {
+			fileFolder = System.getProperty("user.home") + "/Library/Application Support" + "/RushHour";
+			scoreDir = fileFolder + "/scores.ser";
+		}
+		
+		File directory = new File(fileFolder);
+		if (directory.exists() == false) {
+			directory.mkdir();
+			
+			scores = new StarScore();
+			for(int i = 0; i < 8; i++) {
+				scores.addScore(0);
+			}
+			try { //serialization here
+				SerializationUtil.serialize(scores, scoreDir);
+			} catch (IOException e1) {
+				System.out.println("Score Serialization Failed");
+			}
+		}
+		else {
+			try { //deserialization here
+				scores = (StarScore) SerializationUtil.deserialize(scoreDir);
+
+			} catch (ClassNotFoundException | IOException e) {
+				e.printStackTrace();
+			}
+		}		
+		
 		for(int i=0;i<8;i++){
 			levels[i].setTouchable(enables[i]?Touchable.enabled:Touchable.disabled);
 			levels[i].setStyle(i>passed?game.skin.get("buttonStyle2", TextButtonStyle.class):game.skin.get("buttonStyle1", TextButtonStyle.class));
@@ -83,10 +133,26 @@ public class Singleplayer extends BaseScreen {
 		
 		addListeners();
 		
-		
-		
+
 		//replace the objects on the screen
-		uiTable.setBackground(game.skin.getDrawable("background"));
+		Texture backgroundSP=new Texture("background_blurred.jpg");
+		game.skin.add("background_blurred", backgroundSP);
+		uiTable.setBackground(game.skin.getDrawable("background_blurred"));
+		
+
+		for(int i = 0; i < 4; i++) {
+			if(scores.getScores().get(i) == 0)
+				uiTable.add(new Image(noStar)).pad(10);
+			else if(scores.getScores().get(i) == 1)
+				uiTable.add(new Image(oneStar)).pad(10);
+			else if(scores.getScores().get(i) == 2)
+				uiTable.add(new Image(twoStar)).pad(10);
+			else
+				uiTable.add(new Image(threeStar)).pad(10);
+		}
+
+		uiTable.row();
+		
 		uiTable.add(level1).pad(10);
 		uiTable.add(level2).pad(10);
 		uiTable.add(level3).pad(10);
@@ -98,6 +164,19 @@ public class Singleplayer extends BaseScreen {
 		uiTable.add(lev2);
 		uiTable.add(lev3);
 		uiTable.add(lev4);
+		
+		uiTable.row();
+		
+		for(int i = 4; i < 8; i++) {
+			if(scores.getScores().get(i) == 0)
+				uiTable.add(new Image(noStar)).pad(10);
+			else if(scores.getScores().get(i) == 1)
+				uiTable.add(new Image(oneStar)).pad(10);
+			else if(scores.getScores().get(i) == 2)
+				uiTable.add(new Image(twoStar)).pad(10);
+			else
+				uiTable.add(new Image(threeStar)).pad(10);
+		}
 		
 		uiTable.row();
 		

@@ -132,6 +132,8 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		game.skin.add("buttonCarStyle7", buttonCarStyle7);
 		game.skin.add("buttonCarStyle8", buttonCarStyle8);
 		
+
+		
 		//////////// THEMES
 		
 //		TextButtonStyle buttonThemeStyle1=new TextButtonStyle();
