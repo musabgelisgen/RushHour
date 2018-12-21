@@ -22,7 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 
 public class Levels extends BaseScreen {
 	Sound carVoice;
-	int m,n;
+	int number_of_width_tiles,number_of_height_tiles;
 	ShapeRenderer sr;
 	int w,h;
 	TextButton returnMenu,hint,message;
@@ -84,13 +84,13 @@ public class Levels extends BaseScreen {
 		buton=game.skin.get("buton", Sound.class);
 		win=false;
 		cars=new ArrayList<Car>();
-		m=6;
-		n=6;
-		gameTable=new int[n][m];
+		number_of_width_tiles=6;
+		number_of_height_tiles=6;
+		gameTable=new int[number_of_height_tiles][number_of_width_tiles];
 		w=VIEW_WIDTH/2;
 		h=VIEW_HEIGHT/2;
-		w1=w/m;
-		h1=h/n;
+		w1=w/number_of_width_tiles;
+		h1=h/number_of_height_tiles;
 		
 		a=VIEW_WIDTH/2-w/2;
 		b=VIEW_HEIGHT/2-h/2;
@@ -104,7 +104,7 @@ public class Levels extends BaseScreen {
 			
 		
 		for(int i=0;i<cars.size();i++){
-			for(int j=n-cars.get(i).y-cars.get(i).height;j<n-cars.get(i).y;j++)
+			for(int j=number_of_height_tiles-cars.get(i).y-cars.get(i).height;j<number_of_height_tiles-cars.get(i).y;j++)
 				for(int k=cars.get(i).x;k<cars.get(i).x+cars.get(i).width;k++){
 					gameTable[j][k]=i+1;
 				}
@@ -262,25 +262,25 @@ public class Levels extends BaseScreen {
 		Car car7=new Car(0,2,0,2,1,0);
 		
 		car1.setTexture(new Texture("obs_car_horiz.png"));
-		car1.setPosition(VIEW_WIDTH/2-w/2+car1.x*w/m, VIEW_HEIGHT/2-h/2+h*car1.y/n);
+		car1.setPosition(VIEW_WIDTH/2-w/2+car1.x*w/number_of_width_tiles, VIEW_HEIGHT/2-h/2+h*car1.y/number_of_height_tiles);
 		
 		car2.setTexture(new Texture("obs_car_horiz.png"));
-		car2.setPosition(VIEW_WIDTH/2-w/2+car2.x*w/m, VIEW_HEIGHT/2-h/2+h*car2.y/n);
+		car2.setPosition(VIEW_WIDTH/2-w/2+car2.x*w/number_of_width_tiles, VIEW_HEIGHT/2-h/2+h*car2.y/number_of_height_tiles);
 		
 		car3.setTexture(new Texture("ambulance.png"));
-		car3.setPosition(VIEW_WIDTH/2-w/2+car3.x*w/m, VIEW_HEIGHT/2-h/2+h*car3.y/n);
+		car3.setPosition(VIEW_WIDTH/2-w/2+car3.x*w/number_of_width_tiles, VIEW_HEIGHT/2-h/2+h*car3.y/number_of_height_tiles);
 		
 		car4.setTexture(new Texture("obs_car_vert.png"));
-		car4.setPosition(VIEW_WIDTH/2-w/2+car4.x*w/m, VIEW_HEIGHT/2-h/2+h*car4.y/n);
+		car4.setPosition(VIEW_WIDTH/2-w/2+car4.x*w/number_of_width_tiles, VIEW_HEIGHT/2-h/2+h*car4.y/number_of_height_tiles);
 				
 		car5.setTexture(new Texture("obs_car_vert.png"));
-		car5.setPosition(VIEW_WIDTH/2-w/2+car5.x*w/m, VIEW_HEIGHT/2-h/2+h*car5.y/n);
+		car5.setPosition(VIEW_WIDTH/2-w/2+car5.x*w/number_of_width_tiles, VIEW_HEIGHT/2-h/2+h*car5.y/number_of_height_tiles);
 				
 		car6.setTexture(new Texture("obs_car_vert.png"));
-		car6.setPosition(VIEW_WIDTH/2-w/2+car6.x*w/m, VIEW_HEIGHT/2-h/2+h*car6.y/n);
+		car6.setPosition(VIEW_WIDTH/2-w/2+car6.x*w/number_of_width_tiles, VIEW_HEIGHT/2-h/2+h*car6.y/number_of_height_tiles);
 				
 		car7.setTexture(new Texture("obs_car_horiz.png"));
-		car7.setPosition(VIEW_WIDTH/2-w/2+car7.x*w/m, VIEW_HEIGHT/2-h/2+h*car7.y/n);
+		car7.setPosition(VIEW_WIDTH/2-w/2+car7.x*w/number_of_width_tiles, VIEW_HEIGHT/2-h/2+h*car7.y/number_of_height_tiles);
 		
 		list.add(car1);
 		list.add(car2);
@@ -308,9 +308,9 @@ public class Levels extends BaseScreen {
 		targetMoveCount.setText("Target Move Count is :"+targets[levelno-1]);
 		
 		for(Car x:cars){
-			x.setWidth(w/m*x.width);
-			x.setHeight(h/n*x.height);
-			if(x.xx==m && x.id==1){
+			x.setWidth(w/number_of_width_tiles*x.width);
+			x.setHeight(h/number_of_height_tiles*x.height);
+			if(x.xx==number_of_width_tiles && x.id==1){
 				win=true;
 			}
 			
@@ -367,21 +367,21 @@ public class Levels extends BaseScreen {
 		sr.setColor(Color.YELLOW);
 		for(Car x:cars)
 			if(x.id==1){
-				sr.rect(VIEW_WIDTH/2+w/2, x.getY(), 2*w/m, h/n);
+				sr.rect(VIEW_WIDTH/2+w/2, x.getY(), 2*w/number_of_width_tiles, h/number_of_height_tiles);
 			}
 		sr.end();
 		
 		/////////////////
 		sr.begin(ShapeType.Line);
 		sr.setColor(Color.BLACK);
-		for(int i=0;i<m+1;i++)
-			sr.line(VIEW_WIDTH/2-w/2, VIEW_HEIGHT/2-h/2+h*i/m, VIEW_WIDTH/2+w/2, VIEW_HEIGHT/2-h/2+h*i/m);
-		for(int i=0;i<n+1;i++)
-			sr.line(VIEW_WIDTH/2-w/2+w*i/m, VIEW_HEIGHT/2-h/2, VIEW_WIDTH/2-w/2+w*i/m, VIEW_HEIGHT/2+h/2);
+		for(int i=0;i<number_of_width_tiles+1;i++)
+			sr.line(VIEW_WIDTH/2-w/2, VIEW_HEIGHT/2-h/2+h*i/number_of_width_tiles, VIEW_WIDTH/2+w/2, VIEW_HEIGHT/2-h/2+h*i/number_of_width_tiles);
+		for(int i=0;i<number_of_height_tiles+1;i++)
+			sr.line(VIEW_WIDTH/2-w/2+w*i/number_of_width_tiles, VIEW_HEIGHT/2-h/2, VIEW_WIDTH/2-w/2+w*i/number_of_width_tiles, VIEW_HEIGHT/2+h/2);
 		sr.end();
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.CYAN);
-		sr.rect(startX-w/m,startY,w/m,h/n);
+		sr.rect(startX-w/number_of_width_tiles,startY,w/number_of_width_tiles,h/number_of_height_tiles);
 		sr.end();
 		mainStage.draw();
 		move_count.setText("Number Of Moves :"+numOfMoves);
@@ -421,8 +421,8 @@ public class Levels extends BaseScreen {
 			int b=VIEW_HEIGHT/2-h/2;
 			//(a,b) is the lowerleft corner
 			int sc=VIEW_HEIGHT-screenY;
-			int w1=w/m;
-			int h1=h/n;
+			int w1=w/number_of_width_tiles;
+			int h1=h/number_of_height_tiles;
 			a1=screenX-a;
 			a1/=w1;
 			b1=sc-b;
