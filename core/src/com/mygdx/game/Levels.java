@@ -91,6 +91,7 @@ public class Levels extends BaseScreen {
 		h=VIEW_HEIGHT/2;
 		w1=w/number_of_width_tiles;
 		h1=h/number_of_height_tiles;
+		//deneme
 		
 		a=VIEW_WIDTH/2-w/2;
 		b=VIEW_HEIGHT/2-h/2;
