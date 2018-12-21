@@ -61,7 +61,7 @@ public class Node {
 			for(int k=0;k<table.length;k++)
 				for(int j=0;j<table[0].length;j++){
 					int[][] table=copyTable(this.table);
-					if(cars.get(i).fakeSetPosition(j, k, table, i, Levels.w1, Levels.h1, Levels.a, Levels.b,false)){
+					if(cars.get(i).fakeSetPosition(j, k, table, i, Levels.tile_width, Levels.tile_height, Levels.a, Levels.b,false)){
 						Node n=new Node();
 						n.cars=cars;
 						n.parent=this;

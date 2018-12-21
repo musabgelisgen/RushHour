@@ -22,13 +22,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 
 public class Levels extends BaseScreen {
 	Sound carVoice;
-	int number_of_width_tiles,number_of_height_tiles;
-	ShapeRenderer sr;
-	int w,h;
+	int width_tiles,height_tiles;
+	ShapeRenderer shape_renderer;
+	int half_of_view_width,half_of_view_height;
 	TextButton returnMenu,hint,message;
 	static ArrayList<Car> cars;
 	int[][] gameTable;
-	static int a,b,w1,h1;
+	static int a,b,tile_width,tile_height;
 	int a1,b1;
 	boolean win=false;
 	float startX,startY;
@@ -84,19 +84,17 @@ public class Levels extends BaseScreen {
 		buton=game.skin.get("buton", Sound.class);
 		win=false;
 		cars=new ArrayList<Car>();
-		number_of_width_tiles=6;
-		number_of_height_tiles=6;
-		gameTable=new int[number_of_height_tiles][number_of_width_tiles];
-		w=VIEW_WIDTH/2;
-		h=VIEW_HEIGHT/2;
-		w1=w/number_of_width_tiles;
-		h1=h/number_of_height_tiles;
-		//deneme2
-		//deneme
+		width_tiles=6;
+		height_tiles=6;
+		gameTable=new int[height_tiles][width_tiles];
+		half_of_view_width=VIEW_WIDTH/2;
+		half_of_view_height=VIEW_HEIGHT/2;
+		tile_width=half_of_view_width/width_tiles;
+		tile_height=half_of_view_height/height_tiles;
 		
-		a=VIEW_WIDTH/2-w/2;
-		b=VIEW_HEIGHT/2-h/2;
-		sr=new ShapeRenderer();
+		a=VIEW_WIDTH/2-half_of_view_width/2;
+		b=VIEW_HEIGHT/2-half_of_view_height/2;
+		shape_renderer=new ShapeRenderer();
 		createCars(cars);
 		for(int i=0;i<cars.size();i++)
 			if(cars.get(i).id==1){
@@ -106,7 +104,7 @@ public class Levels extends BaseScreen {
 			
 		
 		for(int i=0;i<cars.size();i++){
-			for(int j=number_of_height_tiles-cars.get(i).y-cars.get(i).height;j<number_of_height_tiles-cars.get(i).y;j++)
+			for(int j=height_tiles-cars.get(i).y-cars.get(i).height;j<height_tiles-cars.get(i).y;j++)
 				for(int k=cars.get(i).x;k<cars.get(i).x+cars.get(i).width;k++){
 					gameTable[j][k]=i+1;
 				}
@@ -255,53 +253,7 @@ public class Levels extends BaseScreen {
 	}
 	
 	public void createCars(ArrayList<Car> list){
-		Car car1=new Car(0,3,5,2,1,0);
-		Car car2=new Car(0,0,4,2,1,0);
-		Car car3=new Car(0,0,2,2,1,1);
-		Car car4=new Car(1,2,1,1,2,0);
-		Car car5=new Car(1,3,2,1,2,0);
-		Car car6=new Car(1,5,1,1,2,0);
-		Car car7=new Car(0,2,0,2,1,0);
 		
-		car1.setTexture(new Texture("obs_car_horiz.png"));
-		car1.setPosition(VIEW_WIDTH/2-w/2+car1.x*w/number_of_width_tiles, VIEW_HEIGHT/2-h/2+h*car1.y/number_of_height_tiles);
-		
-		car2.setTexture(new Texture("obs_car_horiz.png"));
-		car2.setPosition(VIEW_WIDTH/2-w/2+car2.x*w/number_of_width_tiles, VIEW_HEIGHT/2-h/2+h*car2.y/number_of_height_tiles);
-		
-		car3.setTexture(new Texture("ambulance.png"));
-		car3.setPosition(VIEW_WIDTH/2-w/2+car3.x*w/number_of_width_tiles, VIEW_HEIGHT/2-h/2+h*car3.y/number_of_height_tiles);
-		
-		car4.setTexture(new Texture("obs_car_vert.png"));
-		car4.setPosition(VIEW_WIDTH/2-w/2+car4.x*w/number_of_width_tiles, VIEW_HEIGHT/2-h/2+h*car4.y/number_of_height_tiles);
-				
-		car5.setTexture(new Texture("obs_car_vert.png"));
-		car5.setPosition(VIEW_WIDTH/2-w/2+car5.x*w/number_of_width_tiles, VIEW_HEIGHT/2-h/2+h*car5.y/number_of_height_tiles);
-				
-		car6.setTexture(new Texture("obs_car_vert.png"));
-		car6.setPosition(VIEW_WIDTH/2-w/2+car6.x*w/number_of_width_tiles, VIEW_HEIGHT/2-h/2+h*car6.y/number_of_height_tiles);
-				
-		car7.setTexture(new Texture("obs_car_horiz.png"));
-		car7.setPosition(VIEW_WIDTH/2-w/2+car7.x*w/number_of_width_tiles, VIEW_HEIGHT/2-h/2+h*car7.y/number_of_height_tiles);
-		
-		list.add(car1);
-		list.add(car2);
-		list.add(car3);
-		list.add(car4);
-		list.add(car5);
-		list.add(car6);
-		list.add(car7);
-		
-		mainStage.addActor(car1);
-		mainStage.addActor(car2);
-		mainStage.addActor(car3);
-		mainStage.addActor(car4);
-		mainStage.addActor(car5);
-		mainStage.addActor(car6);
-		mainStage.addActor(car7);
-		
-		startX=car3.getX();
-		startY=car3.getY();
 	}
 
 	@Override
@@ -310,9 +262,9 @@ public class Levels extends BaseScreen {
 		targetMoveCount.setText("Target Move Count is :"+targets[levelno-1]);
 		
 		for(Car x:cars){
-			x.setWidth(w/number_of_width_tiles*x.width);
-			x.setHeight(h/number_of_height_tiles*x.height);
-			if(x.xx==number_of_width_tiles && x.id==1){
+			x.setWidth(half_of_view_width/width_tiles*x.width);
+			x.setHeight(half_of_view_height/height_tiles*x.height);
+			if(x.xx==width_tiles && x.id==1){
 				win=true;
 			}
 			
@@ -344,7 +296,7 @@ public class Levels extends BaseScreen {
 		index++;
 		index%=speed;
 		if(move && index==0){
-		target.setPosition(target.getX()+distx/Math.max(Math.abs(distx),1)*w1, target.getY()+disty/Math.max(Math.abs(disty),1)*h1);
+		target.setPosition(target.getX()+distx/Math.max(Math.abs(distx),1)*tile_width, target.getY()+disty/Math.max(Math.abs(disty),1)*tile_height);
 		gox+=distx/Math.max(Math.abs(distx),1);
 		goy+=disty/Math.max(Math.abs(disty),1);
 		//numOfMoves++;
@@ -357,34 +309,34 @@ public class Levels extends BaseScreen {
 				int aa,bb;
 				aa=hintnumber<path.size()?path.get(hintnumber).targetX:gameTable[0].length;
 				bb=hintnumber<path.size()?path.get(hintnumber).targetY:target.y;
-				target.setPosition(aa, bb, gameTable, carnumber, w1, h1, a, b, true);
+				target.setPosition(aa, bb, gameTable, carnumber, tile_width, tile_height, a, b, true);
 				move=false;	
 			}
 		super.render(dt);
-		sr.begin(ShapeType.Filled);
-		sr.setColor(Color.GRAY);
-		sr.rect(VIEW_WIDTH/2-w/2, VIEW_HEIGHT/2-h/2, w, h);
-		sr.end();
-		sr.begin(ShapeType.Filled);
-		sr.setColor(Color.YELLOW);
+		shape_renderer.begin(ShapeType.Filled);
+		shape_renderer.setColor(Color.GRAY);
+		shape_renderer.rect(VIEW_WIDTH/2-half_of_view_width/2, VIEW_HEIGHT/2-half_of_view_height/2, half_of_view_width, half_of_view_height);
+		shape_renderer.end();
+		shape_renderer.begin(ShapeType.Filled);
+		shape_renderer.setColor(Color.YELLOW);
 		for(Car x:cars)
 			if(x.id==1){
-				sr.rect(VIEW_WIDTH/2+w/2, x.getY(), 2*w/number_of_width_tiles, h/number_of_height_tiles);
+				shape_renderer.rect(VIEW_WIDTH/2+half_of_view_width/2, x.getY(), 2*half_of_view_width/width_tiles, half_of_view_height/height_tiles);
 			}
-		sr.end();
+		shape_renderer.end();
 		
 		/////////////////
-		sr.begin(ShapeType.Line);
-		sr.setColor(Color.BLACK);
-		for(int i=0;i<number_of_width_tiles+1;i++)
-			sr.line(VIEW_WIDTH/2-w/2, VIEW_HEIGHT/2-h/2+h*i/number_of_width_tiles, VIEW_WIDTH/2+w/2, VIEW_HEIGHT/2-h/2+h*i/number_of_width_tiles);
-		for(int i=0;i<number_of_height_tiles+1;i++)
-			sr.line(VIEW_WIDTH/2-w/2+w*i/number_of_width_tiles, VIEW_HEIGHT/2-h/2, VIEW_WIDTH/2-w/2+w*i/number_of_width_tiles, VIEW_HEIGHT/2+h/2);
-		sr.end();
-		sr.begin(ShapeType.Filled);
-		sr.setColor(Color.CYAN);
-		sr.rect(startX-w/number_of_width_tiles,startY,w/number_of_width_tiles,h/number_of_height_tiles);
-		sr.end();
+		shape_renderer.begin(ShapeType.Line);
+		shape_renderer.setColor(Color.BLACK);
+		for(int i=0;i<width_tiles+1;i++)
+			shape_renderer.line(VIEW_WIDTH/2-half_of_view_width/2, VIEW_HEIGHT/2-half_of_view_height/2+half_of_view_height*i/width_tiles, VIEW_WIDTH/2+half_of_view_width/2, VIEW_HEIGHT/2-half_of_view_height/2+half_of_view_height*i/width_tiles);
+		for(int i=0;i<height_tiles+1;i++)
+			shape_renderer.line(VIEW_WIDTH/2-half_of_view_width/2+half_of_view_width*i/width_tiles, VIEW_HEIGHT/2-half_of_view_height/2, VIEW_WIDTH/2-half_of_view_width/2+half_of_view_width*i/width_tiles, VIEW_HEIGHT/2+half_of_view_height/2);
+		shape_renderer.end();
+		shape_renderer.begin(ShapeType.Filled);
+		shape_renderer.setColor(Color.CYAN);
+		shape_renderer.rect(startX-half_of_view_width/width_tiles,startY,half_of_view_width/width_tiles,half_of_view_height/height_tiles);
+		shape_renderer.end();
 		mainStage.draw();
 		move_count.setText("Number Of Moves :"+numOfMoves);
 		move_count.setPosition(VIEW_WIDTH/2,VIEW_HEIGHT-100);
@@ -398,20 +350,20 @@ public class Levels extends BaseScreen {
 		message.setPosition(VIEW_WIDTH/2-meswidth/2, 0);
 		message.setWidth(meswidth);
 		message.setHeight(mesheight);
-		sr.begin(ShapeType.Line);
-		sr.setColor(Color.YELLOW);
+		shape_renderer.begin(ShapeType.Line);
+		shape_renderer.setColor(Color.YELLOW);
 		for(Car x:cars)
 			if(x.id==1)
-				sr.rect(x.getX(), x.getY(), x.getWidth(), x.getHeight());
-		sr.end();
+				shape_renderer.rect(x.getX(), x.getY(), x.getWidth(), x.getHeight());
+		shape_renderer.end();
 		
 		//show the hint
 		
-		sr.begin(ShapeType.Line);
-		sr.setColor(Color.PURPLE);
+		shape_renderer.begin(ShapeType.Line);
+		shape_renderer.setColor(Color.PURPLE);
 		if(show)
-			sr.rect(target.getX(), target.getY(), target.getWidth(), target.getHeight());
-		sr.end();
+			shape_renderer.rect(target.getX(), target.getY(), target.getWidth(), target.getHeight());
+		shape_renderer.end();
 		
 	}
 
@@ -419,22 +371,20 @@ public class Levels extends BaseScreen {
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		// upperleft is (0,0)			
 		for(int i=0;i<cars.size();i++){
-			int a=VIEW_WIDTH/2-w/2;
-			int b=VIEW_HEIGHT/2-h/2;
+			int a=half_of_view_width-half_of_view_width/2;
+			int b=half_of_view_height-half_of_view_height/2;
 			//(a,b) is the lowerleft corner
 			int sc=VIEW_HEIGHT-screenY;
-			int w1=w/number_of_width_tiles;
-			int h1=h/number_of_height_tiles;
 			a1=screenX-a;
-			a1/=w1;
+			a1/=tile_width;
 			b1=sc-b;
-			b1/=h1;
+			b1/=tile_height;
 			
 				
 			if(cars.get(i).pressed && cars.get(i).move){
 					
 
-				cars.get(i).setPosition(a1,b1,gameTable,i,w1,h1,a,b,true);
+				cars.get(i).setPosition(a1,b1,gameTable,i,tile_width,tile_height,a,b,true);
 //						numOfMoves++;
 			}
 		
