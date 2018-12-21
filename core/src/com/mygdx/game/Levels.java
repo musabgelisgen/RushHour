@@ -179,7 +179,7 @@ public class Levels extends BaseScreen {
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
 				if(win)
 					return true;
-				numOfMoves++;
+
 				Node begin=new Node();
 				begin.cars=cars;
 				begin.table=new int[gameTable.length][gameTable[0].length];
@@ -360,7 +360,8 @@ public class Levels extends BaseScreen {
 					aa=hintnumber<path.size()?path.get(hintnumber).targetX:gameTable[0].length;
 					bb=hintnumber<path.size()?path.get(hintnumber).targetY:target.y;
 					target.setPosition(aa, bb, gameTable, carnumber, tile_width, tile_height, a, b, true);
-					move=false;	
+					move=false;
+					numOfMoves++;
 				}
 		super.render(dt);
 		//		shape_renderer.begin(ShapeType.Filled);
