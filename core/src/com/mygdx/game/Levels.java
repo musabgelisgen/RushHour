@@ -345,11 +345,11 @@ public class Levels extends BaseScreen {
 				else
 					starImage = new Image(new Texture("three_stars.png"));
 				mainStage.addActor(starImage);
-				starImage.setPosition(VIEW_WIDTH/2 - 75, 5 * VIEW_HEIGHT/6 - 30);
+				starImage.setPosition(VIEW_WIDTH/2 - 83, 5 * VIEW_HEIGHT/6 - 20);
 				starImage.setWidth(175);
-				starImage.setHeight(75);
+				starImage.setHeight(65);
 				winner.setVisible(true);
-				winner.setPosition(VIEW_WIDTH/2-200, VIEW_HEIGHT/2-70);
+				winner.setPosition(VIEW_WIDTH/2-175, VIEW_HEIGHT/2-70);
 				winner.setWidth(400);
 				winner.setHeight(200);
 				finished = true;
