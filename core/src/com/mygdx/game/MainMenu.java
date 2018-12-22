@@ -97,6 +97,8 @@ public class MainMenu extends BaseScreen {
 	    
 		uiTable.setBackground(game.skin.getDrawable("background"));
 		uiTable.add(icon).padLeft(30).width(300).height(100);
+		uiTable.row();
+		uiTable.row();
 		uiTable.add();
 		uiTable.add();
 		uiTable.add();
