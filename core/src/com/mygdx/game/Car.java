@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 
@@ -201,8 +203,8 @@ public boolean fakeSetPosition(int x, int y, int[][] game,int num,int w1,int h1,
 				for(int j=x;j<x+this.width;j++)
 					game[i][j]=(num+1);
 			
-			lastMoveAmountY=Math.abs(this.y-y);
-			lastMoveAmountX=Math.abs(this.x-x);
+			lastY = Math.abs(this.y-y);
+			lastX = Math.abs(this.x-x);
 			
 			this.x=x;
 			this.y=y;
@@ -234,7 +236,7 @@ public boolean fakeSetPosition(int x, int y, int[][] game,int num,int w1,int h1,
 					
 		return movebool;
 		
-	}public boolean setPosition(int x, int y, int[][] game,int num,int w1,int h1,int a,int b,ArrayList<Car> cars) {
+	}public boolean setPosition(int x, int y, int[][] game,int num,int w1,int h1,int a,int b, ArrayList<Car> cars) {
 		if(x==this.x && y==this.y)
 			return false;
 		int[][] arr=new int[game.length][game[0].length];

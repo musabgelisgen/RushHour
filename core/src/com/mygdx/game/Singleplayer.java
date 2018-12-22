@@ -127,7 +127,7 @@ public class Singleplayer extends BaseScreen {
 		}
 		
 		
-		returnMenu=new TextButton("Main Menu", game.skin, "buttonStyle3");
+		returnMenu=new TextButton("Main Menu", game.skin, "buttonStyle");
 		
 		//create the eventlisteners
 		
@@ -192,7 +192,7 @@ public class Singleplayer extends BaseScreen {
 		
 		uiTable.row();
 		
-		uiTable.add(returnMenu);
+		uiTable.add(returnMenu).width(150).height(50);
 		
 	}
 

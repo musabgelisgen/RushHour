@@ -33,7 +33,7 @@ public class Levels extends BaseScreen {
 	int width_tiles,height_tiles;
 	ShapeRenderer shape_renderer;
 	int half_of_view_width,half_of_view_height;
-	TextButton returnMenu,hint,message;
+	TextButton returnMenu,hint,message,nextLevel;
 	static ArrayList<Car> cars;
 	int[][] gameTable;
 	static int a,b,tile_width,tile_height;
@@ -106,8 +106,9 @@ public class Levels extends BaseScreen {
 		winner.setTexture(new Texture("youwin1.png"));
 		pass=Singleplayer.passed;
 		carVoice=Gdx.audio.newSound(Gdx.files.internal("car.ogg"));
-		returnMenu=new TextButton("Back", game.skin, "buttonStyle3");
+		returnMenu=new TextButton("Back", game.skin, "buttonStyle");
 		hint=new TextButton("Hint", game.skin, "buttonStyle");
+		nextLevel = new TextButton("Next", game.skin, "buttonStyle");
 		message=new TextButton("", game.skin, "buttonStyle");
 		game.skin.add("returnMenu", returnMenu);
 		buton=game.skin.get("buton", Sound.class);
@@ -147,8 +148,8 @@ public class Levels extends BaseScreen {
 		
 			
 			 public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
-						carx.firstTouchX=(int) (x/(w/m));
-						carx.firstTouchY=(int) (y/(h/n));
+						carx.firstTouchX=(int) (x/(half_of_view_width/width_tiles));
+						carx.firstTouchY=(int) (y/(half_of_view_height/height_tiles));
 						carx.lastX=carx.firstTouchX+carx.x;
 						carx.lastY=carx.firstTouchY+carx.y;
 						carVoice.play();
@@ -184,8 +185,7 @@ public class Levels extends BaseScreen {
 					
 				}
 			});
-
-		}
+		
 		hint.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
@@ -248,6 +248,41 @@ public class Levels extends BaseScreen {
 
 			}
 		});
+		
+		nextLevel.addListener(new InputListener() {
+			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+				buton.play();
+				return true;
+			}
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+
+				for(Car carx:cars)
+					carx.buton.stop();
+				if(pass<levelno)
+					Singleplayer.passed=pass+1;
+				if(levelno == 1) {
+					game.setScreen(new Level2(game));
+				}
+				else if(levelno == 2) {
+					game.setScreen(new Level3(game));
+				}
+				else if(levelno == 3) {
+					game.setScreen(new Level4(game));
+				}
+				else if(levelno == 4) {
+					game.setScreen(new Level5(game));
+				}
+				else if(levelno == 5) {
+					game.setScreen(new Level6(game));
+				}
+				else if(levelno == 6) {
+					game.setScreen(new Level7(game));
+				}
+				else if(levelno == 7) {
+					game.setScreen(new Level8(game));
+				}
+			}
+		});
 
 		message.addListener(new InputListener()
 		{
@@ -266,6 +301,7 @@ public class Levels extends BaseScreen {
 		uiTable.setBackground(game.skin.getDrawable("background"));
 		uiTable.add(returnMenu);
 		uiTable.add(hint);
+		uiTable.add(nextLevel);
 		uiTable.row();
 
 
@@ -449,12 +485,23 @@ public class Levels extends BaseScreen {
 		
 		mainStage.draw();
 		move_count.setText("Number Of Moves :"+numOfMoves);
-		move_count.setPosition(VIEW_WIDTH/2,VIEW_HEIGHT-100);
-		targetMoveCount.setPosition(VIEW_WIDTH/2,VIEW_HEIGHT-50 );
-		returnMenu.setPosition(0,0);
-		hint.setPosition(0,200);
-		hint.setWidth(100);
-		hint.setHeight(100);
+		move_count.setPosition(VIEW_WIDTH/2-300,VIEW_HEIGHT-100);
+		targetMoveCount.setPosition(VIEW_WIDTH/2-300,VIEW_HEIGHT-50 );
+		returnMenu.setPosition(10,20);
+		returnMenu.setWidth(150);
+		returnMenu.setHeight(50);
+		hint.setPosition(250,20);
+		hint.setWidth(150);
+		hint.setHeight(50);
+		nextLevel.setVisible(false);
+		nextLevel.setPosition(480,20);
+		nextLevel.setWidth(150);
+		nextLevel.setHeight(50);
+		
+		if(win && levelno < 8) {
+			nextLevel.setVisible(true);
+		}
+		
 		int meswidth=400;
 		int mesheight=60;
 		message.setPosition(VIEW_WIDTH/2-meswidth/2, 0);
@@ -484,12 +531,12 @@ public class Levels extends BaseScreen {
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		// upperleft is (0,0)			
 		for(int i=0;i<cars.size();i++){
-			int a=VIEW_WIDTH/2-w/2;
-			int b=VIEW_HEIGHT/2-h/2;
+			int a=VIEW_WIDTH/2-half_of_view_width/2;
+			int b=VIEW_HEIGHT/2-half_of_view_height/2;
 			//(a,b) is the lowerleft corner
 			int sc=VIEW_HEIGHT-screenY;
-			int w1=w/m;
-			int h1=h/n;
+			int w1=half_of_view_width/width_tiles;
+			int h1=half_of_view_height/height_tiles;
 			a1=screenX-a;
 			a1/=w1;
 			b1=sc-b;

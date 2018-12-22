@@ -42,11 +42,14 @@ public class MainMenu extends BaseScreen {
 		game.skin.add("uiLabelStyle", style);
 		TextButtonStyle buttonStyle=new TextButtonStyle();
 		buttonStyle.font=font;
-		buttonStyle.fontColor=Color.RED;
+		buttonStyle.fontColor=Color.BLACK;
 		game.skin.add("font", buttonStyle);
 		Texture upButton=new Texture("upButton.png");
+		Texture downButton=new Texture("pushButton.png");
 		game.skin.add("upButton", new NinePatch(upButton,5,5,5,5));
+		game.skin.add("downButton", new NinePatch(downButton,5,5,5,5));
 		buttonStyle.up=game.skin.getDrawable("upButton");
+		buttonStyle.over=game.skin.getDrawable("downButton");
 //		buttonStyle.overFontColor=Color.BLUE;
 //		buttonStyle.downFontColor=Color.PINK;
 		game.skin.add("buttonStyle", buttonStyle);
@@ -93,8 +96,8 @@ public class MainMenu extends BaseScreen {
 
 	    
 		uiTable.setBackground(game.skin.getDrawable("background"));
-		uiTable.add();
 		uiTable.add(icon).padLeft(30).width(300).height(100);
+		uiTable.add();
 		uiTable.add();
 		uiTable.add();
 		uiTable.add(singleplayer).padLeft(80).width(200).height(50);
