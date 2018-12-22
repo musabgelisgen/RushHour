@@ -362,6 +362,7 @@ public class Levels extends BaseScreen {
 				}
 				win=true;
 			}
+<<<<<<< HEAD
 			
 		if(win){
 			winner.setVisible(true);
@@ -369,6 +370,18 @@ public class Levels extends BaseScreen {
 			winner.setWidth(200);
 			winner.setHeight(200);
 			pause();
+=======
+
+			if(win){
+				uiTable.setBackground(game.skin.getDrawable("background_blurred"));
+				winner.setVisible(true);
+				winner.setPosition(VIEW_WIDTH/2-200, VIEW_HEIGHT/2-70);
+				winner.setWidth(400);
+				winner.setHeight(200);
+				pause();
+			}
+
+>>>>>>> 2a519bd... you win changed
 		}
 			 			
 		}
