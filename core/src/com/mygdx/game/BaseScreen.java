@@ -132,9 +132,6 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		game.skin.add("buttonCarStyle7", buttonCarStyle7);
 		game.skin.add("buttonCarStyle8", buttonCarStyle8);
 		
-<<<<<<< HEAD
-		//////////// THEMES
-=======
 
 		// Themes
 		TextButtonStyle buttonTheme1 = new TextButtonStyle();
@@ -146,7 +143,6 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		Texture theme2 = new Texture("theme1.jpg");
 		Texture theme3 = new Texture("theme2.jpg");
 		Texture theme4 = new Texture("theme3.jpg");
->>>>>>> 5eb6f1a... Implemented Select Theme
 		
 		game.skin.add("themeTexture1", theme1);
 		game.skin.add("themeTexture2", theme2);

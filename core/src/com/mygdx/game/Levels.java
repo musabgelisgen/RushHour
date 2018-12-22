@@ -26,6 +26,7 @@ import data.SerializationUtil;
 import data.StarScore;
 
 public class Levels extends BaseScreen {
+	//
 	BaseActor grid;
 	Sound carVoice;
 	int width_tiles,height_tiles;
@@ -58,7 +59,7 @@ public class Levels extends BaseScreen {
 	boolean serialized = false;
 	public Levels(BaseGame game) {
 		super(game);
-		
+
 	}
 
 	@Override
@@ -66,7 +67,7 @@ public class Levels extends BaseScreen {
 		grid = new BaseActor();
 		grid.setTexture(SelectTheme.targetTexture);
 		mainStage.addActor(grid);
-		
+
 		// TODO Auto-generated method stub
 		targets=new int[8];//it represents the target move counts of levels which we will set at the beginning by playing the levels before 
 		//by hint button
@@ -108,67 +109,47 @@ public class Levels extends BaseScreen {
 		half_of_view_height=VIEW_HEIGHT/2;
 		tile_width=half_of_view_width/width_tiles;
 		tile_height=half_of_view_height/height_tiles;
-		
+
 		a=VIEW_WIDTH/2-half_of_view_width/2;
 		b=VIEW_HEIGHT/2-half_of_view_height/2;
 		shape_renderer=new ShapeRenderer();
-		
-		
+
+
 		createCars(cars);
 		for(int i=0;i<cars.size();i++)
 			if(cars.get(i).id==1){
 				cars.get(i).setTexture(SelectCar.targetTexture);
 				break;
 			}
-			
-		
+
+
 		for(int i=0;i<cars.size();i++){
 			for(int j=height_tiles-cars.get(i).y-cars.get(i).height;j<height_tiles-cars.get(i).y;j++)
 				for(int k=cars.get(i).x;k<cars.get(i).x+cars.get(i).width;k++){
 					gameTable[j][k]=i+1;
 				}
 		}
-		
+
 		for(final Car carx:cars){
-		
-		carx.addListener(new InputListener(){
-			
-			
-			 public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
-						carx.firstTouchX=carx.x;
-						carx.firstTouchY=carx.y;
-						carVoice.play();
-						
-					
-				 carx.pressed=true;
+
+			carx.addListener(new InputListener(){
+
+
+				public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+					carx.firstTouchX=carx.x;
+					carx.firstTouchY=carx.y;
+					carVoice.play();
+
+
+					carx.pressed=true;
 					return true;
 				}
-					public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
-						if(carx.pressed) {
-							if((carx.x != carx.firstTouchX) || (carx.y != carx.firstTouchY)) {
-								numOfMoves++;
-							}
+				public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+					if(carx.pressed) {
+						if((carx.x != carx.firstTouchX) || (carx.y != carx.firstTouchY)) {
+							numOfMoves++;
 						}
-						carx.pressed=false;
-						carVoice.stop();
 					}
-<<<<<<< HEAD
-		 });
-		
-		returnMenu.addListener(new InputListener()
-		{
-			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
-				buton.play();
-				return true;
-		}
-			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
-				game.setScreen(new Singleplayer(game));
-				if(win){
-					for(Car carx:cars)
-						carx.buton.stop();
-					if(pass<levelno)
-						Singleplayer.passed=pass+1;
-=======
 					carx.pressed=false;
 					carVoice.stop();
 				}
@@ -189,19 +170,17 @@ public class Levels extends BaseScreen {
 
 					}
 					game.setScreen(new Singleplayer(game));
->>>>>>> 0c3139b... level number bug has been resolved
 					
 				}
-			}
 			});
-		
+
 		}
 		hint.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
 				if(win)
 					return true;
-				numOfMoves++;
+
 				Node begin=new Node();
 				begin.cars=cars;
 				begin.table=new int[gameTable.length][gameTable[0].length];
@@ -210,7 +189,7 @@ public class Levels extends BaseScreen {
 						begin.table[i][j]=gameTable[i][j];
 				boolean wehave=false;
 				hintnumber=1;
-				
+
 				if(path.size()>0){
 					for(int i=0;i<path.size();i++){
 						if(isSame(path.get(i).table)){
@@ -224,10 +203,10 @@ public class Levels extends BaseScreen {
 				}
 				move=true;
 				if(hintnumber<path.size()){
-				target=path.get(hintnumber).moved;
-				carnumber=path.get(hintnumber).carnumber;
-				distx=path.get(hintnumber).targetX-cars.get(carnumber).x;
-				disty=path.get(hintnumber).targetY-cars.get(carnumber).y;
+					target=path.get(hintnumber).moved;
+					carnumber=path.get(hintnumber).carnumber;
+					distx=path.get(hintnumber).targetX-cars.get(carnumber).x;
+					disty=path.get(hintnumber).targetY-cars.get(carnumber).y;
 				}
 				else{
 					carnumber=0;
@@ -238,54 +217,54 @@ public class Levels extends BaseScreen {
 					target=cars.get(carnumber);
 					distx=gameTable[0].length-target.x;
 					disty=0;
-					
+
 				}
 				if(hintnumber<path.size()){
-				for(int i=0;i<path.get(hintnumber).table.length;i++)
-					System.out.println(Arrays.toString(path.get(hintnumber).table[i]));
-				System.out.println(cars.get(5).x+" "+cars.get(5).y);
-				System.out.println("\n\n");
+					for(int i=0;i<path.get(hintnumber).table.length;i++)
+						System.out.println(Arrays.toString(path.get(hintnumber).table[i]));
+					System.out.println(cars.get(5).x+" "+cars.get(5).y);
+					System.out.println("\n\n");
 				}
 				return true;
-				}
-				
-		
-			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
-				
-					//message.setVisible(true);	
-					//message.setTouchable(Touchable.enabled);
-				
-				
 			}
-			});
-		
+
+
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+
+				//message.setVisible(true);	
+				//message.setTouchable(Touchable.enabled);
+
+
+			}
+		});
+
 		message.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
-				
+
 				return true;
-		}
-			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
-					//message.setTouchable(Touchable.disabled);
-					//message.setVisible(false);	
-				
-				
 			}
-			});
-		
+			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+				//message.setTouchable(Touchable.disabled);
+				//message.setVisible(false);	
+
+
+			}
+		});
+
 		uiTable.setBackground(game.skin.getDrawable("background"));
 		uiTable.add(returnMenu);
 		uiTable.add(hint);
 		uiTable.row();
-		
-		
+
+
 		mainStage.addActor(move_count);
 		mainStage.addActor(targetMoveCount);
 		mainStage.addActor(message);
 		message.setVisible(false);
 		mainStage.addActor(winner);
 		winner.setVisible(false);
-		
+
 	}
 	public boolean isSame(int[][] arr){
 		for(int i=0;i<arr.length;i++)
@@ -294,16 +273,16 @@ public class Levels extends BaseScreen {
 					return false;
 		return true;
 	}
-	
+
 	public void createCars(ArrayList<Car> list){
-		
+
 	}
 
 	@Override
 	public void update(float dt) {
 		// TODO Auto-generated method stub
 		targetMoveCount.setText("Target Move Count is :"+targets[levelno-1]);
-		
+
 		for(Car x:cars){
 			x.setWidth(half_of_view_width/width_tiles*x.width);
 			x.setHeight(half_of_view_height/height_tiles*x.height);
@@ -316,61 +295,38 @@ public class Levels extends BaseScreen {
 						currStar = 2;
 					else
 						currStar = 1;
-					
+
 					String fileFolder = ""; 
 					String scoreDir = ""; //location for StarScore object in file system
 					String os = System.getProperty("os.name").toUpperCase();
-					
+
 					if (os.contains("WIN")) {
 						fileFolder = System.getenv("APPDATA") + "\\" + "RushHour";
 						scoreDir =  fileFolder + "\\scores.ser";
 					}
-	
+
 					else if (os.contains("MAC")) {
 						fileFolder = System.getProperty("user.home") + "/Library/Application Support" + "/RushHour";
 						scoreDir = fileFolder + "/scores.ser";
 					}
 					StarScore sScores;
-					File directory = new File(fileFolder);
-					if (directory.exists() == false) {
-						directory.mkdir();
-						
-						sScores = new StarScore();
-						for(int i = 0; i < 8; i++) {
-							sScores.addScore(0);
-						}
-						try { //serialization here
+
+					try { //deserialization here
+						sScores = (StarScore) SerializationUtil.deserialize(scoreDir);
+						System.out.println("old score: " + sScores.getScores().get(levelno - 1));
+						if(sScores.getScores().get(levelno - 1) < currStar) {
+							sScores.updateScore(levelno - 1, currStar);
 							SerializationUtil.serialize(sScores, scoreDir);
-						} catch (IOException e1) {
-							System.out.println("Score Serialization Failed");
 						}
+						System.out.println("new score: " + sScores.getScores().get(levelno - 1));
+					} catch (ClassNotFoundException | IOException e) {
+						e.printStackTrace();
 					}
-					else {
-						try { //deserialization here
-							sScores = (StarScore) SerializationUtil.deserialize(scoreDir);
-							System.out.println("old score: " + sScores.getScores().get(levelno));
-							if(sScores.getScores().get(levelno) < currStar) {
-								sScores.updateScore(levelno, currStar);
-								SerializationUtil.serialize(sScores, scoreDir);
-							}
-							System.out.println("new score: " + sScores.getScores().get(levelno));
-						} catch (ClassNotFoundException | IOException e) {
-							e.printStackTrace();
-						}
-					}
+
 					serialized = true;
 				}
 				win=true;
 			}
-<<<<<<< HEAD
-			
-		if(win){
-			winner.setVisible(true);
-			winner.setPosition(VIEW_WIDTH/2-100, VIEW_HEIGHT/2-100);
-			winner.setWidth(200);
-			winner.setHeight(200);
-			pause();
-=======
 
 			if(win){
 				uiTable.setBackground(game.skin.getDrawable("background_blurred"));
@@ -381,55 +337,53 @@ public class Levels extends BaseScreen {
 				pause();
 			}
 
->>>>>>> 2a519bd... you win changed
 		}
-			 			
-		}
-	
-		}
-	
+
+	}
+
 	@Override
 	public void render(float dt) {
 		super.render(dt);
-		
+
 		index++;
 		index%=speed;
 		if(move && index==0){
-		target.setPosition(target.getX()+distx/Math.max(Math.abs(distx),1)*tile_width, target.getY()+disty/Math.max(Math.abs(disty),1)*tile_height);
-		gox+=distx/Math.max(Math.abs(distx),1);
-		goy+=disty/Math.max(Math.abs(disty),1);
-		//numOfMoves++;
+			target.setPosition(target.getX()+distx/Math.max(Math.abs(distx),1)*tile_width, target.getY()+disty/Math.max(Math.abs(disty),1)*tile_height);
+			gox+=distx/Math.max(Math.abs(distx),1);
+			goy+=disty/Math.max(Math.abs(disty),1);
+			//numOfMoves++;
 		}
 		if(distx!=0 || disty!=0)
-		if(gox==distx)
-			if(goy==disty){
-				gox=0;
-				goy=0;
-				int aa,bb;
-				aa=hintnumber<path.size()?path.get(hintnumber).targetX:gameTable[0].length;
-				bb=hintnumber<path.size()?path.get(hintnumber).targetY:target.y;
-				target.setPosition(aa, bb, gameTable, carnumber, tile_width, tile_height, a, b, true);
-				move=false;	
-			}
+			if(gox==distx)
+				if(goy==disty){
+					gox=0;
+					goy=0;
+					int aa,bb;
+					aa=hintnumber<path.size()?path.get(hintnumber).targetX:gameTable[0].length;
+					bb=hintnumber<path.size()?path.get(hintnumber).targetY:target.y;
+					target.setPosition(aa, bb, gameTable, carnumber, tile_width, tile_height, a, b, true);
+					move=false;
+					numOfMoves++;
+				}
 		super.render(dt);
-//		shape_renderer.begin(ShapeType.Filled);
-//		shape_renderer.setColor(Color.GRAY);
-//		shape_renderer.rect(VIEW_WIDTH/2-half_of_view_width/2, VIEW_HEIGHT/2-half_of_view_height/2, half_of_view_width, half_of_view_height);
-//		shape_renderer.end();
-		
+		//		shape_renderer.begin(ShapeType.Filled);
+		//		shape_renderer.setColor(Color.GRAY);
+		//		shape_renderer.rect(VIEW_WIDTH/2-half_of_view_width/2, VIEW_HEIGHT/2-half_of_view_height/2, half_of_view_width, half_of_view_height);
+		//		shape_renderer.end();
+
 		grid.setPosition(VIEW_WIDTH/2-half_of_view_width/2, VIEW_HEIGHT/2-half_of_view_height/2);
 		grid.setWidth(half_of_view_width);
 		grid.setHeight(half_of_view_height);
-		
+
 		shape_renderer.begin(ShapeType.Filled);
 		shape_renderer.setColor(Color.BLACK);
-		
+
 		for(Car x:cars)
 			if(x.id==1){
 				shape_renderer.rect(VIEW_WIDTH/2+half_of_view_width/2, x.getY(), 2*half_of_view_width/width_tiles, half_of_view_height/height_tiles);
 			}
 		shape_renderer.end();
-		
+
 		/////////////////
 		shape_renderer.begin(ShapeType.Line);
 		shape_renderer.setColor(Color.BLACK);
@@ -438,10 +392,10 @@ public class Levels extends BaseScreen {
 		for(int i=0;i<height_tiles+1;i++)
 			shape_renderer.line(VIEW_WIDTH/2-half_of_view_width/2+half_of_view_width*i/width_tiles, VIEW_HEIGHT/2-half_of_view_height/2, VIEW_WIDTH/2-half_of_view_width/2+half_of_view_width*i/width_tiles, VIEW_HEIGHT/2+half_of_view_height/2);
 		shape_renderer.end();
-//		shape_renderer.begin(ShapeType.Filled);
-//		shape_renderer.setColor(Color.CYAN);
-//		shape_renderer.rect(startX-half_of_view_width/width_tiles,startY,half_of_view_width/width_tiles,half_of_view_height/height_tiles);
-//		shape_renderer.end();
+		//		shape_renderer.begin(ShapeType.Filled);
+		//		shape_renderer.setColor(Color.CYAN);
+		//		shape_renderer.rect(startX-half_of_view_width/width_tiles,startY,half_of_view_width/width_tiles,half_of_view_height/height_tiles);
+		//		shape_renderer.end();
 		mainStage.draw();
 		move_count.setText("Number Of Moves :"+numOfMoves);
 		move_count.setPosition(VIEW_WIDTH/2,VIEW_HEIGHT-100);
@@ -455,21 +409,21 @@ public class Levels extends BaseScreen {
 		message.setPosition(VIEW_WIDTH/2-meswidth/2, 0);
 		message.setWidth(meswidth);
 		message.setHeight(mesheight);
-//		shape_renderer.begin(ShapeType.Line);
-//		shape_renderer.setColor(Color.YELLOW);
-//		for(Car x:cars)
-//			if(x.id==1)
-//				shape_renderer.rect(x.getX(), x.getY(), x.getWidth(), x.getHeight());
-//		shape_renderer.end();
-		
+		//		shape_renderer.begin(ShapeType.Line);
+		//		shape_renderer.setColor(Color.YELLOW);
+		//		for(Car x:cars)
+		//			if(x.id==1)
+		//				shape_renderer.rect(x.getX(), x.getY(), x.getWidth(), x.getHeight());
+		//		shape_renderer.end();
+
 		//show the hint
-		
+
 		shape_renderer.begin(ShapeType.Line);
 		shape_renderer.setColor(Color.PURPLE);
 		if(show)
 			shape_renderer.rect(target.getX(), target.getY(), target.getWidth(), target.getHeight());
 		shape_renderer.end();
-		
+
 	}
 
 	@Override
@@ -484,19 +438,15 @@ public class Levels extends BaseScreen {
 			a1/=tile_width;
 			b1=sc-b;
 			b1/=tile_height;
-			
-				
+
+
 			if(cars.get(i).pressed && cars.get(i).move){
 				cars.get(i).setPosition(a1,b1,gameTable,i,tile_width,tile_height,a,b,true);
 			}
-		
-		
-	}
-		
+
+
+		}
+
 		return true;
 	}
 }
-	
-	
-	
-
