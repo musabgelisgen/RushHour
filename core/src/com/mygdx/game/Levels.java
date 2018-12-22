@@ -162,7 +162,6 @@ public class Levels extends BaseScreen {
 					return true;
 				}
 				public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
-					game.setScreen(new Singleplayer(game));
 					if(win){
 						for(Car carx:cars)
 							carx.buton.stop();
@@ -170,6 +169,8 @@ public class Levels extends BaseScreen {
 							Singleplayer.passed=pass+1;
 
 					}
+					game.setScreen(new Singleplayer(game));
+					
 				}
 			});
 
