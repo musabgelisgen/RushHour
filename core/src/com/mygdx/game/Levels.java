@@ -152,6 +152,7 @@ public class Levels extends BaseScreen {
 						carx.pressed=false;
 						carVoice.stop();
 					}
+<<<<<<< HEAD
 		 });
 		
 		returnMenu.addListener(new InputListener()
@@ -167,6 +168,28 @@ public class Levels extends BaseScreen {
 						carx.buton.stop();
 					if(pass<levelno)
 						Singleplayer.passed=pass+1;
+=======
+					carx.pressed=false;
+					carVoice.stop();
+				}
+			});
+
+			returnMenu.addListener(new InputListener()
+			{
+				public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+					buton.play();
+					return true;
+				}
+				public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+					if(win){
+						for(Car carx:cars)
+							carx.buton.stop();
+						if(pass<levelno)
+							Singleplayer.passed=pass+1;
+
+					}
+					game.setScreen(new Singleplayer(game));
+>>>>>>> 0c3139b... level number bug has been resolved
 					
 				}
 			}
