@@ -28,7 +28,7 @@ import data.StarScore;
 
 public class Levels extends BaseScreen {
 	//
-	BaseActor grid;
+	BaseActor grid,startSign,finishSign;
 	Sound carVoice;
 	int width_tiles,height_tiles;
 	ShapeRenderer shape_renderer;
@@ -70,6 +70,14 @@ public class Levels extends BaseScreen {
 		grid = new BaseActor();
 		grid.setTexture(SelectTheme.targetTexture);
 		mainStage.addActor(grid);
+		
+		startSign = new BaseActor();
+		startSign.setTexture(new Texture("start.png"));
+		mainStage.addActor(startSign);
+		
+		finishSign = new BaseActor();
+		finishSign.setTexture(new Texture("finish.jpg"));
+		mainStage.addActor(finishSign);
 
 		// TODO Auto-generated method stub
 		targets=new int[8];//it represents the target move counts of levels which we will set at the beginning by playing the levels before 
@@ -393,16 +401,32 @@ public class Levels extends BaseScreen {
 		grid.setPosition(VIEW_WIDTH/2-half_of_view_width/2, VIEW_HEIGHT/2-half_of_view_height/2);
 		grid.setWidth(half_of_view_width);
 		grid.setHeight(half_of_view_height);
-
-		shape_renderer.begin(ShapeType.Filled);
-		shape_renderer.setColor(Color.BLACK);
-
+		
+		//finish flag
+		
 		for(Car x:cars)
-			if(x.id==1){
-				shape_renderer.rect(VIEW_WIDTH/2+half_of_view_width/2, x.getY(), 2*half_of_view_width/width_tiles, half_of_view_height/height_tiles);
-			}
-		shape_renderer.end();
+		if(x.id==1){
+			finishSign.setPosition(VIEW_WIDTH/2+half_of_view_width/2, x.getY());
+			finishSign.setWidth(2*half_of_view_width/width_tiles);
+			finishSign.setHeight(half_of_view_height/height_tiles);
+			
+		}
+		
+		
+		
+		//finish black
 
+//		shape_renderer.begin(ShapeType.Filled);
+//		shape_renderer.setColor(Color.BLACK);
+//
+//		for(Car x:cars)
+//			if(x.id==1){
+//				shape_renderer.rect(VIEW_WIDTH/2+half_of_view_width/2, x.getY(), 2*half_of_view_width/width_tiles, half_of_view_height/height_tiles);
+//			}
+//		shape_renderer.end();
+
+		
+		
 		/////////////////
 		shape_renderer.begin(ShapeType.Line);
 		shape_renderer.setColor(Color.BLACK);
@@ -411,10 +435,18 @@ public class Levels extends BaseScreen {
 		for(int i=0;i<height_tiles+1;i++)
 			shape_renderer.line(VIEW_WIDTH/2-half_of_view_width/2+half_of_view_width*i/width_tiles, VIEW_HEIGHT/2-half_of_view_height/2, VIEW_WIDTH/2-half_of_view_width/2+half_of_view_width*i/width_tiles, VIEW_HEIGHT/2+half_of_view_height/2);
 		shape_renderer.end();
-		//		shape_renderer.begin(ShapeType.Filled);
-		//		shape_renderer.setColor(Color.CYAN);
-		//		shape_renderer.rect(startX-half_of_view_width/width_tiles,startY,half_of_view_width/width_tiles,half_of_view_height/height_tiles);
-		//		shape_renderer.end();
+		
+		//Start Flag
+		startSign.setPosition(startX,startY);
+		startSign.setWidth(2*half_of_view_width/width_tiles);
+		startSign.setHeight(half_of_view_height/height_tiles);
+		
+		//mavi baslangic
+//				shape_renderer.begin(ShapeType.Filled);
+//				shape_renderer.setColor(Color.CYAN);
+//				shape_renderer.rect(startX,startY,half_of_view_width/width_tiles,half_of_view_height/height_tiles);
+//				shape_renderer.end();
+		
 		mainStage.draw();
 		move_count.setText("Number Of Moves :"+numOfMoves);
 		move_count.setPosition(VIEW_WIDTH/2,VIEW_HEIGHT-100);
@@ -428,6 +460,9 @@ public class Levels extends BaseScreen {
 		message.setPosition(VIEW_WIDTH/2-meswidth/2, 0);
 		message.setWidth(meswidth);
 		message.setHeight(mesheight);
+		
+		//arabanin etrafindaki sari cizgiler
+		
 		//		shape_renderer.begin(ShapeType.Line);
 		//		shape_renderer.setColor(Color.YELLOW);
 		//		for(Car x:cars)
@@ -469,7 +504,3 @@ public class Levels extends BaseScreen {
 		return true;
 	}
 }
-
-
-
-
