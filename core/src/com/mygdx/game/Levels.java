@@ -142,29 +142,29 @@ public class Levels extends BaseScreen {
 		}
 
 		for(final Car carx:cars){
-
-			carx.addListener(new InputListener(){
-
-
-				public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
-					carx.firstTouchX=carx.x;
-					carx.firstTouchY=carx.y;
-					carVoice.play();
-
-
-					carx.pressed=true;
+			
+		carx.addListener(new InputListener(){
+		
+			
+			 public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+						carx.firstTouchX=(int) (x/(w/m));
+						carx.firstTouchY=(int) (y/(h/n));
+						carx.lastX=carx.firstTouchX+carx.x;
+						carx.lastY=carx.firstTouchY+carx.y;
+						carVoice.play();
+						
+					
+				 carx.pressed=true;
 					return true;
 				}
-				public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
-					if(carx.pressed) {
-						if((carx.x != carx.firstTouchX) || (carx.y != carx.firstTouchY)) {
+					public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+						carx.pressed=false;
+						if(carx.x!=carx.lastX || carx.y!=carx.lastY)
 							numOfMoves++;
-						}
+						carVoice.stop();
 					}
-					carx.pressed=false;
-					carVoice.stop();
-				}
-			});
+		 });
+		}
 
 			returnMenu.addListener(new InputListener()
 			{
@@ -484,23 +484,25 @@ public class Levels extends BaseScreen {
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		// upperleft is (0,0)			
 		for(int i=0;i<cars.size();i++){
-			int a=half_of_view_width-half_of_view_width/2;
-			int b=half_of_view_height-half_of_view_height/2;
+			int a=VIEW_WIDTH/2-w/2;
+			int b=VIEW_HEIGHT/2-h/2;
 			//(a,b) is the lowerleft corner
 			int sc=VIEW_HEIGHT-screenY;
+			int w1=w/m;
+			int h1=h/n;
 			a1=screenX-a;
-			a1/=tile_width;
+			a1/=w1;
 			b1=sc-b;
-			b1/=tile_height;
-
-
+			b1/=h1;
+				
 			if(cars.get(i).pressed && cars.get(i).move){
-				cars.get(i).setPosition(a1,b1,gameTable,i,tile_width,tile_height,a,b,true);
+					
+					cars.get(i).setPosition(a1-cars.get(i).firstTouchX,b1-cars.get(i).firstTouchY,gameTable,i,w1,h1,a,b,cars);
 			}
-
-
-		}
-
+		
+		
+	}
+		
 		return true;
 	}
 }
