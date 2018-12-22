@@ -132,42 +132,47 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		game.skin.add("buttonCarStyle7", buttonCarStyle7);
 		game.skin.add("buttonCarStyle8", buttonCarStyle8);
 		
+<<<<<<< HEAD
 		//////////// THEMES
+=======
+
+		// Themes
+		TextButtonStyle buttonTheme1 = new TextButtonStyle();
+		TextButtonStyle buttonTheme2 = new TextButtonStyle();
+		TextButtonStyle buttonTheme3 = new TextButtonStyle();
+		TextButtonStyle buttonTheme4 = new TextButtonStyle();
 		
-//		TextButtonStyle buttonThemeStyle1=new TextButtonStyle();
-//		TextButtonStyle buttonThemeStyle2=new TextButtonStyle();
-//		TextButtonStyle buttonThemeStyle3=new TextButtonStyle();
-//		TextButtonStyle buttonThemeStyle4=new TextButtonStyle();
-//
-//		Texture theme1=new Texture("ambulance.png");
-//		Texture theme2=new Texture("ferrari.png");
-//		Texture theme3=new Texture("mercedes.png");
-//		Texture theme4=new Texture("police.png");
-//
-//		game.skin.add("theme1Texture", theme1);
-//		game.skin.add("theme2Texture", theme2);
-//		game.skin.add("theme3Texture", theme3);
-//		game.skin.add("theme4Texture", theme4);
-//
-//		game.skin.add("theme1", new NinePatch(theme1,5,5,5,5)); //not sure
-//		game.skin.add("theme2", new NinePatch(theme2,5,5,5,5));
-//		game.skin.add("theme3", new NinePatch(theme3,5,5,5,5));
-//		game.skin.add("theme4", new NinePatch(theme4,5,5,5,5));
-//
-//		buttonThemeStyle1.up = game.skin.getDrawable("theme1");
-//		buttonThemeStyle2.up = game.skin.getDrawable("theme2");
-//		buttonThemeStyle3.up = game.skin.getDrawable("theme3");
-//		buttonThemeStyle4.up = game.skin.getDrawable("theme4");
-//
-//		buttonThemeStyle1.font = font;
-//		buttonThemeStyle2.font = font;
-//		buttonThemeStyle3.font = font;
-//		buttonThemeStyle4.font = font;
-//
-//		game.skin.add("buttonThemeStyle1", buttonThemeStyle1);
-//		game.skin.add("buttonThemeStyle2", buttonThemeStyle2);
-//		game.skin.add("buttonThemeStyle3", buttonThemeStyle3);
-//		game.skin.add("buttonThemeStyle4", buttonThemeStyle4);
+		Texture theme1 = new Texture("grid.png");
+		Texture theme2 = new Texture("theme1.jpg");
+		Texture theme3 = new Texture("theme2.jpg");
+		Texture theme4 = new Texture("theme3.jpg");
+>>>>>>> 5eb6f1a... Implemented Select Theme
+		
+		game.skin.add("themeTexture1", theme1);
+		game.skin.add("themeTexture2", theme2);
+		game.skin.add("themeTexture3", theme3);
+		game.skin.add("themeTexture4", theme4);
+		
+		game.skin.add("theme1", new NinePatch(theme1, 5, 5, 5, 5));
+		game.skin.add("theme2", new NinePatch(theme2, 5, 5, 5, 5));
+		game.skin.add("theme3", new NinePatch(theme3, 5, 5, 5, 5));
+		game.skin.add("theme4", new NinePatch(theme4, 5, 5, 5, 5));
+		
+		buttonTheme1.up = game.skin.getDrawable("theme1");
+		buttonTheme2.up = game.skin.getDrawable("theme2");
+		buttonTheme3.up = game.skin.getDrawable("theme3");
+		buttonTheme4.up = game.skin.getDrawable("theme4");
+		
+		buttonTheme1.font = font;
+		buttonTheme2.font = font;
+		buttonTheme3.font = font;
+		buttonTheme4.font = font;
+		
+		game.skin.add("buttonTheme1", buttonTheme1);
+		game.skin.add("buttonTheme2", buttonTheme2);
+		game.skin.add("buttonTheme3", buttonTheme3);
+		game.skin.add("buttonTheme4", buttonTheme4);
+	
 	}
 
 	public BaseScreen(BaseGame game) {
