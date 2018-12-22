@@ -450,7 +450,3 @@ public class Levels extends BaseScreen {
 		return true;
 	}
 }
-
-
-
-
