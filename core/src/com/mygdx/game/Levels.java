@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -57,6 +58,8 @@ public class Levels extends BaseScreen {
 	int numOfMoves;
 	int[] targets;
 	boolean serialized = false;
+	boolean finished = false;
+	StarScore sScores;
 	public Levels(BaseGame game) {
 		super(game);
 
@@ -80,7 +83,7 @@ public class Levels extends BaseScreen {
 		targets[6]=19;
 		targets[7]=20;
 		numOfMoves=0;
-		targetMoveCount=new Label("Target Move Count is :"+targets[levelno], game.skin,"uiLabelStyle");
+		targetMoveCount=new Label("Minimum number of moves :"+targets[levelno], game.skin,"uiLabelStyle");
 		move_count=new Label("Number Of Moves :"+numOfMoves, game.skin,"uiLabelStyle");
 		index=0;
 		speed=10;
@@ -281,7 +284,7 @@ public class Levels extends BaseScreen {
 	@Override
 	public void update(float dt) {
 		// TODO Auto-generated method stub
-		targetMoveCount.setText("Target Move Count is :"+targets[levelno-1]);
+		targetMoveCount.setText("Minimum number of moves :"+targets[levelno-1]);
 
 		for(Car x:cars){
 			x.setWidth(half_of_view_width/width_tiles*x.width);
@@ -309,7 +312,7 @@ public class Levels extends BaseScreen {
 						fileFolder = System.getProperty("user.home") + "/Library/Application Support" + "/RushHour";
 						scoreDir = fileFolder + "/scores.ser";
 					}
-					StarScore sScores;
+					
 
 					try { //deserialization here
 						sScores = (StarScore) SerializationUtil.deserialize(scoreDir);
@@ -328,12 +331,28 @@ public class Levels extends BaseScreen {
 				win=true;
 			}
 
-			if(win){
+			if(win && !finished){
 				uiTable.setBackground(game.skin.getDrawable("background_blurred"));
+				move_count.setVisible(false);
+				targetMoveCount.setVisible(false);
+				Image starImage;
+				if(sScores.getScores().get(levelno - 1) == 0) 
+					starImage = new Image(new Texture("no_stars.png"));
+				else if(sScores.getScores().get(levelno - 1) == 1) 
+					starImage = new Image(new Texture("one_stars.png"));
+				else if(sScores.getScores().get(levelno - 1) == 2)
+					starImage = new Image(new Texture("two_stars.png"));
+				else
+					starImage = new Image(new Texture("three_stars.png"));
+				mainStage.addActor(starImage);
+				starImage.setPosition(VIEW_WIDTH/2 - 75, 5 * VIEW_HEIGHT/6 - 30);
+				starImage.setWidth(175);
+				starImage.setHeight(75);
 				winner.setVisible(true);
 				winner.setPosition(VIEW_WIDTH/2-200, VIEW_HEIGHT/2-70);
 				winner.setWidth(400);
 				winner.setHeight(200);
+				finished = true;
 				pause();
 			}
 
