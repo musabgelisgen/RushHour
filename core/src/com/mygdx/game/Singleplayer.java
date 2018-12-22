@@ -83,6 +83,12 @@ public class Singleplayer extends BaseScreen {
 		
 		addListeners();
 		
+<<<<<<< HEAD
+=======
+
+		//replace the objects on the screen
+		uiTable.setBackground(game.skin.getDrawable("background_blurred"));
+>>>>>>> 244e322... select car screen improved
 		
 		
 		//replace the objects on the screen
