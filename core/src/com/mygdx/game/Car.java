@@ -14,7 +14,7 @@ public class Car extends BaseActor {
 	Sound buton;
 	boolean play;
 	boolean move;
-	int lastMoveAmountX,lastMoveAmountY,fake_lastMoveAmountX,fake_lastMoveAmountY;
+	int lastX,lastY,fake_lastMoveAmountX,fake_lastMoveAmountY;
 			
 	public Car(int direction,int m,int n,int width,int height,int id) {
 		
@@ -234,6 +234,90 @@ public boolean fakeSetPosition(int x, int y, int[][] game,int num,int w1,int h1,
 					
 		return movebool;
 		
+	}public boolean setPosition(int x, int y, int[][] game,int num,int w1,int h1,int a,int b,ArrayList<Car> cars) {
+		if(x==this.x && y==this.y)
+			return false;
+		int[][] arr=new int[game.length][game[0].length];
+		for(int i=0;i<game.length;i++)
+			for(int j=0;j<game[0].length;j++)
+				arr[i][j]=game[i][j];
+		boolean movebool=false;
+
+		if(x<0)
+			x=0;
+		if(y<0)
+			y=0;
+		if(x>game[0].length)
+			x=game[0].length;
+		int xx=x;
+		int yy=y;
+
+
+		if(x>game[0].length-width)
+			x=game[0].length-width;
+
+		if(y>game.length-height)
+			y=game.length-height;
+		if(direction==0)
+			y=this.y;
+		else
+			x=this.x;
+		boolean put=true;
+//		for(int i=0;i<game.length;i++)
+//			System.out.println(Arrays.toString(game[i]));
+		System.out.println("\n\n");
+		for(int i=game.length-(Math.max(y,this.y)+height);i<game.length-Math.min(y,this.y);i++)
+			for(int j=Math.min(x,this.x);j<Math.max(x,this.x)+this.width;j++)
+				if(game[i][j]!=0 && game[i][j]!=(num+1) ){
+					System.out.println("sıkıntı şurada ("+i+","+j+")");
+					return false;
+					//put=false;
+					//break;
+				}
+
+
+
+		if(put){
+
+			for(int i=0;i<game.length;i++)
+				for(int j=0;j<game[0].length;j++)
+					if(game[i][j]==(num+1))
+						game[i][j]=0;
+			for(int i=game.length-(y+height);i<game.length-y;i++)
+				for(int j=x;j<x+this.width;j++)
+					game[i][j]=(num+1);
+
+			//lastMoveAmountY=y-this.y;
+			//lastMoveAmountX=x-this.x;
+
+			this.x=x;
+			this.y=y;
+			if(id==1){
+				if(this.xx<xx)
+					movebool=true;
+				if(xx==game[0].length && play){
+					buton.play();
+					for(Car carx:cars){
+						carx.move=false;
+						carx.play=false;
+					}
+				}
+				setPosition(xx*w1+a, y*h1+b);
+
+			}
+			else
+				setPosition(x*w1+a, y*h1+b);
+			this.xx=xx;
+			this.yy=yy;
+
+		}
+		for(int i=0;i<game.length;i++)
+			for(int j=0;j<game[0].length;j++)
+				if(arr[i][j]!=game[i][j])
+					return put;
+
+		return movebool;
+
 	}
 	public int getXX(int w1,int a){
 		return x*w1+a;
