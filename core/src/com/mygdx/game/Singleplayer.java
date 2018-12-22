@@ -135,8 +135,6 @@ public class Singleplayer extends BaseScreen {
 		
 
 		//replace the objects on the screen
-		Texture backgroundSP=new Texture("background_blurred.jpg");
-		game.skin.add("background_blurred", backgroundSP);
 		uiTable.setBackground(game.skin.getDrawable("background_blurred"));
 		
 

@@ -176,7 +176,7 @@ public class SelectCar extends BaseScreen {
 			}
 		});
 
-		uiTable.setBackground(game.skin.getDrawable("background"));
+		uiTable.setBackground(game.skin.getDrawable("background_blurred"));
 		uiStage.addActor(newcar1);
 		uiStage.addActor(newcar2);
 		uiStage.addActor(newcar3);/*
@@ -196,10 +196,10 @@ public class SelectCar extends BaseScreen {
 		// TODO Auto-generated method stub
 
 		for(int i=0;i<carButtons.length;i++){
-			int cbx=90;
-			carButtons[i].setWidth(cbx);
+			int cbx=70;
+			carButtons[i].setWidth(2 * cbx);
 			carButtons[i].setHeight(cbx);
-			carButtons[i].setPosition((cbx)*2*(i%(carButtons.length/2))+VIEW_WIDTH/4, 3*VIEW_HEIGHT/4-(cbx+10)*(i/(carButtons.length/2)));
+			carButtons[i].setPosition((cbx)*3*(i%(carButtons.length/2))+VIEW_WIDTH/4 - 20, 3*VIEW_HEIGHT/4-(cbx+10)*2*(i/(carButtons.length/2)));
 		}
 		returnMenu.setPosition(30, 0);
 		returnMenu.setWidth(180);
