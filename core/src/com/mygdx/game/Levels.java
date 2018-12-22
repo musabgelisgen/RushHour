@@ -64,7 +64,7 @@ public class Levels extends BaseScreen {
 	@Override
 	public void create() {
 		grid = new BaseActor();
-		grid.setTexture(new Texture("grid.png"));
+		grid.setTexture(SelectTheme.targetTexture);
 		mainStage.addActor(grid);
 		
 		// TODO Auto-generated method stub
