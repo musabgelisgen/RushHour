@@ -21,6 +21,7 @@ public class MainMenu extends BaseScreen {
 	Sound buton;
 	 Music instrumenatal;
 	BitmapFont newfont;
+	BaseActor icon;
 	static boolean start=true;
 	static boolean carSelected=false;
 	public MainMenu(BaseGame game) {
@@ -69,29 +70,34 @@ public class MainMenu extends BaseScreen {
 		select_theme=new TextButton("SELECT THEME", game.skin, "buttonStyle");
 		
 		credits=new TextButton("CREDITS", game.skin, "buttonStyle");
-		credits.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
-				Actions.delay(0.5f),Actions.color(new Color(0f,0f,0,8f),0.5f))));
+//		credits.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
+//				Actions.delay(0.5f),Actions.color(new Color(0f,0f,0,8f),0.5f))));
 		
 		
-		select_theme.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
-				Actions.delay(0.5f),Actions.color(new Color(0f,0f,0,8f),0.5f))));
+//		select_theme.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
+//				Actions.delay(0.5f),Actions.color(new Color(0f,0f,0,8f),0.5f))));
 		singleplayer=new TextButton("SINGLEPLAYER", game.skin,"buttonStyle");
-		singleplayer.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
-				Actions.delay(0.5f),Actions.color(new Color(0f,0f,0,8f),0.5f))));
+//		singleplayer.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
+//				Actions.delay(0.5f),Actions.color(new Color(0f,0f,0,8f),0.5f))));
 		
 	    multiplayer=new TextButton("MULTIPLAYER", game.skin,"buttonStyle");
-	    multiplayer.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
-				Actions.delay(0.5f),Actions.color(new Color(0.5f,0.5f,0,1),0.5f))));
+//	    multiplayer.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
+//				Actions.delay(0.5f),Actions.color(new Color(0.5f,0.5f,0,1),0.5f))));
 	    
 	    select_car=new TextButton("SELECT CAR", game.skin,"buttonStyle");
-	    select_car.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
-				Actions.delay(0.5f),Actions.color(new Color(0.5f,0.5f,0,1),0.5f))));
+//	    select_car.addAction(Actions.forever(Actions.sequence(Actions.color(new Color(1,1,0,1),0.5f),
+//				Actions.delay(0.5f),Actions.color(new Color(0.5f,0.5f,0,1),0.5f))));
+	    
+	    icon = new BaseActor();
+	    icon.setTexture(new Texture("logo.png"));
+
+	    
 		uiTable.setBackground(game.skin.getDrawable("background"));
 		uiTable.add();
+		uiTable.add(icon).padLeft(30).width(300).height(100);
 		uiTable.add();
 		uiTable.add();
-		uiTable.add();
-		uiTable.add(singleplayer).padLeft(450).width(150).height(50);
+		uiTable.add(singleplayer).padLeft(80).width(200).height(50);
 		uiTable.row();
 		uiTable.row();
 		
@@ -99,7 +105,7 @@ public class MainMenu extends BaseScreen {
 		uiTable.add();
 		uiTable.add();
 		uiTable.add();
-		uiTable.add(multiplayer).right().width(150).height(50).padTop(10);
+		uiTable.add(multiplayer).right().width(200).height(50).padTop(10);
 		uiTable.row();
 		uiTable.row();
 		
@@ -107,7 +113,7 @@ public class MainMenu extends BaseScreen {
 		uiTable.add();
 		uiTable.add();
 		uiTable.add();
-		uiTable.add(select_theme).right().width(150).height(50).padTop(10);
+		uiTable.add(select_theme).right().width(200).height(50).padTop(10);
 		uiTable.row();
 		uiTable.row();
 		
@@ -115,7 +121,7 @@ public class MainMenu extends BaseScreen {
 		uiTable.add();
 		uiTable.add();
 		uiTable.add();
-		uiTable.add(select_car).right().width(150).height(50).padTop(10);
+		uiTable.add(select_car).right().width(200).height(50).padTop(10);
 		uiTable.row();
 		uiTable.row();
 		
@@ -123,7 +129,7 @@ public class MainMenu extends BaseScreen {
 		uiTable.add();
 		uiTable.add();
 		uiTable.add();
-		uiTable.add(credits).right().width(150).height(50).padTop(10);
+		uiTable.add(credits).right().width(200).height(50).padTop(10);
 		uiTable.row();
 		addListeners();
 		addStyles();
