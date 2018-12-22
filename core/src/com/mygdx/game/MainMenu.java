@@ -43,11 +43,11 @@ public class MainMenu extends BaseScreen {
 		buttonStyle.font=font;
 		buttonStyle.fontColor=Color.RED;
 		game.skin.add("font", buttonStyle);
-		Texture upButton=new Texture("buttonUp.png");
+		Texture upButton=new Texture("upButton.png");
 		game.skin.add("upButton", new NinePatch(upButton,5,5,5,5));
 		buttonStyle.up=game.skin.getDrawable("upButton");
-		buttonStyle.overFontColor=Color.BLUE;
-		buttonStyle.downFontColor=Color.PINK;
+//		buttonStyle.overFontColor=Color.BLUE;
+//		buttonStyle.downFontColor=Color.PINK;
 		game.skin.add("buttonStyle", buttonStyle);
 		Texture background=new Texture("background.jpg");
 		game.skin.add("background", background);
