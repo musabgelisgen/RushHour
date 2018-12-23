@@ -31,7 +31,6 @@ public class Singleplayer extends BaseScreen {
 	@Override
 	public void create() {
 		//create the objects needed
-		
 		winSound=Gdx.audio.newSound(Gdx.files.internal("win.ogg"));
 		game.skin.add("winSound", winSound);
 		enables=new boolean[8];

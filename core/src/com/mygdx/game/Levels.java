@@ -52,6 +52,7 @@ public class Levels extends BaseScreen {
 	int numOfMoves;
 	long startTime;
 	int[] targets;
+	int a1,b1;
 	public Levels(BaseGame game) {
 		super(game);
 		
@@ -116,13 +117,15 @@ public class Levels extends BaseScreen {
 		}
 		
 		for(final Car carx:cars){
-		
-		carx.addListener(new InputListener(){
 			
+		carx.addListener(new InputListener(){
+		
 			
 			 public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
 						carx.firstTouchX=(int) (x/(w/m));
 						carx.firstTouchY=(int) (y/(h/n));
+						carx.lastX=carx.x;
+						carx.lastY=carx.y;
 						carVoice.play();
 						
 					
@@ -131,9 +134,12 @@ public class Levels extends BaseScreen {
 				}
 					public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
 						carx.pressed=false;
+						if(carx.x!=carx.lastX || carx.y!=carx.lastY)
+							numOfMoves++;
 						carVoice.stop();
 					}
 		 });
+		}
 		
 		returnMenu.addListener(new InputListener()
 		{
@@ -142,23 +148,24 @@ public class Levels extends BaseScreen {
 				return true;
 		}
 			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
-				game.setScreen(new Singleplayer(game));
 				if(win){
 					for(Car carx:cars)
 						carx.buton.stop();
 					if(pass<levelno)
 						Singleplayer.passed=pass+1;
-					
 				}
+				game.setScreen(new Singleplayer(game));
+				
 			}
 			});
 		
-		}
+		
 		hint.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
 				if(win)
 					return true;
+				
 				Node begin=new Node();
 				begin.cars=cars;
 				begin.table=new int[gameTable.length][gameTable[0].length];
@@ -197,7 +204,9 @@ public class Levels extends BaseScreen {
 					disty=0;
 					
 				}
-
+				
+				
+				
 				return true;
 				}
 				
@@ -349,7 +358,7 @@ public class Levels extends BaseScreen {
 		target.setPosition(target.getX()+distx/Math.max(Math.abs(distx),1)*w1, target.getY()+disty/Math.max(Math.abs(disty),1)*h1);
 		gox+=distx/Math.max(Math.abs(distx),1);
 		goy+=disty/Math.max(Math.abs(disty),1);
-		numOfMoves++;
+		
 		}
 		if(distx!=0 || disty!=0)
 		if(gox==distx)
@@ -359,8 +368,10 @@ public class Levels extends BaseScreen {
 				int aa,bb;
 				aa=hintnumber<path.size()?path.get(hintnumber).targetX:gameTable[0].length;
 				bb=hintnumber<path.size()?path.get(hintnumber).targetY:target.y;
-				target.setPosition(aa, bb, gameTable, carnumber, w1, h1, a, b, true);
+				target.setPosition(aa, bb, gameTable, carnumber, w1, h1, a, b,cars);
 				move=false;	
+				numOfMoves++;
+				
 			}
 		super.render(dt);
 		sr.begin(ShapeType.Filled);
@@ -430,15 +441,14 @@ public class Levels extends BaseScreen {
 			int sc=VIEW_HEIGHT-screenY;
 			int w1=w/m;
 			int h1=h/n;
-			int a1=screenX-a;
+			a1=screenX-a;
 			a1/=w1;
-			int b1=sc-b;
+			b1=sc-b;
 			b1/=h1;
 				
 			if(cars.get(i).pressed && cars.get(i).move){
 					
-					if(cars.get(i).setPosition(a1,b1,gameTable,i,w1,h1,a,b,true))
-						numOfMoves++;
+					cars.get(i).setPosition(a1-cars.get(i).firstTouchX,b1-cars.get(i).firstTouchY,gameTable,i,w1,h1,a,b,cars);
 			}
 		
 		

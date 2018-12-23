@@ -199,7 +199,7 @@ public class SelectCar extends BaseScreen {
 			int cbx=90;
 			carButtons[i].setWidth(cbx);
 			carButtons[i].setHeight(cbx);
-			carButtons[i].setPosition((cbx)*2*(i%(carButtons.length/2)), 3*VIEW_HEIGHT/4-(cbx+10)*(i/(carButtons.length/2)));
+			carButtons[i].setPosition((cbx)*2*(i%(carButtons.length/2))+VIEW_WIDTH/4, 3*VIEW_HEIGHT/4-(cbx+10)*(i/(carButtons.length/2)));
 		}
 		returnMenu.setPosition(30, 0);
 		returnMenu.setWidth(180);
