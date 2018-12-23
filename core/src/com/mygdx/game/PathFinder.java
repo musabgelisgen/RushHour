@@ -1,13 +1,13 @@
 package com.mygdx.game;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class PathFinder {
 	static int numberOfMovesNeeded;
 	static int numberOfMovesDone;
+
 	public static ArrayList<Node> Astar(Node begin,ArrayList<Car> cars){
 		Comparator<Node> sorter = new Comparator<Node>() {
 			@Override
@@ -21,13 +21,17 @@ public class PathFinder {
 				return 0;
 			}
 		};
+
 		ArrayList<Node> path=new ArrayList<Node>();
 		ArrayList<Node> openset=new ArrayList<Node>();
 		ArrayList<Node> closedset=new ArrayList<Node>();
 		Node current;
+
 		openset.add(begin);
 		int ii=0;
+
 		while(openset.size()>0){
+
 			Collections.sort(openset, sorter);
 			current=openset.get(0);
 			int[][] table=current.copyTable(current.table);
@@ -41,23 +45,19 @@ public class PathFinder {
 				while(current.parent!=null){
 					path.add(0, current);
 					current=current.parent;
-					
+
 				}
 				path.add(0, current);
 				return path;
 			}
 			openset.remove(current);
 			closedset.add(current);
-			 
+
 			current.createChilderen();
-			
+
 			for(Node n:current.nb){
-				
-				
-				
 				if(closedset.contains(n)){
 					continue;
-					
 				}
 				if(openset.contains(n)){
 					Node tar=null;
@@ -75,37 +75,34 @@ public class PathFinder {
 								//openset.get(i).moved=n.moved;
 							}
 						}
-					
 				}
 				else{
 					openset.add(n);
 				}
-			}
-			
+			}	
 		}
-		
-		
+
 		return path;
 	}
 	public static int getdistance(int[][] arr1,int[][] arr2){
 		int i=0,j=0;
 		int a=0,b=0;
 		exit:
-		for(;i<arr1.length;i++)
-			for(;j<arr1[0].length;j++)
-				if(arr1[i][j]!=arr2[i][j])
-					break exit;
+			for(;i<arr1.length;i++)
+				for(;j<arr1[0].length;j++)
+					if(arr1[i][j]!=arr2[i][j])
+						break exit;
 		int t=arr1[i][j];
 		if(t==0)
 			t=arr2[i][j];
 		int[][] arr=(t==0)?arr1:arr2;
 		exit1:
-		for(a=arr.length-1;a>-1;a--)
-			for(b=0;b<arr[0].length;b++)
-				if(arr[a][b]==t)
-					break exit1;
+			for(a=arr.length-1;a>-1;a--)
+				for(b=0;b<arr[0].length;b++)
+					if(arr[a][b]==t)
+						break exit1;
 		return (Math.abs(a-i)+Math.abs(b-j));
-		
+
 	}
 	public static int getDistToExit(int carnumber,int[][] arr){
 		int i=arr.length-1,j=0;
@@ -116,16 +113,15 @@ public class PathFinder {
 		return 0;
 	}
 	public static boolean isFinished(int num,int[][]arr,int width,int i){
-			i=arr.length-i-1;
-			for(int j=0;j<arr[0].length;j++){
-				if(arr[i][j]==num){
-					for(int k=j+width;k<arr[0].length;k++)
-						if(arr[i][k]!=0)
-							return false;
-				}
+		i=arr.length-i-1;
+		for(int j=0;j<arr[0].length;j++){
+			if(arr[i][j]==num){
+				for(int k=j+width;k<arr[0].length;k++)
+					if(arr[i][k]!=0)
+						return false;
 			}
+		}
 		return true;
 	}
-	
 
 }
