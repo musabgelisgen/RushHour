@@ -34,6 +34,8 @@ public class HumanVsHuman extends BaseScreen {
 	private int moveCount;
 	int targetMove;	//it will be set by the drawen card but it will be set 3 at the moment
 	Board[] boards;
+	TextButton drawCard;
+	int paddingW,paddingH;
 	public HumanVsHuman(BaseGame game) {
 		super(game);
 		// TODO Auto-generated constructor stub
@@ -42,6 +44,7 @@ public class HumanVsHuman extends BaseScreen {
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
+		drawCard=new TextButton("Draw a Card", game.skin, "buttonStyle");
 		boards=new Board[3];
 		turn=1;
 		targetMove=3;
@@ -52,8 +55,8 @@ public class HumanVsHuman extends BaseScreen {
 		gameTable=new int[18][14];
 		m=gameTable.length/3;
 		n=gameTable[0].length;
-		int paddingW=50;
-		int paddingH=30;
+		paddingW=50;
+		paddingH=30;
 		widthUnit=(VIEW_WIDTH-2*paddingW)/14;
 		mapWidth=14*widthUnit;
 		leftwidth=5*widthUnit;
@@ -164,6 +167,7 @@ public class HumanVsHuman extends BaseScreen {
 		uiStage.addActor(leftboard);
 		uiStage.addActor(rightboard);
 		uiStage.addActor(middleboard);
+		uiStage.addActor(drawCard);
 		for(Board b:boards)
 			b.setPosition(b.leftX,b.leftY);
 		//uiTable.add(leftboard);
@@ -234,7 +238,9 @@ public class HumanVsHuman extends BaseScreen {
 		//Positions
 		for(Board b:boards)
 			b.setPosition(b.leftX,b.leftY);
-		
+		drawCard.setPosition(VIEW_WIDTH/2, paddingH);
+		drawCard.setWidth(2*paddingW);
+		drawCard.setHeight(paddingH);
 		//Widths
 		rightboard.setWidth(rightwidth);
 		leftboard.setWidth(leftwidth);
