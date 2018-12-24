@@ -20,15 +20,15 @@ public class SelectTheme extends BaseScreen {
 	@Override
 	public void create() {
 
-		themeButtons = new TextButton[4];
+		themeButtons = new TextButton[2];
 		newTheme1 = new TextButton(targetNumber == 1 ? "CHOSEN": "", game.skin, "buttonTheme1");
 		newTheme2 = new TextButton(targetNumber == 2 ? "CHOSEN": "", game.skin, "buttonTheme2");
-		newTheme3 = new TextButton(targetNumber == 3 ? "CHOSEN": "", game.skin, "buttonTheme3");
-		newTheme4 = new TextButton(targetNumber == 4 ? "CHOSEN": "", game.skin, "buttonTheme4");
+//		newTheme3 = new TextButton(targetNumber == 3 ? "CHOSEN": "", game.skin, "buttonTheme3");
+//		newTheme4 = new TextButton(targetNumber == 4 ? "CHOSEN": "", game.skin, "buttonTheme4");
 		themeButtons[0] = newTheme1;
 		themeButtons[1] = newTheme2;
-		themeButtons[2] = newTheme3;
-		themeButtons[3] = newTheme4;
+//		themeButtons[2] = newTheme3;
+//		themeButtons[3] = newTheme4;
 		
 		returnMenu=new TextButton("Back", game.skin, "buttonStyle3");
 		returnMenu.addListener(new InputListener()
@@ -75,47 +75,47 @@ public class SelectTheme extends BaseScreen {
 			}
 		});
 		
-		newTheme3.addListener(new InputListener()
-		{
-			public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-				game.skin.get("buton", Sound.class).play();
-				// Clean the texts
-				for (int i = 0; i < themeButtons.length; i++) {
-					themeButtons[i].setText("");
-				}
-				return true;
-			}
-			public void touchUp(InputEvent ev, float x, float y, int pointer, int button) {
-				newTheme3.setText("CHOSEN");
-				targetTexture = game.skin.get("themeTexture3", Texture.class);
-				targetNumber = 3;
-			}
-		});
-		
-		newTheme4.addListener(new InputListener()
-		{
-			public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-				game.skin.get("buton", Sound.class).play();
-				// Clean the texts
-				for (int i = 0; i < themeButtons.length; i++) {
-					themeButtons[i].setText("");
-				}
-				return true;
-			}
-			public void touchUp(InputEvent ev, float x, float y, int pointer, int button) {
-				newTheme4.setText("CHOSEN");
-				targetTexture = game.skin.get("themeTexture4", Texture.class);
-				targetNumber = 4;
-			}
-		});
+//		newTheme3.addListener(new InputListener()
+//		{
+//			public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
+//				game.skin.get("buton", Sound.class).play();
+//				// Clean the texts
+//				for (int i = 0; i < themeButtons.length; i++) {
+//					themeButtons[i].setText("");
+//				}
+//				return true;
+//			}
+//			public void touchUp(InputEvent ev, float x, float y, int pointer, int button) {
+//				newTheme3.setText("CHOSEN");
+//				targetTexture = game.skin.get("themeTexture3", Texture.class);
+//				targetNumber = 3;
+//			}
+//		});
+//		
+//		newTheme4.addListener(new InputListener()
+//		{
+//			public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
+//				game.skin.get("buton", Sound.class).play();
+//				// Clean the texts
+//				for (int i = 0; i < themeButtons.length; i++) {
+//					themeButtons[i].setText("");
+//				}
+//				return true;
+//			}
+//			public void touchUp(InputEvent ev, float x, float y, int pointer, int button) {
+//				newTheme4.setText("CHOSEN");
+//				targetTexture = game.skin.get("themeTexture4", Texture.class);
+//				targetNumber = 4;
+//			}
+//		});
 
 
 		uiTable.setBackground(game.skin.getDrawable("background_blurred"));
 
 		uiStage.addActor(newTheme1);
 		uiStage.addActor(newTheme2);
-		uiStage.addActor(newTheme3);
-		uiStage.addActor(newTheme4);
+//		uiStage.addActor(newTheme3);
+//		uiStage.addActor(newTheme4);
 
 		uiTable.add(returnMenu);
 

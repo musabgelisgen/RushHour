@@ -28,7 +28,7 @@ import data.StarScore;
 
 public class Levels extends BaseScreen {
 	//
-	BaseActor grid,startSign,finishSign;
+	BaseActor startSign,finishSign;
 	Sound carVoice;
 	int width_tiles,height_tiles;
 	ShapeRenderer shape_renderer;
@@ -67,9 +67,9 @@ public class Levels extends BaseScreen {
 
 	@Override
 	public void create() {
-		grid = new BaseActor();
-		grid.setTexture(SelectTheme.targetTexture);
-		mainStage.addActor(grid);
+//		grid = new BaseActor();
+//		grid.setTexture(SelectTheme.targetTexture);
+//		mainStage.addActor(grid);
 		
 		startSign = new BaseActor();
 		startSign.setTexture(new Texture("start.png"));
@@ -130,7 +130,10 @@ public class Levels extends BaseScreen {
 		createCars(cars);
 		for(int i=0;i<cars.size();i++)
 			if(cars.get(i).id==1){
-				cars.get(i).setTexture(SelectCar.targetTexture);
+				if(SelectTheme.targetNumber == 2)
+					cars.get(i).setTexture(game.skin.get("car9Texture",Texture.class));
+				else
+					cars.get(i).setTexture(SelectCar.targetTexture);
 				break;
 			}
 
@@ -298,7 +301,12 @@ public class Levels extends BaseScreen {
 			}
 		});
 
-		uiTable.setBackground(game.skin.getDrawable("background"));
+		
+		if(SelectTheme.targetNumber == 2)
+			uiTable.setBackground(game.skin.getDrawable("themeTexture2"));
+		else
+			uiTable.setBackground(game.skin.getDrawable("background"));
+		
 		uiTable.add(returnMenu);
 		uiTable.add(hint);
 		uiTable.add(nextLevel);
@@ -429,14 +437,14 @@ public class Levels extends BaseScreen {
 					numOfMoves++;
 				}
 		super.render(dt);
-		//		shape_renderer.begin(ShapeType.Filled);
-		//		shape_renderer.setColor(Color.GRAY);
-		//		shape_renderer.rect(VIEW_WIDTH/2-half_of_view_width/2, VIEW_HEIGHT/2-half_of_view_height/2, half_of_view_width, half_of_view_height);
-		//		shape_renderer.end();
+				shape_renderer.begin(ShapeType.Filled);
+				shape_renderer.setColor(Color.GRAY);
+				shape_renderer.rect(VIEW_WIDTH/2-half_of_view_width/2, VIEW_HEIGHT/2-half_of_view_height/2, half_of_view_width, half_of_view_height);
+				shape_renderer.end();
 
-		grid.setPosition(VIEW_WIDTH/2-half_of_view_width/2, VIEW_HEIGHT/2-half_of_view_height/2);
-		grid.setWidth(half_of_view_width);
-		grid.setHeight(half_of_view_height);
+//		grid.setPosition(VIEW_WIDTH/2-half_of_view_width/2, VIEW_HEIGHT/2-half_of_view_height/2);
+//		grid.setWidth(half_of_view_width);
+//		grid.setHeight(half_of_view_height);
 		
 		//finish flag
 		

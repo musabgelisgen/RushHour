@@ -35,32 +35,42 @@ public class Level5 extends Levels {
 		Car car8=new Car(1,5,2,1,2,0);//
 		Car car9=new Car(1,5,0,1,2,0);//
 		
+		Texture vert = game.skin.get("obs_car_vert_Theme1",Texture.class);
+		Texture horiz = game.skin.get("obs_car_horiz_Theme1",Texture.class);
+		Texture truck_vert = game.skin.get("truck_vert_Theme1",Texture.class);
+		Texture truck_horiz = game.skin.get("truck_horiz_Theme1",Texture.class);
+		if(SelectTheme.targetNumber == 2) {
+			vert = game.skin.get("obs_car_vert_Theme2",Texture.class);
+			horiz = game.skin.get("obs_car_horiz_Theme2",Texture.class);
+			truck_vert = game.skin.get("truck_vert_Theme2",Texture.class);
+			truck_horiz = game.skin.get("truck_horiz_Theme2",Texture.class);
+		}
 		
-		car1.setTexture(new Texture("obs_car_vert.png"));
+		car1.setTexture(vert);
 		car1.setPosition(VIEW_WIDTH/2-half_of_view_width/2+car1.x*half_of_view_width/width_tiles, VIEW_HEIGHT/2-half_of_view_height/2+half_of_view_height*car1.y/height_tiles);
 		
-		car2.setTexture(new Texture("truck_vert.png"));
+		car2.setTexture(truck_vert);
 		car2.setPosition(VIEW_WIDTH/2-half_of_view_width/2+car2.x*half_of_view_width/width_tiles, VIEW_HEIGHT/2-half_of_view_height/2+half_of_view_height*car2.y/height_tiles);
 		
-		car3.setTexture(new Texture("obs_car_vert.png"));
+		car3.setTexture(vert);
 		car3.setPosition(VIEW_WIDTH/2-half_of_view_width/2+car3.x*half_of_view_width/width_tiles, VIEW_HEIGHT/2-half_of_view_height/2+half_of_view_height*car3.y/height_tiles);
 		
 		car4.setTexture(new Texture("ferrari.png"));
 		car4.setPosition(VIEW_WIDTH/2-half_of_view_width/2+car4.x*half_of_view_width/width_tiles, VIEW_HEIGHT/2-half_of_view_height/2+half_of_view_height*car4.y/height_tiles);
 				
-		car5.setTexture(new Texture("truck_horiz.png"));
+		car5.setTexture(truck_horiz);
 		car5.setPosition(VIEW_WIDTH/2-half_of_view_width/2+car5.x*half_of_view_width/width_tiles, VIEW_HEIGHT/2-half_of_view_height/2+half_of_view_height*car5.y/height_tiles);
 				
-		car6.setTexture(new Texture("obs_car_horiz.png"));
+		car6.setTexture(horiz);
 		car6.setPosition(VIEW_WIDTH/2-half_of_view_width/2+car6.x*half_of_view_width/width_tiles, VIEW_HEIGHT/2-half_of_view_height/2+half_of_view_height*car6.y/height_tiles);
 				
-		car7.setTexture(new Texture("obs_car_vert.png"));
+		car7.setTexture(vert);
 		car7.setPosition(VIEW_WIDTH/2-half_of_view_width/2+car7.x*half_of_view_width/width_tiles, VIEW_HEIGHT/2-half_of_view_height/2+half_of_view_height*car7.y/height_tiles);
 		
-		car8.setTexture(new Texture("obs_car_vert.png"));
+		car8.setTexture(vert);
 		car8.setPosition(VIEW_WIDTH/2-half_of_view_width/2+car8.x*half_of_view_width/width_tiles, VIEW_HEIGHT/2-half_of_view_height/2+half_of_view_height*car8.y/height_tiles);
 	
-		car9.setTexture(new Texture("obs_car_vert.png"));
+		car9.setTexture(vert);
 		car9.setPosition(VIEW_WIDTH/2-half_of_view_width/2+car9.x*half_of_view_width/width_tiles, VIEW_HEIGHT/2-half_of_view_height/2+half_of_view_height*car9.y/height_tiles);
 				
 		list.add(car1);
