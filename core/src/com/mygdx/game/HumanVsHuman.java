@@ -75,9 +75,9 @@ public class HumanVsHuman extends BaseScreen {
 		boardWidth=mapWidth;
 		boardHeight=3*mapHeight;
 		
-		leftboard=new Board(0,6,5,6,leftX,leftY);
-		middleboard=new Board(5,6,4,6,middleX,middleY);
-		rightboard=new Board(9,6,5,6,rightX,rightY);
+		leftboard=new Board(0,6,5,6,leftX,leftY,1);
+		middleboard=new Board(5,6,4,6,middleX,middleY,2);
+		rightboard=new Board(9,6,5,6,rightX,rightY,3);
 		leftboard.setTexture(new Texture("board.jpeg"));
 		rightboard.setTexture(new Texture("board.jpeg"));
 		middleboard.setTexture(new Texture("board.jpeg"));
@@ -139,15 +139,28 @@ public class HumanVsHuman extends BaseScreen {
 			}
 		//board action listeners
 		for(final Board b:boards){
+			
 			b.addListener(new InputListener()
 			{
 				public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+//					for(int i=0;i<gameTable.length;i++)
+//						System.out.println(Arrays.toString(gameTable[i]));
+//					System.out.println("\n\n");
+					boolean shift=true;
+					for(int i=0;i<gameTable.length;i++)
+						if((gameTable[i][4]>0 && gameTable[i][5]==gameTable[i][4] && (b.id==1 || b.id==2))||(gameTable[i][8]>0 && gameTable[i][8]==gameTable[i][9] && (b.id==3)))
+						{
+							System.out.println("id:"+b.id+" sýkýntý:"+i);
+							shift=false;
+							break;
+						}
 					b.firstTouchX=(int) (x/(mapWidth/n));
 					b.firstTouchY=b.height-(int) (y/(mapHeight/m))-1;
-					System.out.println(b.firstTouchY);
 					//b.lastX=b.firstTouchX+b.x;
 					//b.lastY=b.firstTouchY+b.y;
-					b.pressed=true;
+					b.pressed=shift;
+					
+					
 					return true;
 			}
 				public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
@@ -189,28 +202,28 @@ public class HumanVsHuman extends BaseScreen {
 		
 		
 		car1.setTexture(new Texture("ferrari.png"));
-		car1.setPosition(leftX+car1.x*mapWidth/n, leftY+mapHeight*car1.y/m-mapHeight);
+		car1.setPosition(boardX+car1.x*mapWidth/n, boardY+boardHeight*car1.y/gameTable.length);
 		
 		car2.setTexture(new Texture("bugatti.png"));
-		car2.setPosition(leftX+car2.x*mapWidth/n, leftY+mapHeight*car2.y/m-mapHeight);
+		car2.setPosition(boardX+car2.x*mapWidth/n, boardY+boardHeight*car2.y/gameTable.length);
 		
 		car3.setTexture(new Texture("ambulance.png"));
-		car3.setPosition(leftX+car3.x*mapWidth/n, leftY+mapHeight*car3.y/m-mapHeight);
+		car3.setPosition(boardX+car3.x*mapWidth/n, boardY+boardHeight*car3.y/gameTable.length);
 				
 		car4.setTexture(new Texture("chevrolet.png"));
-		car4.setPosition(leftX+car4.x*mapWidth/n, leftY+mapHeight*car4.y/m-mapHeight);
+		car4.setPosition(boardX+car4.x*mapWidth/n, boardY+boardHeight*car4.y/gameTable.length);
 						
 		car5.setTexture(new Texture("jeep.png"));
-		car5.setPosition(leftX+car5.x*mapWidth/n, leftY+mapHeight*car5.y/m-mapHeight);
+		car5.setPosition(boardX+car5.x*mapWidth/n, boardY+boardHeight*car5.y/gameTable.length);
 						
 		car6.setTexture(new Texture("dashcam.png"));
-		car6.setPosition(leftX+car6.x*mapWidth/n, leftY+mapHeight*car6.y/m-mapHeight);
+		car6.setPosition(boardX+car6.x*mapWidth/n, boardY+boardHeight*car6.y/gameTable.length);
 						
 		car7.setTexture(new Texture("mercedes.png"));
-		car7.setPosition(leftX+car7.x*mapWidth/n, leftY+mapHeight*car7.y/m-mapHeight);
+		car7.setPosition(boardX+car7.x*mapWidth/n, boardY+boardHeight*car7.y/gameTable.length);
 		
 		car8.setTexture(new Texture("mercedes.png"));
-		car8.setPosition(leftX+car8.x*mapWidth/n, leftY+mapHeight*car8.y/m-mapHeight);
+		car8.setPosition(boardX+car8.x*mapWidth/n, boardY+boardHeight*car8.y/gameTable.length);
 				
 		list.add(car1);
 		list.add(car2);
@@ -250,14 +263,19 @@ public class HumanVsHuman extends BaseScreen {
 		rightboard.setHeight(mapHeight);
 		leftboard.setHeight(mapHeight);
 		middleboard.setHeight(mapHeight);
-		ShapeRenderer sr=new ShapeRenderer();
-		sr.begin(ShapeType.Line);
-		sr.setColor(Color.YELLOW);
-		for(int i=0;i<m;i++)
-			sr.line(leftX, leftY+mapHeight*i/m, rightX+rightwidth, leftY+mapHeight*i/m);
-		for(int i=0;i<n;i++)
-			sr.line(leftX+mapWidth*i/n, leftY, leftX+mapWidth*i/n, leftY+mapHeight);
-		sr.end();
+		
+//		ShapeRenderer sr=new ShapeRenderer();
+//		sr.begin(ShapeType.Line);
+//		sr.setColor(Color.YELLOW);
+//		for(int i=0;i<m;i++)
+//			sr.line(leftX, leftY+mapHeight*i/m, rightX+rightwidth, leftY+mapHeight*i/m);
+//		for(int i=0;i<n;i++)
+//			sr.line(leftX+mapWidth*i/n, leftY, leftX+mapWidth*i/n, leftY+mapHeight);
+//		sr.end();
+//		for(Car car:cars)
+//			car.setPosition(boardX+car.x*mapWidth/n, boardY+boardHeight*car.y/gameTable.length);
+//		
+		
 	}
 
 	@Override
@@ -267,7 +285,7 @@ public class HumanVsHuman extends BaseScreen {
 		for(Car x:cars){
 			x.setWidth(mapWidth/n*x.width);
 			x.setHeight(mapHeight/m*x.height);
-			if(x.xx==m && x.id==1){
+			if((x.xx==m && x.id==1)||(x.xx==-2 && x.id==2)){
 				win=true;
 			}
 		}
@@ -280,6 +298,16 @@ public class HumanVsHuman extends BaseScreen {
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		// upperleft is (0,0)	
+//		for(Car c:cars){
+//			int s=0;ArrayList<Board> cross=new ArrayList<Board>();
+//			for(Board b:boards)
+//				if(b.x<=c.x)
+//					if(b.x+b.width>=c.x+c.width)
+//						cross.add(b);
+//			if(cross.size()>1)
+//				for(Board b:cross)
+//					b.pressed=false;
+//		}
 		int a=boardX;
 		int b=boardY;
 		//(a,b) is the lowerleft corner
@@ -290,11 +318,19 @@ public class HumanVsHuman extends BaseScreen {
 		a1/=w1;
 		int b1=sc-b;
 		b1/=h1;
+//		for(int i=0;i<gameTable.length;i++)
+//			System.out.println(Arrays.toString(gameTable[i]));
+//		System.out.println("\n\n");
+//		System.out.println(gameTable[6][8]+" , "+gameTable[6][9]);
 		for(int i=0;i<boards.length;i++){
+			
 			int bb1=screenY-(VIEW_HEIGHT-boardY-boardHeight);
 			bb1/=h1;
-			if(boards[i].pressed)
-				boards[i].dragBoard(boards[i].x,bb1-boards[i].firstTouchY, gameTable, boardX, boardY, boardWidth,boardHeight);
+			if(boards[i].pressed){
+				
+				boards[i].dragBoard(boards[i].x,bb1-boards[i].firstTouchY, gameTable, boardX, boardY, boardWidth,boardHeight,cars);
+				
+			}
 		}
 		for(int i=0;i<cars.size();i++){
 			
