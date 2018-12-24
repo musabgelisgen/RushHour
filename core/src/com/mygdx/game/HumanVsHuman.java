@@ -143,17 +143,18 @@ public class HumanVsHuman extends BaseScreen {
 			b.addListener(new InputListener()
 			{
 				public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
+					
 //					for(int i=0;i<gameTable.length;i++)
 //						System.out.println(Arrays.toString(gameTable[i]));
 //					System.out.println("\n\n");
 					boolean shift=true;
-					for(int i=0;i<gameTable.length;i++)
-						if((gameTable[i][4]>0 && gameTable[i][5]==gameTable[i][4] && (b.id==1 || b.id==2))||(gameTable[i][8]>0 && gameTable[i][8]==gameTable[i][9] && (b.id==3)))
-						{
-							System.out.println("id:"+b.id+" sýkýntý:"+i);
-							shift=false;
-							break;
-						}
+//					for(int i=0;i<gameTable.length;i++)
+//						if((gameTable[i][4]>0 && gameTable[i][5]==gameTable[i][4] && (b.id==1 || b.id==2))||(gameTable[i][8]>0 && gameTable[i][8]==gameTable[i][9] && (b.id==3 || b.id==2)))
+//						{
+//							System.out.println("id:"+b.id+" sýkýntý:"+i);
+//							shift=false;
+//							break;
+//						}
 					b.firstTouchX=(int) (x/(mapWidth/n));
 					b.firstTouchY=b.height-(int) (y/(mapHeight/m))-1;
 					//b.lastX=b.firstTouchX+b.x;
@@ -326,6 +327,18 @@ public class HumanVsHuman extends BaseScreen {
 			
 			int bb1=screenY-(VIEW_HEIGHT-boardY-boardHeight);
 			bb1/=h1;
+			if(boards[i].pressed)
+				System.out.println(bb1-boards[i].firstTouchY);
+			if(i<2)
+				if(boards[i].pressed)
+					if((bb1-boards[i].firstTouchY+boards[i].height<boards[i+1].y)||(bb1-boards[i].firstTouchY>boards[i+1].y+boards[i+1].height))
+						boards[i].pressed=false;
+			if(i>0)
+				if(boards[i].pressed)
+					if((bb1-boards[i].firstTouchY+boards[i].height<boards[i-1].y)||(bb1-boards[i].firstTouchY>boards[i-1].y+boards[i-1].height))
+						boards[i].pressed=false;
+					
+			
 			if(boards[i].pressed){
 				
 				boards[i].dragBoard(boards[i].x,bb1-boards[i].firstTouchY, gameTable, boardX, boardY, boardWidth,boardHeight,cars);

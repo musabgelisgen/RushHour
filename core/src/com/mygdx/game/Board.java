@@ -31,14 +31,14 @@ public class Board extends BaseActor {
 			for(int j=x;j<x+width;j++){
 				table[i-y][j-x]=board[i][j];
 			}
-//		boolean shiftable=true;
-//		for(int j=0;j<board.length;j++)
-//			if((board[j][4]>0 && board[j][5]==board[j][4] && (id==1 || id==2))||(board[j][8]>0 && board[j][9]==board[j][8] && id==3)){
-//				shiftable=false;
-//				break;
-//			}
-//		System.out.println(board[6][8]+" , "+board[6][9]);
-//		shift=shiftable;
+		boolean shiftable=true;
+		for(int j=0;j<board.length;j++)
+			if((board[j][4]>0 && board[j][5]==board[j][4] && (id==1 || id==2))||(board[j][8]>0 && board[j][9]==board[j][8] && (id==3|| id==2))){
+				shiftable=false;
+				break;
+			}
+		System.out.println(board[6][8]+" , "+board[6][9]);
+		shift=shiftable;
 		
 	}
 	public void updatePosition(int x,int y){
@@ -54,12 +54,11 @@ public class Board extends BaseActor {
 		if(b>2*gameTable.length/3)
 			return;
 		updateBoard(gameTable);
-//		if(!shift)
-//			return;
+		if(!shift)
+			return;
 //		for(int i=gameTable.length-1;i>-1;i--)
 //				System.out.println(Arrays.toString(gameTable[i]));
 //		System.out.println("\n\n");
-		
 		if(y==b)
 			return;
 		for(int i=y;i<y+height;i++)
