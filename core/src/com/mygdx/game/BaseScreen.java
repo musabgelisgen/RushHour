@@ -42,7 +42,8 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		TextButtonStyle buttonStyle2=new TextButtonStyle();
 		TextButtonStyle buttonStyle3=new TextButtonStyle();
 
-		BitmapFont font=new BitmapFont();
+		BitmapFont font=new BitmapFont(Gdx.files.internal("newfont.fnt"));//normally is was BitmapFont font=new BitmapFont();
+
 		buttonStyle1.font=font;
 		buttonStyle2.font=font;
 		buttonStyle3.font=font;
