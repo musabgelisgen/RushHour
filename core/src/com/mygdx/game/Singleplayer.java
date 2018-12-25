@@ -27,7 +27,7 @@ public class Singleplayer extends BaseScreen {
 	Label lev1,lev2,lev3,lev4,lev5,lev6,lev7,lev8;
 	Sound buton,winSound;
 	boolean[] enables;
-	static int passed=7;
+	static int passed=0;
 	TextButton[] levels;
 	StarScore scores = null;
 

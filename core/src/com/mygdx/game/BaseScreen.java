@@ -49,7 +49,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		buttonStyle3.font=font;
 		Texture upButton1=new Texture("level1.jpeg");
 		Texture overButton1=new Texture("level1over.jpeg");
-		Texture locked=new Texture("lockedlevel1.jpeg");
+		Texture locked=new Texture("lock.png");
 		Texture returnM=new Texture("arrow.png");
 		Texture overarrow=new Texture("overarrow.png");
 		game.skin.add("overarrow", new NinePatch(overarrow,5,5,5,5));
