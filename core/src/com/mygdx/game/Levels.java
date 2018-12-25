@@ -131,7 +131,7 @@ public class Levels extends BaseScreen {
 		for(int i=0;i<cars.size();i++)
 			if(cars.get(i).id==1){
 				if(SelectTheme.targetNumber == 2)
-					cars.get(i).setTexture(game.skin.get("car9Texture",Texture.class));
+					cars.get(i).setTexture(SelectCar.targetTexture2);
 				else
 					cars.get(i).setTexture(SelectCar.targetTexture);
 				break;
