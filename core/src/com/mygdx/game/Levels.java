@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -60,6 +61,7 @@ public class Levels extends BaseScreen {
 	boolean serialized = false;
 	boolean finished = false;
 	StarScore sScores;
+	Image starImage;
 	public Levels(BaseGame game) {
 		super(game);
 
@@ -264,7 +266,6 @@ public class Levels extends BaseScreen {
 				return true;
 			}
 			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
-
 				for(Car carx:cars)
 					carx.buton.stop();
 				if(pass<levelno)
@@ -391,13 +392,14 @@ public class Levels extends BaseScreen {
 			}
 
 			if(win && !finished){
+				mainStage.clear();
 				if(SelectTheme.targetNumber == 2)
 					uiTable.setBackground(game.skin.getDrawable("space_backgroundSP"));
 				else
 					uiTable.setBackground(game.skin.getDrawable("background_blurred"));
 //				move_count.setVisible(false);
 				targetMoveCount.setVisible(false);
-				Image starImage;
+//				Image starImage;
 				if(sScores.getScores().get(levelno - 1) == 0) 
 					starImage = new Image(new Texture("no_stars.png"));
 				else if(sScores.getScores().get(levelno - 1) == 1) 
@@ -418,11 +420,12 @@ public class Levels extends BaseScreen {
 				winner.setHeight(300);
 				finished = true;
 				
-//				mainStage.clear();
-//				mainStage.addActor(returnMenu);
-//				mainStage.addActor(hint);
-//				mainStage.addActor(nextLevel);
-				
+				mainStage.addActor(winner);
+				mainStage.addActor(returnMenu);
+				mainStage.addActor(hint);
+				mainStage.addActor(nextLevel);
+//				Gdx.gl.glClearColor( 1, 0, 0, 1 );
+//				Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 				pause();
 			}
 
@@ -435,7 +438,7 @@ public class Levels extends BaseScreen {
 		super.render(dt);
 		
 		
-
+if(!win) {
 		index++;
 		index%=speed;
 		if(move && index==0){
@@ -515,10 +518,22 @@ public class Levels extends BaseScreen {
 //				shape_renderer.rect(startX,startY,half_of_view_width/width_tiles,half_of_view_height/height_tiles);
 //				shape_renderer.end();
 		
-		mainStage.draw();
+		
 //		move_count.setText("Number Of Moves :"+numOfMoves);
 //		move_count.setPosition(VIEW_WIDTH/2-300,VIEW_HEIGHT-100);
-		targetMoveCount.setPosition(VIEW_WIDTH/2-300,VIEW_HEIGHT-60 );
+		
+}
+targetMoveCount.setPosition(VIEW_WIDTH/2 - 5, 5*VIEW_HEIGHT/6 + 10);
+mainStage.draw();
+//else {
+//	mainStage.clear();
+//	mainStage.addActor(returnMenu);
+//	mainStage.addActor(hint);
+//	mainStage.addActor(nextLevel);
+//	mainStage.addActor(winner);
+//	mainStage.addActor(starImage);
+//	mainStage.draw();
+//}
 		returnMenu.setPosition(10,20);
 		returnMenu.setWidth(150);
 		returnMenu.setHeight(50);
@@ -539,6 +554,7 @@ public class Levels extends BaseScreen {
 		message.setPosition(VIEW_WIDTH/2-meswidth/2, 0);
 		message.setWidth(meswidth);
 		message.setHeight(mesheight);
+		
 		
 		//arabanin etrafindaki sari cizgiler
 		
