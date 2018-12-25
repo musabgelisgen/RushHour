@@ -121,9 +121,16 @@ public class Singleplayer extends BaseScreen {
 			}
 		}		
 		
-		for(int i=0;i<8;i++){
-			levels[i].setTouchable(enables[i]?Touchable.enabled:Touchable.disabled);
-			levels[i].setStyle(i>passed?game.skin.get("buttonStyle2", TextButtonStyle.class):game.skin.get("buttonStyle1", TextButtonStyle.class));
+		levels[0].setTouchable(enables[0]?Touchable.enabled:Touchable.disabled);
+		levels[0].setTouchable(enables[0]?Touchable.enabled:Touchable.disabled);
+		for(int i=1;i<8;i++){
+			levels[i].setTouchable((scores.getScores().get(i - 1) != 0)?Touchable.enabled:Touchable.disabled);
+			if(scores.getScores().get(i - 1) == 0)
+				levels[i].setStyle(game.skin.get("buttonStyle2", TextButtonStyle.class));
+			else {
+				levels[i].setStyle(game.skin.get("buttonStyle1", TextButtonStyle.class));
+				System.out.println("level unlocked");
+			}
 		}
 		
 		
