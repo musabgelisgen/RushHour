@@ -384,7 +384,10 @@ public class Levels extends BaseScreen {
 			}
 
 			if(win && !finished){
-				uiTable.setBackground(game.skin.getDrawable("background_blurred"));
+				if(SelectTheme.targetNumber == 2)
+					uiTable.setBackground(game.skin.getDrawable("space_backgroundSP"));
+				else
+					uiTable.setBackground(game.skin.getDrawable("background_blurred"));
 				move_count.setVisible(false);
 				targetMoveCount.setVisible(false);
 				Image starImage;

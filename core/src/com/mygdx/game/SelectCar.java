@@ -129,7 +129,10 @@ public class SelectCar extends BaseScreen {
 			}
 		});
 
-		uiTable.setBackground(game.skin.getDrawable("background_blurred"));
+		if(SelectTheme.targetNumber == 2)
+			uiTable.setBackground(game.skin.getDrawable("space_backgroundSP"));
+		else
+			uiTable.setBackground(game.skin.getDrawable("background_blurred"));
 		uiStage.addActor(newcar1);
 		uiStage.addActor(newcar2);
 		uiStage.addActor(newcar3);
