@@ -62,6 +62,7 @@ public class SelectTheme extends BaseScreen {
 				newTheme1.setText("REGULAR");
 				targetTexture = game.skin.get("themeTexture1", Texture.class);
 				targetNumber = 1;
+				uiTable.setBackground(game.skin.getDrawable("regular_theme_sel"));
 			}
 		});
 		
@@ -78,6 +79,7 @@ public class SelectTheme extends BaseScreen {
 				newTheme2.setText("SPACE");
 				targetTexture = game.skin.get("themeTexture2", Texture.class);
 				targetNumber = 2;
+				uiTable.setBackground(game.skin.getDrawable("space_backgroundSP"));
 			}
 		});
 		
@@ -116,7 +118,11 @@ public class SelectTheme extends BaseScreen {
 //		});
 
 
-		uiTable.setBackground(game.skin.getDrawable("background_blurred"));
+//		uiTable.setBackground(game.skin.getDrawable("background_blurred"));
+		if(SelectTheme.targetNumber == 2)
+			uiTable.setBackground(game.skin.getDrawable("space_backgroundSP"));
+		else
+			uiTable.setBackground(game.skin.getDrawable("regular_theme_sel"));
 		
 //		uiStage.addActor(frame1);
 //		uiStage.addActor(frame2);

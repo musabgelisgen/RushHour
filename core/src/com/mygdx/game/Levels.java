@@ -103,7 +103,7 @@ public class Levels extends BaseScreen {
 		target=null;
 		path=new ArrayList<Node>();
 		winner=new BaseActor();
-		winner.setTexture(new Texture("youwin1.png"));
+		winner.setTexture(new Texture("you_win.png"));
 		pass=Singleplayer.passed;
 		carVoice=Gdx.audio.newSound(Gdx.files.internal("car.ogg"));
 		returnMenu=new TextButton("Back", game.skin, "buttonStyle");
@@ -404,9 +404,11 @@ public class Levels extends BaseScreen {
 				starImage.setWidth(175);
 				starImage.setHeight(65);
 				winner.setVisible(true);
-				winner.setPosition(VIEW_WIDTH/2-175, VIEW_HEIGHT/2-70);
-				winner.setWidth(400);
-				winner.setHeight(200);
+				winner.setPosition(VIEW_WIDTH/2-150, VIEW_HEIGHT/2-175);
+//				winner.setWidth(400);
+//				winner.setHeight(200);
+				winner.setWidth(300);
+				winner.setHeight(300);
 				finished = true;
 				pause();
 			}
