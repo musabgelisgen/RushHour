@@ -106,7 +106,7 @@ public class HumanVsHuman extends BaseScreen {
 		
 		cards=new Card[15];
 		for(int i=0;i<cards.length;i++)
-			cards[i]=new Card(moveAmounts[i],shifts[i],slices[i]);
+			cards[i]=new Card(moveCounts[i],shifts[i],slices[i]);
 	}
 
 
