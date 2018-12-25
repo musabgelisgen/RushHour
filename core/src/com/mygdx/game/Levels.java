@@ -311,7 +311,7 @@ public class Levels extends BaseScreen {
 		if(SelectTheme.targetNumber == 2)
 			uiTable.setBackground(game.skin.getDrawable("themeTexture2"));
 		else
-			uiTable.setBackground(game.skin.getDrawable("background"));
+			uiTable.setBackground(game.skin.getDrawable("inGameSP"));
 		
 		uiTable.add(returnMenu);
 		uiTable.add(hint);
