@@ -46,7 +46,7 @@ public class SelectCar extends BaseScreen {
 		carButtons[3]=newcar8;
 		
 		targetTexture=game.skin.get("car1Texture",Texture.class);
-		returnMenu=new TextButton("Back", game.skin, "buttonStyle3");
+		returnMenu=new TextButton("Main Menu", game.skin, "buttonStyle");
 		returnMenu.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
@@ -139,7 +139,7 @@ public class SelectCar extends BaseScreen {
 		uiStage.addActor(newcar3);
 		uiStage.addActor(newcar8);
 
-		uiTable.add(returnMenu);
+		uiTable.add(returnMenu).width(150).height(50);
 
 
 	}
@@ -152,7 +152,7 @@ public class SelectCar extends BaseScreen {
 			carButtons[i].setHeight(cbx);
 			carButtons[i].setPosition((cbx)*3*(i%(carButtons.length/2))+VIEW_WIDTH/4 - 20, 3*VIEW_HEIGHT/4-(cbx+10)*2*(i/(carButtons.length/2)));
 		}
-		returnMenu.setPosition(30, 0);
+		returnMenu.setPosition(0, 0);
 		returnMenu.setWidth(180);
 
 	}

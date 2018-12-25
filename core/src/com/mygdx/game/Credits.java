@@ -25,7 +25,7 @@ public class Credits extends BaseScreen {
 		createStyles();
 		
 		
-		returnMenu=new TextButton("Back", game.skin, "buttonStyle3");
+		returnMenu=new TextButton("Main Menu", game.skin, "buttonStyle");
 		returnMenu.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
@@ -37,7 +37,7 @@ public class Credits extends BaseScreen {
 			}
 			});
 		uiTable.setBackground(game.skin.getDrawable("credits"));
-		uiTable.add(returnMenu);
+		uiTable.add(returnMenu).width(150).height(50);
 		
 
 	}
@@ -47,7 +47,7 @@ public class Credits extends BaseScreen {
 		// TODO Auto-generated method stub
 		
 		
-		returnMenu.setPosition(30, 0);
+		returnMenu.setPosition(20, 10);
 		returnMenu.setWidth(180);
 
 	}

@@ -36,7 +36,7 @@ public class SelectTheme extends BaseScreen {
 		themeButtons[0] = newTheme1;
 		themeButtons[1] = newTheme2;
 		
-		returnMenu=new TextButton("Back", game.skin, "buttonStyle3");
+		returnMenu=new TextButton("Main Menu", game.skin, "buttonStyle");
 		returnMenu.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
@@ -131,7 +131,7 @@ public class SelectTheme extends BaseScreen {
 //		uiStage.addActor(newTheme3);
 //		uiStage.addActor(newTheme4);
 
-		uiTable.add(returnMenu);
+		uiTable.add(returnMenu).width(150).height(50);
 
 	}
 
@@ -158,7 +158,7 @@ public class SelectTheme extends BaseScreen {
 		themeButtons[1].setPosition(200,100);
 
 
-		returnMenu.setPosition(30, 0);
+		returnMenu.setPosition(0, 0);
 		returnMenu.setWidth(180);
 
 	}

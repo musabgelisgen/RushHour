@@ -18,7 +18,9 @@ public class MultiPlayer extends BaseScreen {
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
-		returnMenu=new TextButton("Back", game.skin, "buttonStyle3");
+		returnMenu=new TextButton("Main Menu", game.skin, "buttonStyle");
+		returnMenu.setWidth(75);
+		returnMenu.setHeight(25);
 		returnMenu.addListener(new InputListener()
 		{
 			public boolean touchDown(InputEvent ev,float x,float y,int pointer,int button){
@@ -60,7 +62,7 @@ public class MultiPlayer extends BaseScreen {
 			}
 			});
 		uiTable.setBackground(game.skin.getDrawable("background"));
-		uiTable.add(returnMenu);
+		uiTable.add(returnMenu).width(150).height(50);
 		uiTable.row();
 		uiTable.add(com_vs_hum).padLeft(300).width(150).height(50).padBottom(20);
 		uiTable.row();
