@@ -19,7 +19,7 @@ public class MainMenu extends BaseScreen {
 	TextButton singleplayer,multiplayer;
 	TextButton select_theme,select_car,credits;
 	Sound buton;
-	 Music instrumenatal;
+	 //Music instrumenatal;
 	BitmapFont newfont;
 	BaseActor icon;
 	static boolean start=true;
@@ -32,10 +32,10 @@ public class MainMenu extends BaseScreen {
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
-		instrumenatal=Gdx.audio.newMusic(Gdx.files.internal("main.ogg"));
-			instrumenatal.play();
+		//instrumenatal=Gdx.audio.newMusic(Gdx.files.internal("main.ogg"));
+			//instrumenatal.play();
 		
-		game.skin.add("music", instrumenatal);
+		//game.skin.add("music", instrumenatal);
 		BitmapFont font=new BitmapFont();
 		game.skin.add("uiFont", font);
 		LabelStyle style=new LabelStyle(font, Color.YELLOW);
@@ -162,7 +162,7 @@ public class MainMenu extends BaseScreen {
 		}
 			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
 				buton.play(0.2f);
-				instrumenatal.stop();
+				//instrumenatal.stop();
 				game.setScreen(new Singleplayer(game));
 			}
 			});
@@ -176,7 +176,7 @@ public class MainMenu extends BaseScreen {
 		}
 			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
 				buton.play(0.2f);
-				instrumenatal.stop();
+				//instrumenatal.stop();
 				game.setScreen(new Credits(game));
 			}
 			});
@@ -188,7 +188,7 @@ public class MainMenu extends BaseScreen {
 				return true;
 			}
 				public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
-					instrumenatal.stop();
+					//instrumenatal.stop();
 					buton.play(0.2f);
 					game.setScreen(new SelectTheme(game));
 				
@@ -202,7 +202,7 @@ public class MainMenu extends BaseScreen {
 				return true;
 			}
 			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
-				instrumenatal.stop();
+				//instrumenatal.stop();
 				buton.play(0.2f);
 				game.setScreen(new SelectCar(game));
 				carSelected=true;
@@ -215,7 +215,7 @@ public class MainMenu extends BaseScreen {
 				return true;
 			}
 				public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
-					instrumenatal.stop();
+					//instrumenatal.stop();
 					buton.play(0.2f);
 					game.setScreen(new MultiPlayer(game));
 					
