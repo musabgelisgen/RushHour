@@ -322,40 +322,55 @@ public class HumanVsHuman extends BaseScreen {
 
 	}
 	public void createCars(ArrayList<Car> list){
-		Car car1=new Car(0,3,11,2,1,0);
-		Car car2=new Car(0,0,10,2,1,0);
-		Car car3=new Car(0,0,8,2,1,1);	//Player1
-		Car car4=new Car(1,2,7,1,2,0);
-		Car car5=new Car(1,3,8,1,2,0);
-		Car car6=new Car(1,5,7,1,2,0);
-		Car car7=new Car(0,2,6,2,1,0);
-		Car car8=new Car(0,6,7,2,1,2);	//Player2
+		Car car1=new Car(0,0,7,3,1,0);
+		Car car2=new Car(1,3,6,1,3,0);
+		Car car3=new Car(0,0,10,2,1,1);	//Player1
+		Car car4=new Car(1,4,10,1,2,0);
+		Car car5=new Car(1,5,9,1,2,0);
+		Car car6=new Car(1,6,8,1,2,0);
+		Car car7=new Car(1,7,8,1,2,0);
+		Car car8=new Car(1,8,7,1,2,0);	
+		Car car9=new Car(1,9,6,1,2,0);
+		Car car10=new Car(1,10,9,1,3,0);
+		Car car11=new Car(0,11,10,3,1,0);
+		Car car12=new Car(0,12,7,2,1,2); //Player2
 
 
-
-		car1.setTexture(new Texture("ferrari.png"));
+		car1.setTexture(new Texture("truck_horiz.png"));
 		car1.setPosition(boardX+car1.x*mapWidth/n, boardY+boardHeight*car1.y/gameTable.length);
 
-		car2.setTexture(new Texture("bugatti.png"));
+		car2.setTexture(new Texture("truck_vert.png"));
 		car2.setPosition(boardX+car2.x*mapWidth/n, boardY+boardHeight*car2.y/gameTable.length);
 
-		car3.setTexture(new Texture("ambulance.png"));
+		car3.setTexture(new Texture("police_horiz.png"));
 		car3.setPosition(boardX+car3.x*mapWidth/n, boardY+boardHeight*car3.y/gameTable.length);
 
-		car4.setTexture(new Texture("chevrolet.png"));
+		car4.setTexture(new Texture("obs_car_vert.png"));
 		car4.setPosition(boardX+car4.x*mapWidth/n, boardY+boardHeight*car4.y/gameTable.length);
 
-		car5.setTexture(new Texture("jeep.png"));
+		car5.setTexture(new Texture("obs_car_vert.png"));
 		car5.setPosition(boardX+car5.x*mapWidth/n, boardY+boardHeight*car5.y/gameTable.length);
 
-		car6.setTexture(new Texture("dashcam.png"));
+		car6.setTexture(new Texture("obs_car_vert.png"));
 		car6.setPosition(boardX+car6.x*mapWidth/n, boardY+boardHeight*car6.y/gameTable.length);
 
-		car7.setTexture(new Texture("mercedes.png"));
+		car7.setTexture(new Texture("obs_car_vert.png"));
 		car7.setPosition(boardX+car7.x*mapWidth/n, boardY+boardHeight*car7.y/gameTable.length);
 
-		car8.setTexture(new Texture("mercedes.png"));
+		car8.setTexture(new Texture("obs_car_vert.png"));
 		car8.setPosition(boardX+car8.x*mapWidth/n, boardY+boardHeight*car8.y/gameTable.length);
+		
+		car9.setTexture(new Texture("obs_car_vert.png"));
+		car9.setPosition(boardX+car9.x*mapWidth/n, boardY+boardHeight*car9.y/gameTable.length);
+
+		car10.setTexture(new Texture("truck_vert.png"));
+		car10.setPosition(boardX+car10.x*mapWidth/n, boardY+boardHeight*car10.y/gameTable.length);
+
+		car11.setTexture(new Texture("truck_horiz.png"));
+		car11.setPosition(boardX+car11.x*mapWidth/n, boardY+boardHeight*car11.y/gameTable.length);
+
+		car12.setTexture(new Texture("police_horiz2.png"));
+		car12.setPosition(boardX+car12.x*mapWidth/n, boardY+boardHeight*car12.y/gameTable.length);
 
 		list.add(car1);
 		list.add(car2);
@@ -365,6 +380,10 @@ public class HumanVsHuman extends BaseScreen {
 		list.add(car6);
 		list.add(car7);
 		list.add(car8);
+		list.add(car9);
+		list.add(car10);
+		list.add(car11);
+		list.add(car12);
 
 		uiStage.addActor(car1);
 		uiStage.addActor(car2);
@@ -374,6 +393,10 @@ public class HumanVsHuman extends BaseScreen {
 		uiStage.addActor(car6);
 		uiStage.addActor(car7);
 		uiStage.addActor(car8);
+		uiStage.addActor(car9);
+		uiStage.addActor(car10);
+		uiStage.addActor(car11);
+		uiStage.addActor(car12);
 
 	}
 	@Override
