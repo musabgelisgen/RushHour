@@ -44,9 +44,66 @@ public class HumanVsHuman extends BaseScreen {
 	Card currentCard;
 	int index;
 	boolean expectingMovement = false;
+	int[] moveCounts;
+	boolean[] shifts;
+	boolean[] slices;
 	public HumanVsHuman(BaseGame game) {
 		super(game);
 	}
+	
+	public createCards(){
+		moveCounts=new int[15];
+		moveCounts[0]=1;
+		moveCounts[1]=2;
+		moveCounts[2]=1;
+		moveCounts[3]=3;
+		moveCounts[4]=3;
+		moveCounts[5]=2;
+		moveCounts[6]=3;
+		moveCounts[7]=1;
+		moveCounts[8]=2;
+		moveCounts[9]=2;
+		moveCounts[10]=3;
+		moveCounts[11]=1;
+		moveCounts[12]=2;
+		moveCounts[13]=3;
+		moveCounts[14]=1;
+		
+		shifts=new boolean[15];
+		shifts[0]=false;
+		shifts[1]=true;
+		shifts[2]=false;
+		shifts[3]=true;
+		shifts[4]=false;
+		shifts[5]=false;	
+		shifts[6]=true;
+		shifts[7]=false;
+		shifts[8]=true;
+		shifts[9]=false;
+		shifts[10]=false;
+		shifts[11]=true;
+		shifts[12]=false;
+		shifts[13]=false;
+		shifts[14]=false;
+		
+		slices=new boolean[15];	//{false,false,false,false,false,false,false,true,false,false,true,false,false,true,false};
+		slices[0]=false;
+		slices[1]=false;
+		slices[2]=false;
+		slices[3]=false;
+		slices[4]=false;
+		slices[5]=false;
+		slices[6]=false;
+		slices[7]=true;
+		slices[8]=false;
+		slices[9]=false;
+		slices[10]=true;
+		slices[11]=false;
+		slices[12]=false;
+		slices[13]=true;
+		slices[14]=false;
+	}
+
 
 	@Override
 	public void create() {
