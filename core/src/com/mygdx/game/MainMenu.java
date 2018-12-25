@@ -59,6 +59,15 @@ public class MainMenu extends BaseScreen {
 		Texture backgroundSP=new Texture("background_blurred.jpg");
 		game.skin.add("background_blurred", backgroundSP);
 		
+		Texture space_backgroundSP=new Texture("space.gif");
+		game.skin.add("space_backgroundSP", space_backgroundSP);
+		
+		Texture car_backgroundSP=new Texture("Regular_car_select.png");
+		game.skin.add("car_backgroundSP", car_backgroundSP);
+		
+		Texture regular_theme_sel=new Texture("Regular_theme_sel.png");
+		game.skin.add("regular_theme_sel", regular_theme_sel);
+		
 		Texture selectcar=new Texture("selectCar.PNG");
 		game.skin.add("selectcar", selectcar);
 		

@@ -135,7 +135,10 @@ public class Singleplayer extends BaseScreen {
 		
 
 		//replace the objects on the screen
-		uiTable.setBackground(game.skin.getDrawable("background_blurred"));
+		if(SelectTheme.targetNumber == 2)
+			uiTable.setBackground(game.skin.getDrawable("space_backgroundSP"));
+		else
+			uiTable.setBackground(game.skin.getDrawable("background_blurred"));
 		
 
 		for(int i = 0; i < 4; i++) {
