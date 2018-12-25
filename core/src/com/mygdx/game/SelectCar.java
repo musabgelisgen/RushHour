@@ -33,6 +33,12 @@ public class SelectCar extends BaseScreen {
 		newcar6=new TextButton(targetNumber==6?"CHOSEN":"", game.skin,"buttonCarStyle6");
 		newcar7=new TextButton(targetNumber==7?"CHOSEN":"", game.skin,"buttonCarStyle7");
 		newcar8=new TextButton(targetNumber==8?"CHOSEN":"", game.skin,"buttonCarStyle8");
+		if(SelectTheme.targetNumber == 2) {
+			newcar1=new TextButton(targetNumber==1?"CHOSEN":"", game.skin,"buttonCarStyle9");
+			newcar2=new TextButton(targetNumber==2?"CHOSEN":"", game.skin,"buttonCarStyle10");
+			newcar3=new TextButton(targetNumber==3?"CHOSEN":"", game.skin,"buttonCarStyle11");
+			newcar8=new TextButton(targetNumber==8?"CHOSEN":"", game.skin,"buttonCarStyle12");
+		}
 		carButtons[0]=newcar1;
 		carButtons[1]=newcar2;
 		carButtons[2]=newcar3;
@@ -63,6 +69,8 @@ public class SelectCar extends BaseScreen {
 			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
 				newcar1.setText("CHOSEN");
 				targetTexture=game.skin.get("car1Texture",Texture.class);
+				if(SelectTheme.targetNumber == 2) 
+					targetTexture=game.skin.get("car9Texture",Texture.class);
 				targetNumber=1;
 			}
 		});
@@ -79,6 +87,8 @@ public class SelectCar extends BaseScreen {
 			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
 				newcar2.setText("CHOSEN");
 				targetTexture=game.skin.get("car2Texture",Texture.class);
+				if(SelectTheme.targetNumber == 2) 
+					targetTexture=game.skin.get("car10Texture",Texture.class);
 				targetNumber=2;
 			}
 		});
@@ -95,6 +105,8 @@ public class SelectCar extends BaseScreen {
 			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
 				newcar3.setText("CHOSEN");
 				targetTexture=game.skin.get("car3Texture",Texture.class);
+				if(SelectTheme.targetNumber == 2) 
+					targetTexture=game.skin.get("car11Texture",Texture.class);
 				targetNumber=3;
 			}
 		});
@@ -111,6 +123,8 @@ public class SelectCar extends BaseScreen {
 			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
 				newcar8.setText("CHOSEN");
 				targetTexture=game.skin.get("car8Texture",Texture.class);
+				if(SelectTheme.targetNumber == 2) 
+					targetTexture=game.skin.get("car12Texture",Texture.class);
 				targetNumber=8;
 			}
 		});
