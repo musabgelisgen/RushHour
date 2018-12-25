@@ -42,6 +42,7 @@ public class HumanVsHuman extends BaseScreen {
 	Label turnLabel2;
 	BaseActor card, move, move1, move2, move3, shiftMap, skip;
 	Card currentCard;
+	int index;
 	boolean expectingMovement = false;
 	public HumanVsHuman(BaseGame game) {
 		super(game);
@@ -49,6 +50,7 @@ public class HumanVsHuman extends BaseScreen {
 
 	@Override
 	public void create() {
+		index = 0;
 		drawCard=new TextButton("Draw a Card", game.skin, "buttonStyle");
 		turnLabel2=new Label("1", game.skin,"uiLabelStyle");
 		boards=new Board[3];
@@ -251,26 +253,47 @@ public class HumanVsHuman extends BaseScreen {
 				return true;
 			}
 			public void touchUp(InputEvent ev,float x,float y,int pointer,int button){
+				
 				if (!expectingMovement) {
-					int moveCount = (int)(Math.random() * 3) + 1;
-					boolean shift = false;
-					boolean slice = false;
-
-					int rand = (int)(Math.random() * 16);
-					if (rand < 16 && rand > 12) { // %20 chance
-						shift = true;
-						slice = false;
+					
+					int[] moveCounts = {1,2,1,3,3,2,3,1,2,2,3,1,2,3,1};
+					boolean[] shifts = {false,true,false,true,false,false,true,false,true,false,false,true,false,false,false};
+					boolean[] slices = {false,false,false,false,false,false,false,true,false,false,true,false,false,true,false};
+					
+					int moveCount = moveCounts[index % 15];
+					boolean shift = shifts[index % 15];
+					boolean slice = slices[index % 15];
+					index++;
+					
+					if (shift) {
+						//none
 					}
-					else if (rand <= 12 && rand > 11){ // %10 chance
-						shift = false;
-						slice = true;
+					else if (slice) {
 						targetMove = 200;
 					}
-					else { // %75 chance
-						shift = false;
-						slice = false;
+					else {
 						targetMove = moveCount;
 					}
+					
+//					int moveCount = (int)(Math.random() * 3) + 1;
+//					boolean shift = false;
+//					boolean slice = false;
+//
+//					int rand = (int)(Math.random() * 16);
+//					if (rand < 16 && rand > 12) { // %20 chance
+//						shift = true;
+//						slice = false;
+//					}
+//					else if (rand <= 12 && rand > 11){ // %10 chance
+//						shift = false;
+//						slice = true;
+//						targetMove = 200;
+//					}
+//					else { // %75 chance
+//						shift = false;
+//						slice = false;
+//						targetMove = moveCount;
+//					}
 
 					currentCard = new Card(moveCount, shift, slice);
 					expectingMovement = true;
