@@ -52,14 +52,14 @@ public class Singleplayer extends BaseScreen {
 		buton=Gdx.audio.newSound(Gdx.files.internal("button.ogg"));
 		game.skin.add("buton", buton,Sound.class);
 		TextButtonStyle aa=game.skin.get("buttonStyle1", TextButtonStyle.class);
-		lev1=new Label("Level1", game.skin,"uiLabelStyle");
-		lev2=new Label("Level2", game.skin,"uiLabelStyle");
-		lev3=new Label("Level3", game.skin,"uiLabelStyle");
-		lev4=new Label("Level4", game.skin,"uiLabelStyle");
-		lev5=new Label("Level5", game.skin,"uiLabelStyle");
-		lev6=new Label("Level6", game.skin,"uiLabelStyle");
-		lev7=new Label("Level7", game.skin,"uiLabelStyle");
-		lev8=new Label("Level8", game.skin,"uiLabelStyle");
+		lev1=new Label("Level1", game.skin,"label_font");
+		lev2=new Label("Level2", game.skin,"label_font");
+		lev3=new Label("Level3", game.skin,"label_font");
+		lev4=new Label("Level4", game.skin,"label_font");
+		lev5=new Label("Level5", game.skin,"label_font");
+		lev6=new Label("Level6", game.skin,"label_font");
+		lev7=new Label("Level7", game.skin,"label_font");
+		lev8=new Label("Level8", game.skin,"label_font");
 		
 		
 		level1=new TextButton("", game.skin, "buttonStyle1");

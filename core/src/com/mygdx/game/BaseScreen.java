@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -47,8 +48,8 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		buttonStyle1.font=font;
 		buttonStyle2.font=font;
 		buttonStyle3.font=font;
-		Texture upButton1=new Texture("level1.jpeg");
-		Texture overButton1=new Texture("level1over.jpeg");
+		Texture upButton1=new Texture("level1.png");
+		Texture overButton1=new Texture("level1over.png");
 		Texture locked=new Texture("lock.png");
 		Texture returnM=new Texture("arrow.png");
 		Texture overarrow=new Texture("overarrow.png");
@@ -217,6 +218,9 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		game.skin.add("obs_car_horiz_Theme2", obs_car_horiz_Theme2);
 		game.skin.add("truck_vert_Theme2", truck_vert_Theme2);
 		game.skin.add("truck_horiz_Theme2", truck_horiz_Theme2);
+		
+		LabelStyle style = new LabelStyle(font, Color.WHITE);
+		game.skin.add("label_font", style);
 	}
 
 	public BaseScreen(BaseGame game) {

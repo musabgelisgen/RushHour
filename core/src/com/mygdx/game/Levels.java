@@ -96,8 +96,9 @@ public class Levels extends BaseScreen {
 		targets[6]=19;
 		targets[7]=20;
 		numOfMoves=0;
-		targetMoveCount=new Label("Minimum number of moves :"+targets[levelno], game.skin,"uiLabelStyle");
-		move_count=new Label("Number Of Moves :"+numOfMoves, game.skin,"uiLabelStyle");
+		targetMoveCount=new Label("0", game.skin,"label_font");
+//		targetMoveCount=new Label("Minimum number of moves :"+targets[levelno], game.skin,"uiLabelStyle");
+//		move_count=new Label("Number Of Moves :"+numOfMoves, game.skin,"uiLabelStyle");
 		index=0;
 		speed=10;
 		gox=0;
@@ -318,7 +319,7 @@ public class Levels extends BaseScreen {
 		uiTable.row();
 
 
-		mainStage.addActor(move_count);
+//		mainStage.addActor(move_count);
 		mainStage.addActor(targetMoveCount);
 		mainStage.addActor(message);
 		message.setVisible(false);
@@ -341,7 +342,8 @@ public class Levels extends BaseScreen {
 	@Override
 	public void update(float dt) {
 		// TODO Auto-generated method stub
-		targetMoveCount.setText("Minimum number of moves :"+targets[levelno-1]);
+		targetMoveCount.setText("" + numOfMoves);
+		targetMoveCount.setPosition(VIEW_WIDTH/2 - 5, 5*VIEW_HEIGHT/6 + 10);
 
 		for(Car x:cars){
 			x.setWidth(half_of_view_width/width_tiles*x.width);
@@ -393,7 +395,7 @@ public class Levels extends BaseScreen {
 					uiTable.setBackground(game.skin.getDrawable("space_backgroundSP"));
 				else
 					uiTable.setBackground(game.skin.getDrawable("background_blurred"));
-				move_count.setVisible(false);
+//				move_count.setVisible(false);
 				targetMoveCount.setVisible(false);
 				Image starImage;
 				if(sScores.getScores().get(levelno - 1) == 0) 
@@ -469,9 +471,9 @@ public class Levels extends BaseScreen {
 		}
 		
 		
-		backgroundForInfo.setPosition(0,360);
-		backgroundForInfo.setWidth(240);
-		backgroundForInfo.setHeight(100);
+		backgroundForInfo.setPosition(VIEW_WIDTH/2 - 100, 5*VIEW_HEIGHT/6 - 20);
+		backgroundForInfo.setWidth(200);
+		backgroundForInfo.setHeight(80);
 		//finish black
 
 //		shape_renderer.begin(ShapeType.Filled);
@@ -508,8 +510,8 @@ public class Levels extends BaseScreen {
 //				shape_renderer.end();
 		
 		mainStage.draw();
-		move_count.setText("Number Of Moves :"+numOfMoves);
-		move_count.setPosition(VIEW_WIDTH/2-300,VIEW_HEIGHT-100);
+//		move_count.setText("Number Of Moves :"+numOfMoves);
+//		move_count.setPosition(VIEW_WIDTH/2-300,VIEW_HEIGHT-100);
 		targetMoveCount.setPosition(VIEW_WIDTH/2-300,VIEW_HEIGHT-60 );
 		returnMenu.setPosition(10,20);
 		returnMenu.setWidth(150);
