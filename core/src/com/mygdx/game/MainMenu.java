@@ -59,6 +59,9 @@ public class MainMenu extends BaseScreen {
 		Texture backgroundSP=new Texture("background_blurred.jpg");
 		game.skin.add("background_blurred", backgroundSP);
 		
+		Texture inGameSP=new Texture("background2.png");
+		game.skin.add("inGameSP", inGameSP);
+		
 		Texture space_backgroundSP=new Texture("space.gif");
 		game.skin.add("space_backgroundSP", space_backgroundSP);
 		
