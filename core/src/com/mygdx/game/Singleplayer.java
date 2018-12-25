@@ -145,7 +145,7 @@ public class Singleplayer extends BaseScreen {
 		if(SelectTheme.targetNumber == 2)
 			uiTable.setBackground(game.skin.getDrawable("space_backgroundSP"));
 		else
-			uiTable.setBackground(game.skin.getDrawable("background_blurred"));
+			uiTable.setBackground(game.skin.getDrawable("Reg_SP_back"));
 		
 
 		for(int i = 0; i < 4; i++) {
