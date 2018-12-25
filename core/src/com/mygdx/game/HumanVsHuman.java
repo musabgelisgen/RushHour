@@ -47,6 +47,7 @@ public class HumanVsHuman extends BaseScreen {
 	int[] moveCounts;
 	boolean[] shifts;
 	boolean[] slices;
+	Card[] cards;
 	public HumanVsHuman(BaseGame game) {
 		super(game);
 	}
@@ -102,6 +103,10 @@ public class HumanVsHuman extends BaseScreen {
 		slices[12]=false;
 		slices[13]=true;
 		slices[14]=false;
+		
+		cards=new Card[15];
+		for(int i=0;i<cards.length;i++)
+			cards[i]=new Card(moveAmounts[i],shifts[i],slices[i]);
 	}
 
 
