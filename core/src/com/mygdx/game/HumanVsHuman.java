@@ -52,7 +52,7 @@ public class HumanVsHuman extends BaseScreen {
 		super(game);
 	}
 	
-	public createCards(){
+	public void createCards(){
 		moveCounts=new int[15];
 		moveCounts[0]=1;
 		moveCounts[1]=2;
