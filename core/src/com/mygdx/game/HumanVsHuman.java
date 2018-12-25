@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
@@ -37,7 +38,8 @@ public class HumanVsHuman extends BaseScreen {
 	TextButton drawCard;
 	int paddingW,paddingH;
 	int timer = 0;
-
+	BaseActor turnLabel;
+	Label turnLabel2;
 	BaseActor card, move, move1, move2, move3, shiftMap, skip;
 	Card currentCard;
 	boolean expectingMovement = false;
@@ -48,6 +50,7 @@ public class HumanVsHuman extends BaseScreen {
 	@Override
 	public void create() {
 		drawCard=new TextButton("Draw a Card", game.skin, "buttonStyle");
+		turnLabel2=new Label("1", game.skin,"uiLabelStyle");
 		boards=new Board[3];
 		turn=2; //will set to 1 when first card is drawn
 		targetMove=3;
@@ -186,27 +189,27 @@ public class HumanVsHuman extends BaseScreen {
 		card = new BaseActor();
 		card.setTexture(new Texture("card2.png"));
 		card.setVisible(false);
-		
+
 		shiftMap = new BaseActor();
 		shiftMap.setTexture(new Texture("shift.png"));
 		shiftMap.setVisible(false);
-		
+
 		move = new BaseActor();
 		move.setTexture(new Texture("move.png"));
 		move.setVisible(false);
-		
+
 		move1 = new BaseActor();
 		move1.setTexture(new Texture("1.png"));
 		move1.setVisible(false);
-		
+
 		move2 = new BaseActor();
 		move2.setTexture(new Texture("2.png"));
 		move2.setVisible(false);
-		
+
 		move3 = new BaseActor();
 		move3.setTexture(new Texture("3.png"));
 		move3.setVisible(false);
-		
+
 		skip = new BaseActor();
 		skip.setTexture(new Texture("skip.png"));
 		skip.setVisible(false);
@@ -228,6 +231,17 @@ public class HumanVsHuman extends BaseScreen {
 		uiStage.addActor(move2);
 		uiStage.addActor(move3);
 		uiStage.addActor(skip);
+
+		turnLabel = new BaseActor();
+		turnLabel.setTexture(new Texture("upButton.png"));
+		turnLabel.setPosition(VIEW_WIDTH/2 - 60,VIEW_HEIGHT*2/3);
+		turnLabel.setWidth(120);
+		turnLabel.setHeight(50);
+		uiStage.addActor(turnLabel);
+
+		turnLabel2.setPosition(VIEW_WIDTH/2,VIEW_HEIGHT*2/3+15);
+		turnLabel2.setText("1");
+		uiStage.addActor(turnLabel2);
 
 
 		drawCard.addListener(new InputListener()
@@ -261,14 +275,14 @@ public class HumanVsHuman extends BaseScreen {
 					currentCard = new Card(moveCount, shift, slice);
 					expectingMovement = true;
 					System.out.println("Card: " + moveCount + " " + shift + " " + slice);
-					
+
 					timer = 100;
-					
+
 					card.setVisible(true);
 					card.setPosition(VIEW_WIDTH/2-95, VIEW_HEIGHT/2-133);
 					card.setWidth(190);
 					card.setHeight(266);
-					
+
 					if (shift) {
 						shiftMap.setVisible(true);
 						shiftMap.setPosition(VIEW_WIDTH/2-95, VIEW_HEIGHT/2-133);
@@ -286,7 +300,7 @@ public class HumanVsHuman extends BaseScreen {
 						move.setPosition(VIEW_WIDTH/2-50, VIEW_HEIGHT/2-100);
 						move.setWidth(100);
 						move.setHeight(100);
-						
+
 						if (moveCount == 1) {
 							move1.setVisible(true);
 							move1.setPosition(VIEW_WIDTH/2-50, VIEW_HEIGHT/2 + 10);
@@ -306,8 +320,10 @@ public class HumanVsHuman extends BaseScreen {
 							move3.setHeight(100);
 						}
 					}
+					turn = 3 - turn; //change turns when card is drawn
+					turnLabel2.setText("" + turn);
 				}
-				turn = 3 - turn; //change turns when card is drawn
+
 			}
 		});
 
@@ -358,7 +374,7 @@ public class HumanVsHuman extends BaseScreen {
 
 		car8.setTexture(new Texture("obs_car_vert.png"));
 		car8.setPosition(boardX+car8.x*mapWidth/n, boardY+boardHeight*car8.y/gameTable.length);
-		
+
 		car9.setTexture(new Texture("obs_car_vert.png"));
 		car9.setPosition(boardX+car9.x*mapWidth/n, boardY+boardHeight*car9.y/gameTable.length);
 
@@ -405,9 +421,9 @@ public class HumanVsHuman extends BaseScreen {
 		//Positions
 		for(Board b:boards)
 			b.setPosition(b.leftX,b.leftY);
-		drawCard.setPosition(VIEW_WIDTH/2, paddingH);
-		drawCard.setWidth(2*paddingW);
-		drawCard.setHeight(paddingH);
+		drawCard.setPosition(VIEW_WIDTH/2 - paddingW * 3 / 2, paddingH * 4 - 10);
+		drawCard.setWidth(3*paddingW );
+		drawCard.setHeight(paddingH *3/2);
 		//Widths
 		rightboard.setWidth(rightwidth);
 		leftboard.setWidth(leftwidth);
@@ -429,7 +445,7 @@ public class HumanVsHuman extends BaseScreen {
 		//		for(Car car:cars)
 		//			car.setPosition(boardX+car.x*mapWidth/n, boardY+boardHeight*car.y/gameTable.length);
 		//	
-		
+
 		if (timer > 0) {
 			timer = timer - 1;
 			if (timer == 0) {
@@ -518,7 +534,7 @@ public class HumanVsHuman extends BaseScreen {
 					moveCount++;
 				if(moveCount==targetMove){
 					cars.get(i).pressed=false;
-					
+
 					//						for(int i=0;i<2;i++)
 					//							players_played[i]=!players_played[i];
 
