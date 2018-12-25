@@ -43,15 +43,13 @@ public class HumanVsHuman extends BaseScreen {
 	boolean expectingMovement = false;
 	public HumanVsHuman(BaseGame game) {
 		super(game);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void create() {
-		// TODO Auto-generated method stub
 		drawCard=new TextButton("Draw a Card", game.skin, "buttonStyle");
 		boards=new Board[3];
-		turn=1;
+		turn=2; //will set to 1 when first card is drawn
 		targetMove=3;
 		players_played=new boolean[2];
 		players_played[0]=false;
@@ -244,20 +242,20 @@ public class HumanVsHuman extends BaseScreen {
 					boolean shift = false;
 					boolean slice = false;
 
-					if ((int)(Math.random() * 4) == 0) {
+					int rand = (int)(Math.random() * 16);
+					if (rand < 16 && rand > 12) { // %20 chance
 						shift = true;
-					}
-					else {
-						shift = false;
-					}
-					
-					if ((int)(Math.random() * 4) != 0) {
 						slice = false;
-						targetMove = moveCount;
 					}
-					else {
+					else if (rand <= 12 && rand > 11){ // %10 chance
+						shift = false;
 						slice = true;
 						targetMove = 200;
+					}
+					else { // %75 chance
+						shift = false;
+						slice = false;
+						targetMove = moveCount;
 					}
 
 					currentCard = new Card(moveCount, shift, slice);
@@ -309,6 +307,7 @@ public class HumanVsHuman extends BaseScreen {
 						}
 					}
 				}
+				turn = 3 - turn; //change turns when card is drawn
 			}
 		});
 
@@ -448,7 +447,6 @@ public class HumanVsHuman extends BaseScreen {
 
 	@Override
 	public void update(float dt) {
-		// TODO Auto-generated method stub
 		boolean win;
 		for(Car x:cars){
 			x.setWidth(mapWidth/n*x.width);
@@ -520,7 +518,7 @@ public class HumanVsHuman extends BaseScreen {
 					moveCount++;
 				if(moveCount==targetMove){
 					cars.get(i).pressed=false;
-					turn=3-turn;
+					
 					//						for(int i=0;i<2;i++)
 					//							players_played[i]=!players_played[i];
 
