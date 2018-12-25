@@ -12,7 +12,7 @@ public class SelectTheme extends BaseScreen {
 	TextButton newTheme1,newTheme2;
 	TextButton[] themeButtons;
 	static Texture targetTexture = new Texture("grid.png");
-	BaseActor frame1,frame2;
+//	BaseActor frame1,frame2;
 	static int targetNumber = 1;
 	public SelectTheme(BaseGame game) {
 		super(game);
@@ -20,17 +20,17 @@ public class SelectTheme extends BaseScreen {
 
 	@Override
 	public void create() {
-		frame1 = new BaseActor();
-		frame1.setTexture(new Texture("frame.jpg"));
-		
-		frame2 = new BaseActor();
-		frame2.setTexture(new Texture("frame.jpg"));
+//		frame1 = new BaseActor();
+//		frame1.setTexture(new Texture("frame.jpg"));
+//		
+//		frame2 = new BaseActor();
+//		frame2.setTexture(new Texture("frame.jpg"));
 		
 		
 
 		themeButtons = new TextButton[2];
-		newTheme1 = new TextButton(targetNumber == 1 ? "CHOSEN": "", game.skin, "buttonTheme1");
-		newTheme2 = new TextButton(targetNumber == 2 ? "CHOSEN": "", game.skin, "buttonTheme2");
+		newTheme1 = new TextButton(targetNumber == 1 ? "REGULAR": "", game.skin, "buttonTheme3");
+		newTheme2 = new TextButton(targetNumber == 2 ? "SPACE": "", game.skin, "buttonTheme4");
 //		newTheme3 = new TextButton(targetNumber == 3 ? "CHOSEN": "", game.skin, "buttonTheme3");
 //		newTheme4 = new TextButton(targetNumber == 4 ? "CHOSEN": "", game.skin, "buttonTheme4");
 		themeButtons[0] = newTheme1;
@@ -59,7 +59,7 @@ public class SelectTheme extends BaseScreen {
 				return true;
 			}
 			public void touchUp(InputEvent ev, float x, float y, int pointer, int button) {
-				newTheme1.setText("CHOSEN");
+				newTheme1.setText("REGULAR");
 				targetTexture = game.skin.get("themeTexture1", Texture.class);
 				targetNumber = 1;
 			}
@@ -75,7 +75,7 @@ public class SelectTheme extends BaseScreen {
 				return true;
 			}
 			public void touchUp(InputEvent ev, float x, float y, int pointer, int button) {
-				newTheme2.setText("CHOSEN");
+				newTheme2.setText("SPACE");
 				targetTexture = game.skin.get("themeTexture2", Texture.class);
 				targetNumber = 2;
 			}
@@ -118,8 +118,8 @@ public class SelectTheme extends BaseScreen {
 
 		uiTable.setBackground(game.skin.getDrawable("background_blurred"));
 		
-		uiStage.addActor(frame1);
-		uiStage.addActor(frame2);
+//		uiStage.addActor(frame1);
+//		uiStage.addActor(frame2);
 		uiStage.addActor(newTheme1);
 		uiStage.addActor(newTheme2);
 //		uiStage.addActor(newTheme3);
@@ -133,13 +133,13 @@ public class SelectTheme extends BaseScreen {
 	public void update(float dt) {
 		// TODO Auto-generated method stub
 	
-		frame1.setWidth(250);
-		frame1.setHeight(180);
-		frame1.setPosition(150,250);
-		
-		frame2.setWidth(250);
-		frame2.setHeight(180);
-		frame2.setPosition(200,100);
+//		frame1.setWidth(250);
+//		frame1.setHeight(180);
+//		frame1.setPosition(150,250);
+//		
+//		frame2.setWidth(250);
+//		frame2.setHeight(180);
+//		frame2.setPosition(200,100);
 		
 		
 		int cbx = 70;

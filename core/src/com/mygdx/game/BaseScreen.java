@@ -171,8 +171,8 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 		
 		Texture theme1 = new Texture("grid.png");
 		Texture theme2 = new Texture("space.gif");
-		Texture theme3 = new Texture("theme2.jpg");
-		Texture theme4 = new Texture("theme3.jpg");
+		Texture theme3 = new Texture("Regular_Frame.png");
+		Texture theme4 = new Texture("Space_Frame.png");
 		
 		game.skin.add("themeTexture1", theme1);
 		game.skin.add("themeTexture2", theme2);
