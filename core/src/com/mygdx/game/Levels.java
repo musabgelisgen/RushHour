@@ -28,7 +28,7 @@ import data.StarScore;
 
 public class Levels extends BaseScreen {
 	//
-	BaseActor startSign,finishSign;
+	BaseActor startSign,finishSign,backgroundForInfo;
 	Sound carVoice;
 	int width_tiles,height_tiles;
 	ShapeRenderer shape_renderer;
@@ -71,6 +71,7 @@ public class Levels extends BaseScreen {
 //		grid.setTexture(SelectTheme.targetTexture);
 //		mainStage.addActor(grid);
 		
+		
 		startSign = new BaseActor();
 		startSign.setTexture(new Texture("start.png"));
 		mainStage.addActor(startSign);
@@ -78,6 +79,10 @@ public class Levels extends BaseScreen {
 		finishSign = new BaseActor();
 		finishSign.setTexture(new Texture("finish.jpg"));
 		mainStage.addActor(finishSign);
+		
+		backgroundForInfo = new BaseActor();
+		backgroundForInfo.setTexture(new Texture("upButton.png"));
+		mainStage.addActor(backgroundForInfo);
 
 		// TODO Auto-generated method stub
 		targets=new int[8];//it represents the target move counts of levels which we will set at the beginning by playing the levels before 
@@ -420,6 +425,8 @@ public class Levels extends BaseScreen {
 	@Override
 	public void render(float dt) {
 		super.render(dt);
+		
+		
 
 		index++;
 		index%=speed;
@@ -462,7 +469,9 @@ public class Levels extends BaseScreen {
 		}
 		
 		
-		
+		backgroundForInfo.setPosition(0,360);
+		backgroundForInfo.setWidth(240);
+		backgroundForInfo.setHeight(100);
 		//finish black
 
 //		shape_renderer.begin(ShapeType.Filled);
@@ -490,6 +499,8 @@ public class Levels extends BaseScreen {
 		startSign.setWidth(2*half_of_view_width/width_tiles);
 		startSign.setHeight(half_of_view_height/height_tiles);
 		
+		
+		
 		//mavi baslangic
 //				shape_renderer.begin(ShapeType.Filled);
 //				shape_renderer.setColor(Color.CYAN);
@@ -499,7 +510,7 @@ public class Levels extends BaseScreen {
 		mainStage.draw();
 		move_count.setText("Number Of Moves :"+numOfMoves);
 		move_count.setPosition(VIEW_WIDTH/2-300,VIEW_HEIGHT-100);
-		targetMoveCount.setPosition(VIEW_WIDTH/2-300,VIEW_HEIGHT-50 );
+		targetMoveCount.setPosition(VIEW_WIDTH/2-300,VIEW_HEIGHT-60 );
 		returnMenu.setPosition(10,20);
 		returnMenu.setWidth(150);
 		returnMenu.setHeight(50);
