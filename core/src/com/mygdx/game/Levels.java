@@ -417,6 +417,12 @@ public class Levels extends BaseScreen {
 				winner.setWidth(300);
 				winner.setHeight(300);
 				finished = true;
+				
+//				mainStage.clear();
+//				mainStage.addActor(returnMenu);
+//				mainStage.addActor(hint);
+//				mainStage.addActor(nextLevel);
+				
 				pause();
 			}
 
